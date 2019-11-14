@@ -1,33 +1,52 @@
 #pragma once
-#include "SFML/Graphics.hpp"
-#include "Animation.h"
+#include "Personagem.h"
 
-class Player
+#include <vector>
+using std::vector;
+
+#include "Animation.h"
+#include "Collider.h"
+
+class Player: public Personagem
 {
 public:
-    Player(float speed, const sf::Texture pTexture, sf::Vector2u imageCount, float switchTime);
+    Player(float speed, float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime);
+    Player();
     ~Player();
 
+    void inicializa(float speed, float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime);
+
+    void onCollision(sf::Vector2f direction);       //REDEFINIÇÃO DA FUNÇÃO VOID, POIS O JOGADOR PRECISA TER O CANJUMP RESETADO
+
     void Update(float deltaTime);
-    void inicializa(sf::RectangleShape* player);
+
+    void setCanJump(bool canJump);
+    bool getCanJump();
+
+    void knockback(sf::Vector2f direction);
+
+    void executar(float deltaTime);
+
+    bool estaVivo();
+    void morreu(float deltaTime);
+
+
+    ///TESTE PARA FAZER O ATAQUE
+
+    sf::RectangleShape* atackBody;
+    sf::RectangleShape* animationBody;
+    bool atacking;
+
+    bool isAtacking() const;
+
+    int nImagem;
+
+    int ranking;
+
+    Collider getCollider() ;
+
     void Draw(sf::RenderWindow& window);
 
-    void setBody(sf::RectangleShape* b);
-    sf::RectangleShape* getBody();
-
-    void setTexture(const sf::Texture pTexture);
-    //getTexture
-
-    Animation* getAnimation();
-    //
-
-    sf::Vector2f getPosition() const { return body->getPosition(); }
-
 private:
-    sf::RectangleShape* body;
-    float speed;
-    unsigned int row;
-    sf::Texture playerTexture;
-    Animation* animation;
-    bool faceRight;
+
 };
