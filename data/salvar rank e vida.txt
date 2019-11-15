@@ -1,0 +1,118 @@
+
+void FaseAquatica1::gravarJogo(ListaEntidades& Lentidades, Player& player1, Player& player2)
+{
+    ofstream Gravador("data/Fase1Gravando.txt", ios::out);
+
+    if ( !Gravador )
+    {
+        cerr << "Arquivo não pode ser aberto" << endl;
+        fflush ( stdin );
+        getchar ( );
+        return;
+    }
+
+    for(Entidade* aux = Lentidades.reiniciar(); aux != NULL; aux = Lentidades.percorrer())
+    {
+        Gravador    << aux->getID() << " "
+                    << aux->getX() << " "
+                    << aux->getY() << endl;
+    }
+    
+    if(player1)
+    {
+        Gravador    << 101 << " "     ///ID PARA ACESSAR VIDA E RANK DO PLAYER 1
+                    << player1.getRank() << " "
+                    << player1.getVida() << endl;
+    }
+    
+    if(player2)
+    {
+        Gravador    << 102 << " "     ///ID PARA ACESSAR VIDA E RANK DO PLAYER 2
+                    << player2.getRank() << " "
+                    << player2.getVida() << endl;
+    }
+
+    Gravador.close();
+}
+
+void FaseAquatica1::recuperarJogo(ListaEntidades& Lent, ListaInimigos& Lin, ListaObstaculos& Lobs, ListaPlataformas& Lplat, ListaProjeteis& Lproj, LemuryaPrototypeFactory prototype, Player& p1, Player& p2)
+{
+
+    ifstream Recuperador("data/Fase1Base.txt", ios::in);
+    if ( !Recuperador )
+    {
+        cerr << "Arquivo não pode ser aberto" << endl;
+        fflush ( stdin );
+        getchar ( );
+        return;
+    }
+
+    while(!Recuperador.eof())
+    {
+        int ID, vida, ranking;
+        float x, y;
+        if(ID != 101 && ID!=102)
+            Recuperador >> ID >> x >> y;
+        else
+            Recuperador >> ID >> ranking >> vida;
+
+        switch(ID)
+        {
+            case 1:
+                Lplat.incluir(prototype.MakeChao(x,y));
+                break;
+            case 2:
+                Lplat.incluir(prototype.MakePlataforma(x,y));
+                break;
+            case 3:
+                Lobs.incluir(static_cast<Obstaculo*> (prototype.MakeCaixa(x,y)));
+                break;
+            case 4:
+                Lobs.incluir(static_cast<Obstaculo*> (prototype.MakePedra(x,y)));
+                break;
+            case 5:
+                Lobs.incluir(static_cast<Obstaculo*> (prototype.MakePedra2(x,y)));
+                break;
+            case 6:
+                Lin.incluir(static_cast<Inimigo*> (prototype.MakeEsqueleto(x,y)));
+                break;
+            case 7:
+                Lin.incluir(static_cast<Inimigo*> (prototype.MakeMago(x,y)));
+                break;
+            case 8:
+                Lin.incluir(static_cast<Inimigo*> (prototype.MakeTritao(x,y)));
+                break;
+            case 9:
+                p1.getBody()->setPosition(x,y);
+                ///PLAYER
+                break;
+            case 10:
+                Lproj.incluir(prototype.MakeBolaDeFogo(x,y));
+                break;
+            case 101:
+                p1.setRank(ranking);
+                p1.setVida(vida);
+                break;
+            case 102:
+                p2.setRank(ranking);
+                p2.setVida(vida);
+                break;
+        }
+    }
+
+    for(int i=0; i < Lobs.getLTObstaculos().size(); i++)
+        Lent.incluir(static_cast<Entidade*> ((Lobs.getLTObstaculos()[i])));
+
+    for(int i=0; i < Lin.getLTInimigos().size(); i++)
+        Lent.incluir(static_cast<Entidade*> ((Lin.getLTInimigos()[i])));
+
+    for(int i=0; i < Lproj.getLTProjeteis().size(); i++)
+        Lent.incluir(static_cast<Entidade*> ((Lproj.getLTProjeteis()[i])));
+
+    for(Platform* aux = Lplat.reiniciar(); aux != NULL; aux = Lplat.percorrer())
+        Lent.incluir(static_cast<Entidade*> (aux));
+
+    Lent.incluir(static_cast<Entidade*> (&p1));
+
+    Recuperador.close();
+}
