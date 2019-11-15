@@ -1,18 +1,15 @@
 #pragma once
-#include <SFML/Audio.hpp>
+#include "State.h"
 #include "Entidade.h"
 #include "Lemurya.h"
-#include "State.h"
-#define MAX_NUMBER_ITEMS 4
-
-class Lemurya;
-class Menu: public Entidade, public State
+ 
+class MenuPause :
+	public State, public Entidade
 {
 	private:
 		int selectedItem;
 		int num_de_itens;
 		Lemurya* jogo;
-		bool escolhaDeJogadores;
 
 		sf::Font font;
 		sf::Font font2;
@@ -22,15 +19,12 @@ class Menu: public Entidade, public State
 		sf::Text tituloDoJogo;
 		sf::Texture textura1;
 		sf::RectangleShape LogoDoJogo;
-		sf::RectangleShape* body;
-		sf::Music musicaMenu;
+		sf::RectangleShape* body; //O body virá do entidade depois
 
 		sf::Event event;
-
-
 	public:
-		Menu(Lemurya* jogo);
-		~Menu();
+		MenuPause(Lemurya* jogo);
+		~MenuPause();
 		//Métodos de Entidade
 		void executar(float deltaTime);
 		//void executar();
@@ -42,18 +36,10 @@ class Menu: public Entidade, public State
 		void update();
 
 		void inicializar();
-		void carregarJogo();
-
-		void abrirEscolhaDeJogadores();
+		void voltarAoMenu();
+		void voltarAFase();
 
 		void MoveUp();
 		void MoveDown();
 		int getPressedItem();
-		void stopMusic();
-
-		
-
-	
 };
-
-

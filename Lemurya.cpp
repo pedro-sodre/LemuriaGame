@@ -4,7 +4,8 @@
 Lemurya::Lemurya()
 {
 	this->inicializar();
-	//this->inicializarStates();
+	this->inicializarStates();
+	deltaTime = 0;
 }
 Lemurya::~Lemurya()
 {
@@ -21,9 +22,9 @@ void Lemurya::pushState(State* state)
 
 void Lemurya::popState()
 {
-	states.top();
-	delete states.top();
-	states.pop();
+	this->states.top();
+	delete this->states.top();
+	this->states.pop();
 }
 
 State* Lemurya::stateAtual()
@@ -38,33 +39,27 @@ void Lemurya::inicializar()
 {
 	window.create(sf::VideoMode(1280.0f, 720.0f), "Lemurya");
 	window.setFramerateLimit(60);
+
+	sf::Image icon;
+	icon.loadFromFile("data/LemuryaIcon.JPG");
+	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 }
 
 void Lemurya::inicializarStates()
 {
-	//states.push(new Menu(this));
-}
-
-void Lemurya::atualizarEventosSfml()
-{
-	while (window.pollEvent(eventos))
-	{
-		if (eventos.type == sf::Event::Closed)
-		{
-			window.close();
-		}
-	}
+	states.push(new Menu(this));
 }
 
 void Lemurya::rodar()
-{	
+{
 	while (window.isOpen())
 	{
-		this->atualizarEventosSfml();
+		deltaTime = clock.restart().asSeconds();
 
 		if (stateAtual() == nullptr)
 			continue;
-			//Pega os inputs do state atual
+
+		//Pega os inputs do state atual
 		stateAtual()->input();
 
 		//Atualiza o state atual
@@ -78,10 +73,11 @@ void Lemurya::rodar()
 
 		window.display();
 	}
-	
+
 }
 
 void Lemurya::encerrar()
 {
 	//cout para encerrar
 }
+

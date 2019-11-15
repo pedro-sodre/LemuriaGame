@@ -46,6 +46,7 @@ protected:
     sf::Music musicaFundo;
     GerenciadorGrafico gerenciadorGrafico;
     LemuryaPrototypeFactory prototype;
+	GerenciadorDeColisoes gerenciadorDeColisoes;
 
     Player player1;
     Player player2;
@@ -62,14 +63,23 @@ public:
     void destruir();
 
     sf::RectangleShape* getBody();
+    sf::RectangleShape* getPlayer1();
+    //sf::RectangleShape* getPlayer2();
+
+    void lancarBolaDeFogo(int x, int y);
+    void spawnarEsqueleto(int x, int y);
+    int getNInimigos();
+
 
     virtual void executar(float deltaTime);
     virtual void executar();
     virtual void Draw(sf::RenderWindow& window);
     void gerenciarColisoes();
 
+	virtual void carregarPause();
     ///FAZER FUNÇÃO VIRTUAL, CADA FASE VAI GRAVAR EM UM ARQUIVO
-    virtual void recuperarJogo(ListaEntidades& Lent, ListaInimigos& Lin, ListaObstaculos& Lobs, ListaPlataformas& Lplat, ListaProjeteis& Lproj, LemuryaPrototypeFactory prototype, Player& p1) = 0;
-    virtual void gravarJogo(ListaEntidades& Lentidades) = 0;
+    virtual void recuperarJogo() = 0;
+    virtual void gravarJogo() = 0;
 };
+
 

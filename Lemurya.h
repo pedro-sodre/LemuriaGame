@@ -1,31 +1,32 @@
 #pragma once
-#include "FaseAquatica1.h"
-#include "FaseAquatica2.h"
-#include "FaseNoturna3.h"
+#include "Fase.h"
 #include "State.h"
 #include <stack>
-class State;
 
 class Lemurya {
 	private:
-		
+
 		sf::Event eventos;
 
 		std::stack<State*> states;
 		void inicializar();
 		void inicializarStates();
+
+		sf::Clock clock;
+
 	public:
 		Lemurya();
 		~Lemurya();
 
-		sf::RenderWindow window;
+		float deltaTime;            ///PECADO
+		sf::RenderWindow window;    ///PECADO
 
 		void pushState(State* state);
 		void popState();
 		State* stateAtual();
 
-		void atualizarEventosSfml();
 		void rodar();
 
 		void encerrar();
 };
+

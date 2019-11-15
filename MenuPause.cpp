@@ -1,28 +1,32 @@
-#include "Menu.h"
+#include "MenuPause.h"
 #include "FaseAquatica1.h"
-Menu::Menu(Lemurya* jogo): Entidade(), State()
+MenuPause::MenuPause(Lemurya* jogo)
 {
-
 	this->jogo = jogo;
 	this->inicializar();
 }
-Menu::~Menu()
+
+MenuPause::~MenuPause()
 {
 	destruir();
 }
 
-void Menu::destruir()
+void MenuPause::executar(float deltaTime)
+{
+}
+
+void MenuPause::destruir()
 {
 	delete body;
 }
 
-void Menu::Draw(sf::RenderWindow& window)
+void MenuPause::Draw(sf::RenderWindow& window)
 {
 }
 
-void Menu::draw()
+void MenuPause::draw()
 {
-    jogo->window.draw(*body);
+	jogo->window.draw(*body);
 	jogo->window.draw(tituloDoJogo);
 	jogo->window.draw(LogoDoJogo);
 	int i;
@@ -30,12 +34,10 @@ void Menu::draw()
 
 		jogo->window.draw(menu[i]);
 	}
-
-
 }
-void Menu::input()
-{
 
+void MenuPause::input()
+{
 	while (jogo->window.pollEvent(event))
 	{
 		switch (event.type)
@@ -49,51 +51,41 @@ void Menu::input()
 				jogo->window.close();
 			else if (event.key.code == sf::Keyboard::Up) {
 				this->MoveUp();
+				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::Down) {
 				this->MoveDown();
+				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::W) {
 				this->MoveUp();
+				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::S) {
 				this->MoveDown();
+				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
-				//Verifica se o submenu está ativo
-				if (getPressedItem() == 0 && escolhaDeJogadores)
+				switch (getPressedItem())
 				{
-					musicaMenu.stop();
-					carregarJogo();
-				}
-				else if (getPressedItem() == 1 && escolhaDeJogadores)
-				{
-					musicaMenu.stop();
-
-					carregarJogo();
-				}
-				else if (getPressedItem() == 2 && escolhaDeJogadores)
-				{
-					this->inicializar();
-				}
-				//Verifica do menu Principal
-				else if (getPressedItem() == 0)
-				{
-					abrirEscolhaDeJogadores();
-				}
-				else if (getPressedItem() == 1)
-				{
-					//abrir load game
-				}
-				else if (getPressedItem() == 2)
-				{
-					//abre o ranking
-				}
-				else if (getPressedItem() == 3)
-				{
+				case 0:
+					printf("Deu Resume");
+					jogo->popState();
+					printf("Passou do pop");
+					break;
+				case 1:
+					//Salvar Jogo
+					break;
+				case 2:
+					voltarAoMenu();
+					//jogo->popState();
+					
+					//jogo->popState();
+					break;
+				case 3:
 					jogo->window.close();
+					break;
 				}
-				
 			}
 			break;
 
@@ -101,25 +93,23 @@ void Menu::input()
 	}
 }
 
-void Menu::update()
+void MenuPause::update()
 {
-
 }
-void Menu::inicializar()
+
+void MenuPause::inicializar()
 {
 	if (!font.loadFromFile("data/BlackCastleMF.ttf"))
 		printf("Fonte Não Carregou");
 
 	if (!font2.loadFromFile("data/Audiowide.ttf"))
 		printf("Fonte Não Carregou");
-
-	if (!texture.loadFromFile("data/Menu.jpg"))
+	//if (jogo->stateAtual()== FaseAquatica1)
+	if (!texture.loadFromFile("data/Pause.jpg"))
 		printf("Erro ao carregar a textura do Menu");
 
 	if (!textura1.loadFromFile("data/LemuryaIcon.jpg"))
 		printf("Erro ao carregar a do Logo");
-
-	escolhaDeJogadores = false;
 
 	num_de_itens = MAX_NUMBER_ITEMS;
 	//Define a cor do texto
@@ -135,18 +125,18 @@ void Menu::inicializar()
 
 	//Opções do Menu
 	menu[0].setFont(font);
-	menu[0].setString("New Game");
+	menu[0].setString("Resume");
 	menu[0].setFillColor(cor1);
 	menu[0].setStyle(sf::Text::Style::Bold);
 	menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 400.0));
 
 	menu[1].setFont(font);
 	menu[1].setFillColor(sf::Color::White);
-	menu[1].setString("Load Game");
+	menu[1].setString("Save Game");
 	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 460.0));
 
 	menu[2].setFont(font);
-	menu[2].setString("Ranking");
+	menu[2].setString("Main Menu");
 	menu[2].setFillColor(sf::Color::White);
 	menu[2].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 520.0));
 
@@ -156,7 +146,7 @@ void Menu::inicializar()
 	menu[3].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 580.0));
 
 	tituloDoJogo.setFont(font2);
-	tituloDoJogo.setString("LEMURYA");
+	tituloDoJogo.setString("PAUSE");
 	tituloDoJogo.setFillColor(cor2);
 	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
 	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 200, 250.0));
@@ -167,10 +157,6 @@ void Menu::inicializar()
 	LogoDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 65, 50.0f));
 	LogoDoJogo.setTexture(&textura1);
 
-	musicaMenu.openFromFile("data/MusicaMenu.wav");
-	musicaMenu.setLoop(true);
-	musicaMenu.play();
-
 	body = new sf::RectangleShape();
 	body->setTexture(&texture);
 	body->setSize(sf::Vector2f(jogo->window.getSize().x, jogo->window.getSize().y));
@@ -179,31 +165,19 @@ void Menu::inicializar()
 
 	selectedItem = 0;
 }
-void Menu::carregarJogo()
+
+void MenuPause::voltarAoMenu()
 {
-	//Coloca a Fase na pilha
+	jogo->pushState(new Menu(jogo));
+}
+
+void MenuPause::voltarAFase()
+{
 	jogo->pushState(new FaseAquatica1(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
 }
-void Menu::abrirEscolhaDeJogadores()
+
+void MenuPause::MoveUp()
 {
-	escolhaDeJogadores = true;
-	num_de_itens = 3;
-	tituloDoJogo.setFont(font);
-	tituloDoJogo.setString("Selecionar número de jogadores");
-	tituloDoJogo.setCharacterSize(40);
-	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 200, 300.0));
-	tituloDoJogo.setFillColor(sf::Color::White);
-
-	menu[0].setString("1 Jogador");
-	menu[1].setString("2 Jogadores");
-	menu[2].setString("Voltar");
-	menu[3].setString("");
-
-}
-
-void Menu::MoveUp()
-{
-
 	if (selectedItem - 1 >= 0)
 	{
 		menu[selectedItem].setFillColor(sf::Color::White);
@@ -212,90 +186,22 @@ void Menu::MoveUp()
 		menu[selectedItem].setFillColor(cor1);
 		menu[selectedItem].setStyle(sf::Text::Style::Bold);
 	}
-
-
 }
-void Menu::MoveDown()
+
+void MenuPause::MoveDown()
 {
 	if (selectedItem + 1 < num_de_itens)
 	{
 		menu[selectedItem].setFillColor(sf::Color::White);
 		menu[selectedItem].setStyle(sf::Text::Style::Regular);
 		selectedItem++;
-		
+
 		menu[selectedItem].setStyle(sf::Text::Style::Bold);
 		menu[selectedItem].setFillColor(cor1);
 	}
-
 }
-void Menu::executar(float deltaTime)
-{
-}
-/*
-void Menu::executar()
-{
-	sf::Image icon;
-	icon.loadFromFile("data/LemuryaIcon.JPG");
-	sf::RenderWindow windowMenu(sf::VideoMode(1280.0f, 720.0f), "Lemurya");
-	windowMenu.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
-	while (windowMenu.isOpen())
-	{
-		sf::Event eventMenu;
-		while (windowMenu.pollEvent(eventMenu))
-		{
-			switch (eventMenu.type)
-			{
-			case sf::Event::KeyReleased:
-				switch (eventMenu.key.code)
-				{
-				case sf::Keyboard::Up:
-					this->MoveUp();
-					break;
-				case sf::Keyboard::Down:
-					this->MoveDown();
-					break;
-				case sf::Keyboard::W:
-					this->MoveUp();
-					break;
-				case sf::Keyboard::S:
-					this->MoveDown();
-					break;
-				case sf::Keyboard::Return:
-					switch (this->getPressedItem())
-					{
-					case 0:
-						this->stopMusic();
-						windowMenu.close();
-						//musicaFundo.play();
-						break;
-					case 1:
-						//
-						break;
-					case 2:
-						windowMenu.close();
-						break;
-					}
-				}
-				break;
-			case sf::Event::Closed:
-				windowMenu.close();
-				break;
-			}
-		}
-		windowMenu.clear();
-		this->Draw(windowMenu);
-		windowMenu.display();
-	}
-}*/
-int Menu::getPressedItem()
+int MenuPause::getPressedItem()
 {
 	return selectedItem;
-
 }
-
-void Menu::stopMusic()
-{
-    musicaMenu.stop();
-}
-
