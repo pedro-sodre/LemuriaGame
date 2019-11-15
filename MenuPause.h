@@ -2,7 +2,7 @@
 #include "State.h"
 #include "Entidade.h"
 #include "Lemurya.h"
- 
+
 class MenuPause :
 	public State, public Entidade
 {
@@ -20,6 +20,8 @@ class MenuPause :
 		sf::Texture textura1;
 		sf::RectangleShape LogoDoJogo;
 		sf::RectangleShape* body; //O body virá do entidade depois
+
+		sf::View viewMenu;
 
 		sf::Event event;
 	public:

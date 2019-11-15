@@ -13,9 +13,33 @@ void GerenciadorGrafico::inicializar()
 {
     sf::RenderWindow window(sf::VideoMode(0.0f, 0.0f), "Lemurya");      ///CRIADO PARA EVITAR WARNINGS AO INICIAR O JOGO
     ///Necessita de janela pra textura carregar
+
+
+    ///FONTES
+    if(!fontBlackCastle.loadFromFile("data/BlackCastleMF.ttf"))
+        std::cout << "Erro ao carregar a fonte BlackCastleMF" << std::endl;
+	if (!fontAudiowide.loadFromFile("data/Audiowide.ttf"))
+        std::cout << "Erro ao carregar a fonte Audiowide" << std::endl;
+	if (!menuTexture.loadFromFile("data/Menu.jpg"))
+        std::cout << "Erro ao carregar a textura do Menu" << std::endl;
+	if (!logoTexture.loadFromFile("data/LemuryaIcon.jpg"))
+		std::cout << "Erro ao carregar a textura da Logo" << std::endl;
+
+
+
+    ///TEXTURAS DAS FASES
+    if(!fase1Texture.loadFromFile("data/Fase1.png"))
+        std::cout << "Erro ao carregar a textura da FaseAquatica1" << std::endl;
+
+    if(!fase2Texture.loadFromFile("data/Fase2.png"))
+        std::cout << "Erro ao carregar a textura da FaseAquatica2" << std::endl;
+
+    if(!fase3Texture.loadFromFile("data/Fase3.png"))
+        std::cout << "Erro ao carregar a textura da FaseNoturna3" << std::endl;
+
+
+
     ///REPTILIANO REI
-
-
     sf::Texture p1Parado;
     if(!p1Parado.loadFromFile("data/Parado.png"))
         std::cout << "Erro ao carregar a textura do jogador" << std::endl;
@@ -201,3 +225,37 @@ sf::Texture GerenciadorGrafico::getFireballTexture() const
     return fireballTexture;
 }
 
+sf::Texture GerenciadorGrafico::getFase1Texture() const
+{
+    return fase1Texture;
+}
+
+sf::Texture GerenciadorGrafico::getFase2Texture() const
+{
+    return fase2Texture;
+}
+
+sf::Texture GerenciadorGrafico::getFase3Texture() const
+{
+    return fase3Texture;
+}
+
+sf::Font GerenciadorGrafico::getFontBlackCastle() const
+{
+    return fontBlackCastle;
+}
+
+sf::Font GerenciadorGrafico::getFontAudiowide() const
+{
+    return fontAudiowide;
+}
+
+sf::Texture GerenciadorGrafico::getMenuTexture() const
+{
+    return menuTexture;
+}
+
+sf::Texture GerenciadorGrafico::getLogoTexture() const
+{
+    return logoTexture;
+}

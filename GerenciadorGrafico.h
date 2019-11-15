@@ -29,7 +29,15 @@ private:
     sf::Texture chaoTexture;
     sf::Texture fireballTexture;         //POR ENQUANTO SEM ANIMAÇÃO
 
-    sf::Font fontRanking;
+    sf::Texture fase1Texture;
+    sf::Texture fase2Texture;
+    sf::Texture fase3Texture;
+
+    sf::Texture menuTexture;
+    sf::Texture logoTexture;
+
+    sf::Font fontBlackCastle;
+    sf::Font fontAudiowide;
 
 public:
     GerenciadorGrafico();
@@ -54,5 +62,14 @@ public:
     sf::Texture getPlatTexture() const;
     sf::Texture getChaoTexture() const;
     sf::Texture getFireballTexture() const;
-};
 
+    sf::Texture getFase1Texture() const;
+    sf::Texture getFase2Texture() const;
+    sf::Texture getFase3Texture() const;
+
+    sf::Texture getMenuTexture() const;
+    sf::Texture getLogoTexture() const;
+
+    sf::Font getFontBlackCastle() const;
+    sf::Font getFontAudiowide() const;
+};

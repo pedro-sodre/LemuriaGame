@@ -79,7 +79,7 @@ void MenuPause::input()
 				case 2:
 					voltarAoMenu();
 					//jogo->popState();
-					
+
 					//jogo->popState();
 					break;
 				case 3:
@@ -95,10 +95,15 @@ void MenuPause::input()
 
 void MenuPause::update()
 {
+    jogo->window.setView(viewMenu);
 }
 
 void MenuPause::inicializar()
 {
+
+    viewMenu.setSize(jogo->window.getSize().x, jogo->window.getSize().y);
+    viewMenu.setCenter(jogo->window.getSize().x/2, jogo->window.getSize().y/2);
+
 	if (!font.loadFromFile("data/BlackCastleMF.ttf"))
 		printf("Fonte Não Carregou");
 
@@ -149,7 +154,7 @@ void MenuPause::inicializar()
 	tituloDoJogo.setString("PAUSE");
 	tituloDoJogo.setFillColor(cor2);
 	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
-	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 200, 250.0));
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 125, 250.0));
 
 	tituloDoJogo.setCharacterSize(80);
 

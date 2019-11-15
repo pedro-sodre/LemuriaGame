@@ -23,7 +23,7 @@ void Lemurya::pushState(State* state)
 void Lemurya::popState()
 {
 	this->states.top();
-	delete this->states.top();
+	//delete this->states.top();
 	this->states.pop();
 }
 

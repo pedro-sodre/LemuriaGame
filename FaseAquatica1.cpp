@@ -4,9 +4,7 @@ FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo):
 Fase(tam), State()
 {
 	this->jogo = jogo;
-    if(!texture.loadFromFile("data/Fase1.png"))
-        std::cout << "Erro ao carregar a textura da FaseAquatica1" << std::endl;        ///BOTAR TEXTURAS NO GERENCIADOR GRÁFICO
-
+	texture = gerenciadorGrafico.getFase1Texture();
     body->setTexture(&texture);
 
     musicaFundo.openFromFile("data/MusicaFundo.wav");
@@ -49,10 +47,10 @@ void FaseAquatica1::input()
 				//Pulo do Player
 			}
 			else if (event.key.code == sf::Keyboard::Down) {
-				
+
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
-				
+
 			}
 			break;
 
@@ -73,11 +71,7 @@ void FaseAquatica1::update()
     ///BOTAR RANKING EM OUTRO LUGAR - ACHO UMA BOA IDEIA FAZER GERENCIADOR DE RANKING
 	//Coloca o Ranking
 	sf::Text Rank;      //dando mensagens de erro qunado compiila
-	sf::Font font1;     //
-	if (!font1.loadFromFile("data/BlackCastleMF.ttf")) {
-		printf("Fonte Não Carregou");
-	}
-	Rank.setFont(font1);
+	Rank.setFont(gerenciadorGrafico.getFontBlackCastle());
 
 	stringstream pRank;
 	pRank << "Pontuação: " << player1.getRanking();
