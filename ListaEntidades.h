@@ -27,3 +27,4 @@ public:
     Entidade* percorrer();
     Entidade* reiniciar();
 };
+

@@ -16,3 +16,4 @@ public:
     void incluir(BolaDeFogo* pp);
     void retirar(int i);
 };
+

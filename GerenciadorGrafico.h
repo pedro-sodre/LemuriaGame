@@ -9,7 +9,7 @@ using std::vector;
 
 class GerenciadorGrafico
 {
-public:///DEIXAR PRIVADO
+private:
     vector<sf::Texture> texturePlayer1;
     vector<sf::Vector2u> vecPlayer1;
 
@@ -34,7 +34,25 @@ public:///DEIXAR PRIVADO
 public:
     GerenciadorGrafico();
     ~GerenciadorGrafico();
-
     void inicializar();
 
+    vector<sf::Texture> getTexturePlayer1() const;
+    vector<sf::Vector2u> getVecPlayer1() const;
+
+    vector<sf::Texture> getTextureEsqueleto() const;
+    vector<sf::Vector2u> getVecEsqueleto() const;
+
+    vector<sf::Texture> getTextureTritao() const;
+    vector<sf::Vector2u> getVecTritao() const;
+
+    vector<sf::Texture> getTextureMago() const;
+    vector<sf::Vector2u> getVecMago() const;
+
+    sf::Texture getBoxTexture() const;
+    sf::Texture getStoneTexture1() const;
+    sf::Texture getStoneTexture2() const;
+    sf::Texture getPlatTexture() const;
+    sf::Texture getChaoTexture() const;
+    sf::Texture getFireballTexture() const;
 };
+

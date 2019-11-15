@@ -18,7 +18,8 @@ void Obstaculo::executar(float deltaTime)
     body->move(velocity * deltaTime);
 }
 
-const float Obstaculo::getPeso()
+const float Obstaculo::getPeso() const
 {
     return peso;
 }
+

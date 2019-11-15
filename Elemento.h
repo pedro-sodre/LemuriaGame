@@ -75,3 +75,4 @@ TIPO* Elemento<TIPO>::getInfo()
 {
     return pInfo;
 }
+

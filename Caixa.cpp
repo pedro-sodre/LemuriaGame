@@ -3,6 +3,18 @@
 Caixa::Caixa(sf::Vector2f tam, sf::Vector2f position, sf::Texture text, float peso, int ID):
 Obstaculo()
 {
+    inicializa(tam, position, text, peso, ID);
+}
+
+Caixa::Caixa(const Caixa& other, float x, float y):
+Obstaculo()
+{
+    inicializa(other.tam, sf::Vector2f(x,y), other.texture, other.peso, other.id);
+}
+
+void Caixa::inicializa(const sf::Vector2f tam, const sf::Vector2f position, const sf::Texture text, const float peso, const int ID)
+{
+    this->tam = tam;
     id = ID;
     body->setSize(tam);
     body->setOrigin(tam/2.0f);
@@ -14,24 +26,6 @@ Obstaculo()
     this->peso = peso;
 
     texture = text;
-    body->setTexture(&texture);
-}
-
-Caixa::Caixa(const Caixa& other, float x, float y):
-Obstaculo()
-{
-    id = other.id;
-    tam = other.body->getSize();
-    body->setSize(tam);
-    body->setOrigin(tam/2.0f);
-    body->setPosition(x,y);
-
-    x = other.x;
-    y = other.y;
-
-    peso = other.peso;
-
-    texture = other.texture;
     body->setTexture(&texture);
 }
 
@@ -55,3 +49,4 @@ Caixa* Caixa::clone(float x, float y) const
 {
     return new Caixa(*this, x, y);
 }
+

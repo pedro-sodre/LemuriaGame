@@ -83,7 +83,7 @@ void FaseAquatica2::executar()
         Rank.setFont(font1);
 
         stringstream pRank;
-        pRank << "Pontuação: " << player1.ranking;
+        pRank << "Pontuação: " << player1.getRanking();
         string p1Rank = pRank.str();
 
         Rank.setString(p1Rank);
@@ -202,3 +202,4 @@ void FaseAquatica2::recuperarJogo(ListaEntidades& Lent, ListaInimigos& Lin, List
 
     Recuperador.close();
 }
+

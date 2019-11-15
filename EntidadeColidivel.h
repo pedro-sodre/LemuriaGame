@@ -5,19 +5,18 @@
 class EntidadeColidivel: public Entidade
 {
 protected:
-    sf::RectangleShape* body;   ///TRANSFERIR GET E SET DE PLAYER.H
-    sf::Vector2f velocity;        ///TRANSFERIR GET E SET DE PLAYER.H
+    sf::RectangleShape* body;
+    sf::Vector2f velocity;
     float speed;
 
 public:
     EntidadeColidivel();
-    EntidadeColidivel(sf::RectangleShape* body);
     virtual ~EntidadeColidivel();
 
     void destruir();
 
     void setBody(sf::RectangleShape* b);
-    sf::RectangleShape* getBody();
+    sf::RectangleShape* getBody() const;
 
     void setTexture(const sf::Texture pTexture);
 
@@ -30,3 +29,4 @@ public:
 
     virtual void executar(float deltaTime);
 };
+

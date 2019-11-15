@@ -20,8 +20,13 @@ private:
     sf::Vector2f direction;
 
 public:
+    GerenciadorDeColisoes();
     GerenciadorDeColisoes(Player* p1, ListaPlataformas* lp, ListaObstaculos* lo, ListaInimigos* li, ListaEntidades* le, ListaProjeteis* lproj);
     ~GerenciadorDeColisoes();
 
+    void inicializa(Player* p1, ListaPlataformas* lp, ListaObstaculos* lo, ListaInimigos* li, ListaEntidades* le, ListaProjeteis* lproj);
+    void destruir();
+
     void executar();
 };
+

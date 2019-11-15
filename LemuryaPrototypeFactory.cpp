@@ -88,3 +88,4 @@ BolaDeFogo* LemuryaPrototypeFactory::MakeBolaDeFogo(float x, float y) const
 {
     return bolaDeFogo->clone(x,y);
 }
+

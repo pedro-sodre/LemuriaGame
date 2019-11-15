@@ -10,43 +10,42 @@ using std::vector;
 class Player: public Personagem
 {
 public:
-    Player(float speed, float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime);
+    Player(const float speed, const float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime, const bool p2 = false);
     Player();
     ~Player();
 
-    void inicializa(float speed, float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime);
+    void inicializa(const float speed, const float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime, const bool p2 = false);
 
     void onCollision(sf::Vector2f direction);       //REDEFINIÇÃO DA FUNÇÃO VOID, POIS O JOGADOR PRECISA TER O CANJUMP RESETADO
 
     void Update(float deltaTime);
 
-    void setCanJump(bool canJump);
-    bool getCanJump();
+    void setCanJump(const bool canJump);
+    bool getCanJump() const;
 
     void knockback(sf::Vector2f direction);
 
     void executar(float deltaTime);
 
-    bool estaVivo();
+    bool estaVivo() const;
     void morreu(float deltaTime);
 
-
-    ///TESTE PARA FAZER O ATAQUE
-
-    sf::RectangleShape* atackBody;
-    sf::RectangleShape* animationBody;
-    bool atacking;
+    Collider getCollider() const;
+    void Draw(sf::RenderWindow& window);
 
     bool isAtacking() const;
 
+    int getRanking() const;
+    void setRanking(const int r);
+
+
+private:
+    sf::RectangleShape* atackBody;
+    sf::RectangleShape* animationBody;
+    bool atacking;
     int nImagem;
 
     int ranking;
-
-    Collider getCollider() ;
-
-    void Draw(sf::RenderWindow& window);
-
-private:
-
+    bool player2;
 };
+

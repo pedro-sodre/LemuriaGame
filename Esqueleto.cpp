@@ -1,10 +1,10 @@
 #include "Esqueleto.h"
+#include "Fase.h"
 
-void Esqueleto::inicializa(vector<sf::Texture> textureEsqueleto, vector<sf::Vector2u> vecEsqueleto, sf::Vector2f posicao, sf::RectangleShape* p1, sf::RectangleShape* p2, int ID)
+void Esqueleto::inicializa(const vector<sf::Texture> textureEsqueleto, const vector<sf::Vector2u> vecEsqueleto, const sf::Vector2f posicao, Fase* pFase, const int ID)
 {
+    fase = pFase;
     id = ID;
-    player1 = p1;
-    player2 = p2;
 
     this->vecTexture = textureEsqueleto;
     this->vecVector  = vecEsqueleto;
@@ -25,21 +25,21 @@ void Esqueleto::inicializa(vector<sf::Texture> textureEsqueleto, vector<sf::Vect
 
 }
 
-Esqueleto::Esqueleto(vector<sf::Texture> textureEsqueleto, vector<sf::Vector2u> vecEsqueleto, sf::Vector2f posicao, sf::RectangleShape* p1, sf::RectangleShape* p2, int ID):
-Inimigo(p1, p2)
+Esqueleto::Esqueleto(const vector<sf::Texture> textureEsqueleto, const vector<sf::Vector2u> vecEsqueleto, const sf::Vector2f posicao, Fase* pFase, const int ID):
+Inimigo()
 {
-    inicializa(textureEsqueleto, vecEsqueleto, posicao, p1, p2, ID);
+    inicializa(textureEsqueleto, vecEsqueleto, posicao, pFase, ID);
 }
 
 Esqueleto::Esqueleto(const Esqueleto& other, float x, float y)
 {
-   inicializa(other.vecTexture, other.vecVector, sf::Vector2f(x,y), other.player1, other.player2, other.id);
+   inicializa(other.vecTexture, other.vecVector, sf::Vector2f(x,y), other.fase, other.id);
 }
 
 
 Esqueleto::~Esqueleto()
 {
-    for(int i=0; i<2; i++)
+    for(int i=0; i<3; i++)
         delete animacao[i];
 }
 
@@ -47,16 +47,16 @@ void Esqueleto::executar(float deltaTime)
 {
     row = 0;
     velocity.x = 0.0f;
-    if(player1)
+    if(fase->getPlayer1() != NULL)
     {
-        if(player1->getPosition().x > body->getPosition().x)
+        if(fase->getPlayer1()->getPosition().x > body->getPosition().x)
         {
             row = 1;
             body->setTexture(&vecTexture[row]);
             faceRight = true;
             velocity.x += speed;
         }
-        else if(player1->getPosition().x < body->getPosition().x)
+        else if(fase->getPlayer1()->getPosition().x < body->getPosition().x)
         {
             row = 1;
             body->setTexture(&vecTexture[row]);
@@ -82,3 +82,4 @@ Esqueleto* Esqueleto::clone(float x, float y) const
 {
     return new Esqueleto(*this, x, y);
 }
+

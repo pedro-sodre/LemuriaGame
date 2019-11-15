@@ -16,3 +16,4 @@ public:
     void incluir(Obstaculo* po);
 };
 
+

@@ -10,7 +10,8 @@ public:
     Obstaculo();
     virtual ~Obstaculo();
 
-    const float getPeso();
+    const float getPeso() const;
 
     virtual void executar(float deltaTime);
 };
+

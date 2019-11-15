@@ -6,12 +6,12 @@ EntidadeColidivel()
    vida = 10;
 }
 
-void Personagem::setVida(int v)
+void Personagem::setVida(const int v)
 {
     vida = v;
 }
 
-int Personagem::getVida()
+int Personagem::getVida() const
 {
     return vida;
 }
@@ -20,6 +20,3 @@ Personagem::~Personagem()
 {
 }
 
-void Personagem::executar(float deltaTime)
-{
-}

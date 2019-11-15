@@ -69,3 +69,4 @@ int BolaDeFogo::getVida()
 {
     return vida;
 }
+

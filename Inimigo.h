@@ -5,15 +5,11 @@ class Fase;
 
 class Inimigo: public Personagem
 {
-protected:
-    sf::RectangleShape* player1;
-    sf::RectangleShape* player2;
+protected:;
     Fase* fase;
 public:
     Inimigo();
-    Inimigo(sf::RectangleShape* p1, sf::RectangleShape* p2);
-    Inimigo(sf::RectangleShape* p1);
     virtual ~Inimigo();
 
-    virtual void executar(float deltaTime);
+    virtual void executar(float deltaTime) = 0;
 };

@@ -6,10 +6,13 @@ class Caixa: public Obstaculo
 private:
 
 public:
-    Caixa(sf::Vector2f tam, sf::Vector2f position, sf::Texture text, float peso = 0.5f, int ID = 3);
+    Caixa(const sf::Vector2f tam, const sf::Vector2f position, const sf::Texture text, const float peso = 0.5f, const int ID = 3);
     Caixa(const Caixa& other, float x, float y);
     ~Caixa();
 
-    void executar(float deltaTime);
+    void inicializa(const sf::Vector2f tam, const sf::Vector2f position, const sf::Texture text, const float peso = 0.5f, const int ID = 3);
     Caixa* clone(float x, float y) const;
+
+    void executar(float deltaTime);
 };
+

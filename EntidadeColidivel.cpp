@@ -6,13 +6,6 @@ Entidade()
     body = new sf::RectangleShape();
 }
 
-EntidadeColidivel::EntidadeColidivel(sf::RectangleShape* body):
-Entidade()
-{
-    body = new sf::RectangleShape();
-    body = body;
-}
-
 void EntidadeColidivel::destruir()
 {
     delete body;
@@ -62,7 +55,8 @@ void EntidadeColidivel::setBody(sf::RectangleShape* b)
     body = b;
 }
 
-sf::RectangleShape* EntidadeColidivel::getBody()
+sf::RectangleShape* EntidadeColidivel::getBody() const
 {
     return body;
 }
+

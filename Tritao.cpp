@@ -1,10 +1,10 @@
 #include "Tritao.h"
+#include "Fase.h"
 
-void Tritao::inicializa(vector<sf::Texture> textureTritao, vector<sf::Vector2u> vecTritao, sf::Vector2f posicao, sf::RectangleShape* p1, sf::RectangleShape* p2, int ID)
+void Tritao::inicializa(const vector<sf::Texture> textureTritao, const vector<sf::Vector2u> vecTritao, const sf::Vector2f posicao, Fase* pFase, const int ID)
 {
+    fase = pFase;
     id = ID;
-    player1 = p1;
-    player2 = p2;
 
     this->vecTexture = textureTritao;
     this->vecVector  = vecTritao;
@@ -24,27 +24,28 @@ void Tritao::inicializa(vector<sf::Texture> textureTritao, vector<sf::Vector2u> 
 
 Tritao::Tritao(const Tritao& other, float x, float y)
 {
-    inicializa(other.vecTexture, other.vecVector, sf::Vector2f(x,y), other.player1, other.player2, other.id);
+    inicializa(other.vecTexture, other.vecVector, sf::Vector2f(x,y), other.fase, other.id);
 }
 
-Tritao::Tritao(vector<sf::Texture> textureTritao, vector<sf::Vector2u> vecTritao, sf::Vector2f posicao, sf::RectangleShape* p1, sf::RectangleShape* p2, int ID):
-Inimigo(p1, p2)
+Tritao::Tritao(vector<sf::Texture> textureTritao, vector<sf::Vector2u> vecTritao, sf::Vector2f posicao, Fase* pFase, int ID):
+Inimigo()
 {
-    inicializa(textureTritao, vecTritao,posicao, p1, p2, ID);
+    inicializa(textureTritao, vecTritao, posicao, pFase, ID);
 }
 
 Tritao::~Tritao()
 {
-
+    for(int i=0; i<1; i++)
+        delete animacao[i];
 }
 
 void Tritao::executar(float deltaTime)
 {
     row = 0;
     velocity.x = 0.0f;
-    if(player1)
+    if(fase->getPlayer1() != NULL)
     {
-            if(player1->getPosition().x > body->getPosition().x)
+            if(fase->getPlayer1()->getPosition().x > body->getPosition().x)
         {
             faceRight = true;
             velocity.x += speed;
@@ -70,3 +71,4 @@ Tritao* Tritao::clone(float x, float y) const
 {
     return new Tritao(*this, x, y);
 }
+

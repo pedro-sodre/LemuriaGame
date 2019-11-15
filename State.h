@@ -1,7 +1,7 @@
 #pragma once
-//#include "Lemurya.h"
 
 class Lemurya;
+
 class State
 {
 	private:
@@ -15,4 +15,5 @@ class State
 		virtual void update() = 0;
 		virtual void input() = 0;
 };
+
 

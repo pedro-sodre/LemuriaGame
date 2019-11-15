@@ -24,3 +24,4 @@ vector<Obstaculo*> ListaObstaculos::getLTObstaculos()
 {
     return LTObstaculos;
 }
+

@@ -93,7 +93,7 @@ bool Lista<TIPO>::incluaElemento(Elemento<TIPO>* pElemento)
             pElemento->setAnterior(pAtual);
             pElemento->setProximo(NULL);
             pAtual->setProximo(pElemento);
-            pAtual = pAtual->getProximo();
+            pAtual = pElemento;
         }
         return true;
     }
@@ -145,3 +145,4 @@ void Lista<TIPO>::setpPercorrimento(Elemento<TIPO>* p)
 {
     pPercorrimento = p;
 }
+

@@ -6,21 +6,20 @@ using std::vector;
 class Animation
 {
 public:
-	Animation(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);
-	virtual ~Animation();
+    Animation(sf::Texture* texture, sf::Vector2u imageCount, float switchTime);
+    virtual ~Animation();
 
-	sf::IntRect uvRect;
+    sf::IntRect uvRect;
 
-	void Update(float deltaTime, bool faceRight);
-	void Update(float deltaTime, bool faceRight, bool& atack, int* nImagem);
-	int getCurrentImage();
+    void Update(float deltaTime, bool faceRight);
+    void Update(float deltaTime, bool faceRight, bool& notEnd, int *nImagem);
+    int getCurrentImage();
 
 
 private:
-	sf::Vector2u imageCount;
-	sf::Vector2u currentImage;
+    sf::Vector2u imageCount;
+    sf::Vector2u currentImage;
 
-	float totalTime;
-	float switchTime;
+    float totalTime;
+    float switchTime;
 };
-

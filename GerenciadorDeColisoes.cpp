@@ -1,6 +1,38 @@
 #include "GerenciadorDeColisoes.h"
 
+GerenciadorDeColisoes::GerenciadorDeColisoes()
+{
+    player1         = NULL;
+    Lobstaculos     = NULL;
+    Lplataformas    = NULL;
+    Linimigos       = NULL;
+    Lentidades      = NULL;
+    Lprojeteis      = NULL;
+    aux             = NULL;
+}
+
 GerenciadorDeColisoes::GerenciadorDeColisoes(Player* p1, ListaPlataformas* lp, ListaObstaculos* lo, ListaInimigos* li, ListaEntidades* le, ListaProjeteis* lproj)
+{
+    inicializa(p1, lp, lo, li, le, lproj);
+}
+
+GerenciadorDeColisoes::~GerenciadorDeColisoes()
+{
+    destruir();
+}
+
+void GerenciadorDeColisoes::destruir()
+{
+    player1         = NULL;
+    Lobstaculos     = NULL;
+    Lplataformas    = NULL;
+    Linimigos       = NULL;
+    Lentidades      = NULL;
+    Lprojeteis      = NULL;
+    aux             = NULL;
+}
+
+void GerenciadorDeColisoes::inicializa(Player* p1, ListaPlataformas* lp, ListaObstaculos* lo, ListaInimigos* li, ListaEntidades* le, ListaProjeteis* lproj)
 {
     player1         = p1;
     Lplataformas    = lp;
@@ -9,16 +41,6 @@ GerenciadorDeColisoes::GerenciadorDeColisoes(Player* p1, ListaPlataformas* lp, L
     Lentidades      = le;
     Lprojeteis      = lproj;
     direction       = sf::Vector2f(0.0f, 0.0f);
-}
-
-GerenciadorDeColisoes::~GerenciadorDeColisoes()
-{
-    player1         = NULL;
-    Lobstaculos     = NULL;
-    Lplataformas    = NULL;
-    Linimigos       = NULL;
-    Lentidades      = NULL;
-    Lprojeteis      = NULL;
 }
 
 void GerenciadorDeColisoes::executar()
@@ -80,9 +102,9 @@ void GerenciadorDeColisoes::executar()
             {
                 Linimigos->getLTInimigos()[i]->setVida(0);
                 Linimigos->retirar(i);
-                Lentidades->retirar();
-                player1->ranking = player1->ranking+10;
-                printf("Ranking: %d \n", player1->ranking);
+                //Lentidades->retirar();
+                player1->setRanking(player1->getRanking() + 10);
+                printf("Ranking: %d \n", player1->getRanking());
             }
             else
             {
@@ -103,7 +125,7 @@ void GerenciadorDeColisoes::executar()
             printf("VIDA: %d\n", player1->getVida());
             Lprojeteis->retirar(i);
 
-            Lentidades->retirar();
+            //Lentidades->retirar();
         }
 
 
@@ -121,3 +143,4 @@ void GerenciadorDeColisoes::executar()
             if(Linimigos->getLTInimigos()[i]->getCollider().CheckCollision(Lobstaculos->getLTObstaculos()[j]->getCollider(), direction, 0.3f))  ///PESO??
                     Lobstaculos->getLTObstaculos()[j]->onCollision(direction);
 }
+

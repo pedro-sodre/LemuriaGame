@@ -50,11 +50,16 @@ void ListaEntidades::retirar()
         {
 
             pElAnt = pElAux->getAnterior();
-            pElAnt->setProximo(pElAux->getProximo());
+            printf("1\n");
             pElPost = pElAux->getProximo();
-            pElPost->setAnterior((pElAux->getAnterior()));
+            printf("2\n");
+            pElAnt->setProximo(pElPost);
+            printf("3\n");
+            pElPost->setAnterior(pElAnt); //NÃO FUNCIONA NEM SETANDO COMO NULL
+            printf("4\n");
 
             pEntAux->destruir();
+            printf("5\n");
 
             break;
         }
@@ -134,3 +139,4 @@ void ListaEntidades::gravarJogo()
 
     Gravador.close();
 }
+

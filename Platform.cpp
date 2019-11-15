@@ -44,3 +44,4 @@ Platform* Platform::clone(float x, float y) const
 {
     return new Platform(*this, x, y);
 }
+

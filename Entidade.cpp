@@ -44,3 +44,4 @@ int Entidade::getVida()
 {
     return 1;
 }
+

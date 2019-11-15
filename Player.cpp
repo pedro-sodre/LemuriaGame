@@ -3,22 +3,29 @@
 Player::Player():
 Personagem()
 {
-    id        = 9;
+    id        = 101;
     row       = 0;
     faceRight = true;
     canJump   = false;
-    ranking = 0;
-    vida = 10;
+    ranking   = 0;
+    vida      = 10;
 }
 
-void Player::inicializa(float speed, float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime)
+void Player::inicializa(const float speed, const float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime, const bool p2)
 {
-    id        = 9;
+    player2 = p2;
+    if(player2)
+        id    = 102;
+    else
+        id    = 101;
+
+    id = 9;                 ///FAZENDO TESTES
     row       = 0;
     faceRight = true;
     canJump   = false;
-    ranking = 0;
-    vida = 10;
+    ranking   = 0;
+    vida      = 10;
+
     this->speed      = speed;
     this->jumpHeight = jumpHeight;
     this->vecTexture = playerTexture;
@@ -27,6 +34,10 @@ void Player::inicializa(float speed, float jumpHeight, vector<sf::Texture> playe
     body->setSize(sf::Vector2f(100.f, 150.0f));
     body->setOrigin(body->getSize() / 2.0f);
     body->setPosition(50.0f, 500.0f);
+    if(player2)
+        body->setFillColor(sf::Color::Blue);
+    else
+        body->setFillColor(sf::Color::White);
 
     atackBody = new sf::RectangleShape();
 
@@ -51,10 +62,10 @@ void Player::inicializa(float speed, float jumpHeight, vector<sf::Texture> playe
     animacao.push_back(new Animation(&playerTexture[4], playerVector[4], switchTime));
 }
 
-Player::Player(float speed, float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime):
+Player::Player(const float speed, const float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime, const bool p2):
 Personagem()
 {
-    inicializa(speed, jumpHeight, playerTexture, playerVector, switchTime);
+    inicializa(speed, jumpHeight, playerTexture, playerVector, switchTime, p2);
 }
 
 Player::~Player()
@@ -84,12 +95,12 @@ void Player::onCollision(sf::Vector2f direction)
         velocity.y = 0.0f;
 }
 
-void Player::setCanJump(bool canJump)
+void Player::setCanJump(const bool canJump)
 {
     this->canJump = canJump;
 }
 
-bool Player::getCanJump()
+bool Player::getCanJump() const
 {
     return canJump;
 }
@@ -100,97 +111,193 @@ void Player::Update(float deltaTime)
     velocity.x = 0.0f;
     velocity.y += 981.0f * deltaTime;                    //GRAVIDADE
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))         //ANDANDO
-        velocity.x -= speed;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-        velocity.x += speed;
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && canJump)      //PULANDO
-            velocity.y = -sqrt(2.0f * 981.0f * jumpHeight);
-
-
-    if(!atacking)
+    if(!player2)
     {
-        nImagem = 0;
-       if(velocity.y < -200.0f)
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))         //ANDANDO
+            velocity.x -= speed;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+            velocity.x += speed;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) && canJump)      //PULANDO
+                velocity.y = -sqrt(2.0f * 981.0f * jumpHeight);
+
+
+        if(!atacking)
         {
-            atacking = false;
-            row = 2;                                //ANIMACÃO PULANDO
-            body->setTexture(&vecTexture[row]);
+            nImagem = 0;
+           if(velocity.y < -200.0f)
+            {
+                atacking = false;
+                row = 2;                                //ANIMACÃO PULANDO
+                body->setTexture(&vecTexture[row]);
 
+            }
+
+            else if(velocity.x == 0.0f)
+            {
+                atacking = false;
+                row = 0;                                    //SELECIONA COLUNA DE ANIMAÇÃO EM QUE ESTÁ PARADO
+                body->setTexture(&vecTexture[row]);
+            }
+
+            else
+            {
+                atacking = false;
+                row = 1;                                      //ANIMAÇÃO SE MOVENDO
+                body->setTexture(&vecTexture[row]);
+
+                if(velocity.x > 0.0f)
+                    faceRight = true;       //MOVENDO PARA A DIREITA
+                else
+                    faceRight = false;      //MOVENDO PARA A ESQUERDA
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))     //ATACANDO
+            {
+                atacking = true;
+                row = 3;
+                animationBody->setTexture(&vecTexture[row]);
+                if(velocity.x > 0)
+                    velocity.x -= speed/3;
+                else if(velocity.x < 0)
+                    velocity.x += speed/3;
+
+            }
+
+                body->setFillColor(sf::Color::White);
+                animationBody->setFillColor(sf::Color::Transparent);
+                animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+                body->setTextureRect(animacao[row]->uvRect);
         }
-
-        else if(velocity.x == 0.0f)
-        {
-            atacking = false;
-            row = 0;                                    //SELECIONA COLUNA DE ANIMAÇÃO EM QUE ESTÁ PARADO
-            body->setTexture(&vecTexture[row]);
-        }
-
         else
         {
-            atacking = false;
-            row = 1;                                      //ANIMAÇÃO SE MOVENDO
-            body->setTexture(&vecTexture[row]);
+                x = atackBody->getPosition().x;
+                y = atackBody->getPosition().y;
 
-            if(velocity.x > 0.0f)
-                faceRight = true;       //MOVENDO PARA A DIREITA
-            else
-                faceRight = false;      //MOVENDO PARA A ESQUERDA
-        }
+                if(faceRight)
+                    body->setPosition(x-70, y);
+                else
+                    body->setPosition(x+70, y);
 
-        if(sf::Keyboard::isKeyPressed(sf::Keyboard::E))     //ATACANDO
-        {
-            atacking = true;
-            row = 3;
-            animationBody->setTexture(&vecTexture[row]);
-            if(velocity.x > 0)
-                velocity.x -= speed/3;
-            else if(velocity.x < 0)
-                velocity.x += speed/3;
+                body->setFillColor(sf::Color::Transparent);
+                animationBody->setFillColor(sf::Color::White);            ///PROBLEMA AQUI PARA ATACAR ????
+                animationBody->setTextureRect(animacao[row]->uvRect);
+                animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
 
         }
 
-            body->setFillColor(sf::Color::White);
-            animationBody->setFillColor(sf::Color::Transparent);
-            animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
-            body->setTextureRect(animacao[row]->uvRect);
-    }
-    else
-    {
-            x = atackBody->getPosition().x;
-            y = atackBody->getPosition().y;
+            //printf("%d\n", nImagem);
+            body->move(velocity * deltaTime);
+            canJump = false;
+
+            x = body->getPosition().x;
+            y = body->getPosition().y;
 
             if(faceRight)
-                body->setPosition(x-70, y);
+            {
+                animationBody->setPosition(x-30,y);
+                atackBody->setPosition(x+70,y);
+            }
+
             else
-                body->setPosition(x+70, y);
-
-            body->setFillColor(sf::Color::Transparent);
-            animationBody->setFillColor(sf::Color::White);
-            animationBody->setTextureRect(animacao[row]->uvRect);
-            animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
-
+            {
+                atackBody->setPosition(x-70,y);
+                animationBody->setPosition(x-80,y);
+            }
     }
 
-        //printf("%d\n", nImagem);
-        body->move(velocity * deltaTime);
-        canJump = false;
+    else        ///PLAYER2
+    {
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))         //ANDANDO
+            velocity.x -= speed;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+            velocity.x += speed;
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up) && canJump)      //PULANDO
+                velocity.y = -sqrt(2.0f * 981.0f * jumpHeight);
 
-        x = body->getPosition().x;
-        y = body->getPosition().y;
 
-        if(faceRight)
+        if(!atacking)
         {
-            animationBody->setPosition(x-30,y);
-            atackBody->setPosition(x+70,y);
-        }
+            nImagem = 0;
+           if(velocity.y < -200.0f)
+            {
+                atacking = false;
+                row = 2;                                //ANIMACÃO PULANDO
+                body->setTexture(&vecTexture[row]);
 
+            }
+
+            else if(velocity.x == 0.0f)
+            {
+                atacking = false;
+                row = 0;                                    //SELECIONA COLUNA DE ANIMAÇÃO EM QUE ESTÁ PARADO
+                body->setTexture(&vecTexture[row]);
+            }
+
+            else
+            {
+                atacking = false;
+                row = 1;                                      //ANIMAÇÃO SE MOVENDO
+                body->setTexture(&vecTexture[row]);
+
+                if(velocity.x > 0.0f)
+                    faceRight = true;       //MOVENDO PARA A DIREITA
+                else
+                    faceRight = false;      //MOVENDO PARA A ESQUERDA
+            }
+
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::Enter))     //ATACANDO
+            {
+                atacking = true;
+                row = 3;
+                animationBody->setTexture(&vecTexture[row]);
+                if(velocity.x > 0)
+                    velocity.x -= speed/3;
+                else if(velocity.x < 0)
+                    velocity.x += speed/3;
+
+            }
+
+                body->setFillColor(sf::Color::Blue);
+                animationBody->setFillColor(sf::Color::Transparent);
+                animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+                body->setTextureRect(animacao[row]->uvRect);
+        }
         else
         {
-            atackBody->setPosition(x-70,y);
-            animationBody->setPosition(x-80,y);
+                x = atackBody->getPosition().x;
+                y = atackBody->getPosition().y;
+
+                if(faceRight)
+                    body->setPosition(x-70, y);
+                else
+                    body->setPosition(x+70, y);
+
+                body->setFillColor(sf::Color::Transparent);
+                animationBody->setFillColor(sf::Color::Blue);
+                animationBody->setTextureRect(animacao[row]->uvRect);
+                animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+
         }
 
+            //printf("%d\n", nImagem);
+            body->move(velocity * deltaTime);
+            canJump = false;
+
+            x = body->getPosition().x;
+            y = body->getPosition().y;
+
+            if(faceRight)
+            {
+                animationBody->setPosition(x-30,y);
+                atackBody->setPosition(x+70,y);
+            }
+
+            else
+            {
+                atackBody->setPosition(x-70,y);
+                animationBody->setPosition(x-80,y);
+            }
+    }
 }
 
 void Player::executar(float deltaTime)
@@ -224,7 +331,7 @@ void Player::knockback(sf::Vector2f direction)
 
 }
 
-bool Player::estaVivo()
+bool Player::estaVivo() const
 {
     return ((vida>0) && (body->getPosition().y < 810));
 }
@@ -244,7 +351,7 @@ void Player::Draw(sf::RenderWindow& window)
     window.draw(*animationBody);
 }
 
-Collider Player::getCollider()
+Collider Player::getCollider() const
 {
     if(atacking)
         return Collider(*atackBody);
@@ -256,3 +363,14 @@ bool Player::isAtacking() const
 {
     return atacking;
 }
+
+int Player::getRanking() const
+{
+    return ranking;
+}
+
+void Player::setRanking(const int r)
+{
+    ranking = r;
+}
+

@@ -5,16 +5,24 @@
 class Mago: public Inimigo
 {
 private:
-    BolaDeFogo* fireball;
+    float coolDownAtack;
+    float coolDownSpawn;
+    bool spawn;
+    bool atack;
+    bool atacking;
+    bool spawning;
+
+    int nImagem;
 public:
-    Mago(vector<sf::Texture> textureMago, vector<sf::Vector2u> vecMago, sf::Vector2f posicao, BolaDeFogo* bfogo = NULL, sf::RectangleShape* p1=NULL, sf::RectangleShape* p2=NULL, int ID = 7);
+    Mago(const vector<sf::Texture> textureMago, const vector<sf::Vector2u> vecMago, const sf::Vector2f posicao, Fase* pFase, const int ID = 7);
     Mago(const Mago& other, float x, float y);
     ~Mago();
 
     Mago* clone(float x, float y) const;
 
-    void inicializa(vector<sf::Texture> textureMago, vector<sf::Vector2u> vecMago, sf::Vector2f posicao, BolaDeFogo* bfogo = NULL, sf::RectangleShape* p1=NULL, sf::RectangleShape* p2=NULL, int ID = 7);
+    void inicializa(const vector<sf::Texture> textureMago, const vector<sf::Vector2u> vecMago, const sf::Vector2f posicao, Fase* pFase, const int ID = 7);
 
     void executar(float deltaTime);
 
 };
+

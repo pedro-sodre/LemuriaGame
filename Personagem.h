@@ -21,8 +21,9 @@ public:
     Personagem();
     virtual ~Personagem();
 
-    void setVida(int v);
-    int getVida();
+    void setVida(const int v);
+    int getVida() const;
 
-    virtual void executar(float deltaTime);
+    virtual void executar(float deltaTime) = 0;
 };
+

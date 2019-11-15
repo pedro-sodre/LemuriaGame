@@ -45,3 +45,4 @@ Platform* ListaPlataformas::reiniciar()
     LTPlataformas.setpPercorrimento(LTPlataformas.getpPrimeiro());
     return LTPlataformas.getpPrimeiro()->getInfo();
 }
+

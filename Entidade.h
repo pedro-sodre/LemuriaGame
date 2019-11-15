@@ -8,7 +8,7 @@ protected:
     int y;
     int id;
     sf::Texture texture;
-
+	//sf::RectangleShape* body;
 public:
     Entidade();
     virtual ~Entidade();
@@ -25,3 +25,4 @@ public:
     virtual void executar(float deltaTime) = 0;
     virtual void Draw(sf::RenderWindow& window) = 0;
 };
+

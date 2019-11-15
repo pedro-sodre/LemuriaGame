@@ -14,3 +14,4 @@ public:
     void recuperarJogo(ListaEntidades& Lent, ListaInimigos& Lin, ListaObstaculos& Lobs, ListaPlataformas& Lplat, ListaProjeteis& Lproj, LemuryaPrototypeFactory prototype, Player& p1);
     void gravarJogo(ListaEntidades& Lentidades);
 };
+

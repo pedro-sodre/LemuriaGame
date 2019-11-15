@@ -16,3 +16,4 @@ public:
     Platform* percorrer();
     Platform* reiniciar();
 };
+

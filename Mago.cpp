@@ -1,11 +1,16 @@
 #include "Mago.h"
+#include "Fase.h"
 
-void Mago::inicializa(vector<sf::Texture> textureMago, vector<sf::Vector2u> vecMago, sf::Vector2f posicao, BolaDeFogo* bfogo, sf::RectangleShape* p1, sf::RectangleShape* p2, int ID)
+void Mago::inicializa(const vector<sf::Texture> textureMago, const vector<sf::Vector2u> vecMago, const sf::Vector2f posicao, Fase* pFase,const int ID)
 {
+    fase = pFase;
     id = ID;
-    player1 = p1;
-    player2 = p2;
-    fireball = bfogo;
+    coolDownAtack = 0;
+    coolDownSpawn = 0;
+    atacking = false;
+    spawning = false;
+    atack = false;
+    spawn = false;
 
     this->vecTexture = textureMago;
     this->vecVector  = vecMago;
@@ -20,61 +25,111 @@ void Mago::inicializa(vector<sf::Texture> textureMago, vector<sf::Vector2u> vecM
 
     setTexture(vecTexture[0]);
 
-    animacao.push_back(new Animation(&vecTexture[0], vecVector[0], 0.3f));
-    animacao.push_back(new Animation(&vecTexture[1], vecVector[1], 0.3f));
+    animacao.push_back(new Animation(&vecTexture[0], vecVector[0], 0.3f));  //PARADO
+    animacao.push_back(new Animation(&vecTexture[1], vecVector[1], 0.3f));  //ANDANDO
+    animacao.push_back(new Animation(&vecTexture[2], vecVector[2], 0.15f));  //ATACANDO
+    animacao.push_back(new Animation(&vecTexture[3], vecVector[3], 0.15f));  //SPAWNANDO
+
 }
 
 Mago::Mago(const Mago& other, float x, float y)
 {
-    inicializa(other.vecTexture, other.vecVector, sf::Vector2f(x,y), other.fireball, other.player1, other.player2, other.id);
+    inicializa(other.vecTexture, other.vecVector, sf::Vector2f(x,y), other.fase, other.id);
 }
 
-Mago::Mago(vector<sf::Texture> textureMago, vector<sf::Vector2u> vecMago, sf::Vector2f posicao, BolaDeFogo* bfogo, sf::RectangleShape* p1, sf::RectangleShape* p2, int ID):
-Inimigo(p1, p2)
+Mago::Mago(const vector<sf::Texture> textureMago, const vector<sf::Vector2u> vecMago, const sf::Vector2f posicao, Fase* pFase, const int ID):
+Inimigo()
 {
-    inicializa(textureMago, vecMago, posicao, bfogo, p1, p2, ID);
+    inicializa(textureMago, vecMago, posicao, pFase, ID);
 }
 
 Mago::~Mago()
 {
-    fireball = NULL;
+    for(int i=0; i<4; i++)
+        delete animacao[i];
 }
 
 void Mago::executar(float deltaTime)
 {
+    coolDownAtack -= deltaTime;
+    coolDownSpawn -= deltaTime;
     row = 0;
     velocity.x = 0.0f;
-    if(player1)
+
+    if(spawning)
     {
-        if(player1->getPosition().x > body->getPosition().x)
+        coolDownSpawn = 10;
+        if(spawn)
         {
-            row = 1;
-            body->setTexture(&vecTexture[row]);
-            faceRight = true;
-            velocity.x += speed;
+            spawn = false;
+            fase->spawnarEsqueleto(x,0);
         }
-        else if(player1->getPosition().x < body->getPosition().x)
+
+        row = 3;
+        body->setTexture(&vecTexture[row]);
+        body->setTextureRect(animacao[row]->uvRect);
+        animacao[row]->Update(deltaTime, faceRight, spawning, &nImagem);
+    }
+
+    else if(atacking)
+    {
+        coolDownAtack = 5;
+        if(atack)
         {
-            row = 1;
-            body->setTexture(&vecTexture[row]);
-            faceRight = false;
-            velocity.x -= speed;
+            atack = false;
+            fase->lancarBolaDeFogo(x,y);
         }
-/*        if(abs(player1->getPosition().x - body->getPosition().x) < body->getSize().x && abs(player1->getPosition().y - body->getPosition().y) < body->getSize().y)
-            row = 2;
- */
+
+        row = 2;
+        body->setTexture(&vecTexture[row]);
+        body->setTextureRect(animacao[row]->uvRect);
+        animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+    }
+
+    else
+    {
+        if(fase->getPlayer1() != NULL)
+        {
+            if(fase->getPlayer1()->getPosition().x > body->getPosition().x)
+            {
+                row = 1;
+                body->setTexture(&vecTexture[row]);
+                faceRight = true;
+                velocity.x += speed;
+            }
+            else // ELSE IF, PQ PODE SER Q VELOCITY = 0
+            {
+                row = 1;
+                body->setTexture(&vecTexture[row]);
+                faceRight = false;
+                velocity.x -= speed;
+            }
+
+            atack = true;
+            atacking = false;
+            spawn = true;
+            spawning = false;
+
+            if(abs(fase->getPlayer1()->getPosition().x - x) < 500 && coolDownSpawn <= 0 && fase->getNInimigos() < 7)
+                spawning = true;
+            if(abs(fase->getPlayer1()->getPosition().x - x) > 200 && coolDownAtack <= 0 && !spawning)
+                atacking = true;
+
+            animacao[row]->Update(deltaTime, faceRight);
+            body->setTextureRect(animacao[row]->uvRect);
+        }
+    }
+
         velocity.y += 981.0f * deltaTime;                    //GRAVIDADE
 
-        animacao[row]->Update(deltaTime, faceRight);
-        body->setTextureRect(animacao[row]->uvRect);
         body->move(velocity * deltaTime);
 
         x = this->getPosition().x;
         y = this->getPosition().y;
-    }
 }
 
 Mago* Mago::clone(float x, float y) const
 {
     return new Mago(*this, x, y);
 }
+

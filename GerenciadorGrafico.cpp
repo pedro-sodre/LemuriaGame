@@ -94,6 +94,16 @@ void GerenciadorGrafico::inicializar()
     textureMago.push_back(magoAndando);
     vecMago.push_back(sf::Vector2u(4,1));
 
+    sf::Texture magoAtacando;
+    magoAtacando.loadFromFile("data/magoAtacando.png");
+    textureMago.push_back(magoAtacando);
+    vecMago.push_back(sf::Vector2u(3,1));
+
+    sf::Texture magoSpawnando;
+    magoSpawnando.loadFromFile("data/magoSpawnando.png");
+    textureMago.push_back(magoSpawnando);
+    vecMago.push_back(sf::Vector2u(7,1));
+
 
     ///BOLA DE FOGO
     if(!fireballTexture.loadFromFile("data/BolaDeFogo.png"))
@@ -120,3 +130,74 @@ void GerenciadorGrafico::inicializar()
     if(!chaoTexture.loadFromFile("data/Chao.png"))
         std::cout << "Erro ao carregar a textura do chao" << std::endl;
 }
+
+vector<sf::Texture> GerenciadorGrafico::getTexturePlayer1() const
+{
+    return texturePlayer1;
+}
+
+vector<sf::Vector2u> GerenciadorGrafico::getVecPlayer1() const
+{
+    return vecPlayer1;
+}
+
+vector<sf::Texture> GerenciadorGrafico::getTextureEsqueleto() const
+{
+    return textureEsqueleto;
+}
+
+vector<sf::Vector2u> GerenciadorGrafico::getVecEsqueleto() const
+{
+    return vecEsqueleto;
+}
+
+vector<sf::Texture> GerenciadorGrafico::getTextureTritao() const
+{
+    return textureTritao;
+}
+
+vector<sf::Vector2u> GerenciadorGrafico::getVecTritao() const
+{
+    return vecTritao;
+}
+
+vector<sf::Texture> GerenciadorGrafico::getTextureMago() const
+{
+    return textureMago;
+}
+
+vector<sf::Vector2u> GerenciadorGrafico::getVecMago() const
+{
+    return vecMago;
+}
+
+sf::Texture GerenciadorGrafico::getBoxTexture() const
+{
+    return boxTexture;
+}
+
+sf::Texture GerenciadorGrafico::getStoneTexture1() const
+{
+    return stoneTexture1;
+}
+
+sf::Texture GerenciadorGrafico::getStoneTexture2() const
+{
+    return stoneTexture2;
+}
+
+sf::Texture GerenciadorGrafico::getPlatTexture() const
+{
+    return platTexture;
+}
+
+sf::Texture GerenciadorGrafico::getChaoTexture() const
+{
+    return chaoTexture;
+}
+
+sf::Texture GerenciadorGrafico::getFireballTexture() const
+{
+    return fireballTexture;
+}
+

@@ -29,3 +29,9 @@ void ListaInimigos::retirar(int i)
 {
     LTInimigos.erase(LTInimigos.begin() + i);
 }
+
+int ListaInimigos::getTamanho()
+{
+    return LTInimigos.size();
+}
+

@@ -22,3 +22,4 @@ public:
     void setVida(int v);
     int getVida();
 };
+
