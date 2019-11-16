@@ -70,7 +70,7 @@ public:
 
     sf::RectangleShape* getBody();
     sf::RectangleShape* getPlayer1();
-    //sf::RectangleShape* getPlayer2();
+    sf::RectangleShape* getPlayer2();///PLAYER2
 
     void lancarBolaDeFogo(int x, int y);
     void spawnarEsqueleto(int x, int y);
@@ -84,7 +84,8 @@ public:
 
 	virtual void carregarPause();
     ///FAZER FUNÇÃO VIRTUAL, CADA FASE VAI GRAVAR EM UM ARQUIVO
-    virtual void recuperarJogo() = 0;
+    virtual void recuperarJogo(bool player2) = 0;
+    virtual void novoJogo(bool player2) = 0;
     virtual void gravarJogo() = 0;
 
     virtual void draw() = 0;

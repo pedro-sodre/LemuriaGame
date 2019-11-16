@@ -11,6 +11,7 @@ class GerenciadorDeColisoes
 {
 private:
     Player* player1;
+    Player* player2;
     Platform* aux;
     ListaPlataformas* Lplataformas;
     ListaObstaculos* Lobstaculos;
@@ -21,10 +22,10 @@ private:
 
 public:
     GerenciadorDeColisoes();
-    GerenciadorDeColisoes(Player* p1, ListaPlataformas* lp, ListaObstaculos* lo, ListaInimigos* li, ListaEntidades* le, ListaProjeteis* lproj);
+    GerenciadorDeColisoes(Player* p1, Player* p2, ListaPlataformas* lp, ListaObstaculos* lo, ListaInimigos* li, ListaEntidades* le, ListaProjeteis* lproj);
     ~GerenciadorDeColisoes();
 
-    void inicializa(Player* p1, ListaPlataformas* lp, ListaObstaculos* lo, ListaInimigos* li, ListaEntidades* le, ListaProjeteis* lproj);
+    void inicializa(Player* p1, Player* p2, ListaPlataformas* lp, ListaObstaculos* lo, ListaInimigos* li, ListaEntidades* le, ListaProjeteis* lproj);
     void destruir();
 
     void executar();

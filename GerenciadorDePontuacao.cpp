@@ -19,10 +19,8 @@ GerenciadorDePontuacao::~GerenciadorDePontuacao()
 void GerenciadorDePontuacao::inicializa(Lemurya* j)
 {
     jogo = j;
-//    pontuacao = 0;
-    //Rank.setFont(gerenciadorGrafico.getFontBlackCastle());
-    if(!font.loadFromFile("data/BlackCastleMF.ttf"))
-        std::cout << "Erro ao carregar a fonte BlackCastleMF" << std::endl;
+    pontuacao = 0;
+    font = jogo->getGerenciadorGrafico().getFontBlackCastle();
     Rank.setFont(font);
 
     Rank.setString(playerRank);
@@ -38,7 +36,8 @@ void GerenciadorDePontuacao::destruir()
 void GerenciadorDePontuacao::executar()
 {
     std::stringstream pRank;
-    pRank << "Pontuação: " << jogo->getPlayer1()->getRanking();
+    pontuacao = jogo->getPlayer1()->getRanking() + jogo->getPlayer2()->getRanking();
+    pRank << "Pontuação: " << pontuacao;
     playerRank = pRank.str();
     Rank.setString(playerRank);
 

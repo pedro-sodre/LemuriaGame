@@ -16,7 +16,7 @@ private:
     sf::Text Rank;
     sf::Font font;
     std::string playerRank;
-    //int pontuacao;
+    int pontuacao;
 
 public:
     GerenciadorDePontuacao();

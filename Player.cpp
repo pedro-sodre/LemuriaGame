@@ -11,6 +11,13 @@ Personagem()
     vida      = 10;
 }
 
+void Player::reiniciar()
+{
+    vida = 10;
+    ranking = 0;
+}
+
+
 void Player::inicializa(const float speed, const float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime, const bool p2)
 {
     player2 = p2;
@@ -19,7 +26,7 @@ void Player::inicializa(const float speed, const float jumpHeight, vector<sf::Te
     else
         id    = 101;
 
-    id = 9;                 ///FAZENDO TESTES
+
     row       = 0;
     faceRight = true;
     canJump   = false;

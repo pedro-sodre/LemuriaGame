@@ -2,7 +2,7 @@
 #include "MenuPause.h"
 #include "MenuMorte.h"
 
-FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo):
+FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2):
 Fase(tam, jogo)
 {
 	texture = jogo->getGerenciadorGrafico().getFase1Texture();
@@ -11,7 +11,10 @@ Fase(tam, jogo)
     musicaFundo.openFromFile("data/MusicaFundo.wav");
     musicaFundo.setLoop(true);
 
-    inicializar();      ///AQUI??????
+    if(newGame)
+        inicializar(player2);
+    else
+        carregar(player2);
 
 }
 
@@ -88,10 +91,20 @@ void FaseAquatica1::update()
 	Lentidades.gravarJogo();
 }
 
-void FaseAquatica1::inicializar()
+void FaseAquatica1::inicializar(bool player2)
 {
-	recuperarJogo();
-    gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+	novoJogo(player2);
+    gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+    gerenciadorDePontuacao.inicializa(jogo);
+
+	view.setCenter(sf::Vector2f(0, 0));
+	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
+}
+
+void FaseAquatica1::carregar(bool player2)
+{
+	recuperarJogo(player2);
+    gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
     gerenciadorDePontuacao.inicializa(jogo);
 
 	view.setCenter(sf::Vector2f(0, 0));
@@ -215,7 +228,88 @@ void FaseAquatica1::gravarJogo()
     Gravador.close();
 }
 
-void FaseAquatica1::recuperarJogo()
+void FaseAquatica1::recuperarJogo(bool player2)
+{
+
+    ifstream Recuperador("data/Fase1Gravando.txt", ios::in);
+    if ( !Recuperador )
+    {
+        cerr << "Arquivo não pode ser aberto" << endl;
+        fflush ( stdin );
+        getchar ( );
+        return;
+    }
+
+    while(!Recuperador.eof())
+    {
+        int ID;
+        float x, y;
+        Recuperador >> ID >> x >> y;
+
+        switch(ID)
+        {
+            case 1:
+                Lplataformas.incluir(prototype.MakeChao(x,y));
+                break;
+            case 2:
+                Lplataformas.incluir(prototype.MakePlataforma(x,y));
+                break;
+            case 3:
+                Lobstaculos.incluir(static_cast<Obstaculo*> (prototype.MakeCaixa(x,y)));
+                break;
+            case 4:
+                Lobstaculos.incluir(static_cast<Obstaculo*> (prototype.MakePedra(x,y)));
+                break;
+            case 5:
+                Lobstaculos.incluir(static_cast<Obstaculo*> (prototype.MakePedra2(x,y)));
+                break;
+            case 6:
+                Linimigos.incluir(static_cast<Inimigo*> (prototype.MakeEsqueleto(x,y)));
+                break;
+            case 7:
+                Linimigos.incluir(static_cast<Inimigo*> (prototype.MakeMago(x,y)));
+                break;
+            case 8:
+                Linimigos.incluir(static_cast<Inimigo*> (prototype.MakeTritao(x,y)));
+                break;
+            case 101:
+                jogo->getPlayer1()->getBody()->setPosition(x,y);
+                break;
+            case 102:
+                if(player2)
+                    jogo->getPlayer2()->getBody()->setPosition(x,y);///PLAYER2
+                break;
+            case 10:
+                Lprojeteis.incluir(prototype.MakeBolaDeFogo(x,y));
+                break;
+        }
+    }
+
+    for(int i=0; i < Lobstaculos.getLTObstaculos().size(); i++)
+        Lentidades.incluir(static_cast<Entidade*> ((Lobstaculos.getLTObstaculos()[i])));
+
+    for(int i=0; i < Linimigos.getLTInimigos().size(); i++)
+        Lentidades.incluir(static_cast<Entidade*> ((Linimigos.getLTInimigos()[i])));
+
+    for(int i=0; i < Lprojeteis.getLTProjeteis().size(); i++)
+        Lentidades.incluir(static_cast<Entidade*> ((Lprojeteis.getLTProjeteis()[i])));
+
+    for(Platform* aux = Lplataformas.reiniciar(); aux != NULL; aux = Lplataformas.percorrer())
+        Lentidades.incluir(static_cast<Entidade*> (aux));
+
+    Lentidades.incluir(static_cast<Entidade*> (jogo->getPlayer1()));
+
+    if(player2)
+    {
+        Lentidades.incluir(static_cast<Entidade*> (jogo->getPlayer2()));///PLAYER2
+        jogo->getPlayer2()->reiniciar();
+    }
+
+    jogo->getPlayer1()->reiniciar();
+    Recuperador.close();
+}
+
+void FaseAquatica1::novoJogo(bool player2)
 {
 
     ifstream Recuperador("data/Fase1Base.txt", ios::in);
@@ -259,9 +353,12 @@ void FaseAquatica1::recuperarJogo()
             case 8:
                 Linimigos.incluir(static_cast<Inimigo*> (prototype.MakeTritao(x,y)));
                 break;
-            case 9:
+            case 101:
                 jogo->getPlayer1()->getBody()->setPosition(x,y);
-                ///PLAYER
+                break;
+            case 102:
+                if(player2)
+                    jogo->getPlayer2()->getBody()->setPosition(x,y);///PLAYER2
                 break;
             case 10:
                 Lprojeteis.incluir(prototype.MakeBolaDeFogo(x,y));
@@ -283,6 +380,13 @@ void FaseAquatica1::recuperarJogo()
 
     Lentidades.incluir(static_cast<Entidade*> (jogo->getPlayer1()));
 
+    if(player2)
+    {
+        Lentidades.incluir(static_cast<Entidade*> (jogo->getPlayer2()));///PLAYER2
+        jogo->getPlayer2()->reiniciar();
+    }
+
+    jogo->getPlayer1()->reiniciar();
     Recuperador.close();
 }
 

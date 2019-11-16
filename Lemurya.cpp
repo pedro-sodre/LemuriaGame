@@ -3,6 +3,7 @@
 
 Lemurya::Lemurya()
 {
+    p2 = false;
 	this->inicializar();
 	this->inicializarStates();
 	deltaTime = 0;
@@ -45,6 +46,7 @@ void Lemurya::inicializar()
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     player1.inicializa(200.0f, 200.0f, gerenciadorGrafico.getTexturePlayer1(), gerenciadorGrafico.getVecPlayer1(), 0.2f);
+    player2.inicializa(200.0f, 200.0f, gerenciadorGrafico.getTexturePlayer1(), gerenciadorGrafico.getVecPlayer1(), 0.2f, true);///PLAYER2
    // gerenciadorDePontuacao.inicializa(this);         ESTÁ SENDO FEITO NA FASE
 }
 
@@ -93,8 +95,22 @@ Player* Lemurya::getPlayer1()
 {
     return &(player1);
 }
+
+Player* Lemurya::getPlayer2()///PLAYER2
+{
+    return &(player2);
+}
 /*
 GerenciadorDePontuacao* Lemurya::getGerenciadorDePontuacao()
 {
     return gerenciadorDePontuacao;
 }*/
+bool Lemurya::getP2() const
+{
+    return p2;
+}
+
+bool Lemurya::setP2(const bool bp)
+{
+    p2 = bp;
+}

@@ -8,6 +8,8 @@ private:
 
     sf::Music musicaMenu;
 
+    bool newGame;
+
 public:
     MenuPrincipal(Lemurya* jogo);
     ~MenuPrincipal();

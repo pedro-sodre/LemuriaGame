@@ -4,7 +4,7 @@
 MenuPrincipal::MenuPrincipal(Lemurya* jogo):
 Menu(jogo)
 {
-
+    newGame = false;
 	this->jogo = jogo;
 	this->inicializar();
 }
@@ -55,13 +55,14 @@ void MenuPrincipal::input()
 				//Verifica se o submenu está ativo
 				if (getPressedItem() == 0 && escolhaDeJogadores)
 				{
+				    jogo->setP2(false);
 					musicaMenu.stop();
 					carregarJogo();
 				}
 				else if (getPressedItem() == 1 && escolhaDeJogadores)
 				{
+				    jogo->setP2(true);
 					musicaMenu.stop();
-
 					carregarJogo();
 				}
 				else if (getPressedItem() == 2 && escolhaDeJogadores)
@@ -71,11 +72,14 @@ void MenuPrincipal::input()
 				//Verifica do menu Principal
 				else if (getPressedItem() == 0)
 				{
+				    newGame = true;
 					abrirEscolhaDeJogadores();
 				}
 				else if (getPressedItem() == 1)
 				{
-					//abrir load game
+				    newGame = false;
+                    musicaMenu.stop();
+					carregarJogo();
 				}
 				else if (getPressedItem() == 2)
 				{
@@ -171,7 +175,7 @@ void MenuPrincipal::inicializar()
 void MenuPrincipal::carregarJogo()
 {
 	//Coloca a Fase na pilha
-	jogo->pushState(new FaseAquatica1(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
+	jogo->pushState(new FaseAquatica1(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, newGame, jogo->getP2()));
 }
 void MenuPrincipal::abrirEscolhaDeJogadores()
 {

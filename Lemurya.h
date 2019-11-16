@@ -17,8 +17,10 @@ private:
     GerenciadorGrafico gerenciadorGrafico;
     //GerenciadorDePontuacao gerenciadorDePontuacao;
 
-    Player player1;
+    bool p2;    ///PARA USAR NO MENU
 
+    Player player1;
+    Player player2;///PLAYER2
 
 public:
     Lemurya();
@@ -35,7 +37,10 @@ public:
 
     void encerrar();
 
+    bool getP2() const;
+    bool setP2(const bool bp);
     Player* getPlayer1();
+    Player* getPlayer2();       ///PLAYER2
     GerenciadorGrafico getGerenciadorGrafico() const;
     //GerenciadorDePontuacao getGerenciadorDePontuacao();
 };

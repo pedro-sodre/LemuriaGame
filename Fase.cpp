@@ -11,13 +11,6 @@ State()
     body->setSize(tam);
     body->setOrigin(body->getSize() / 2.0f);
 
-    ///INSTANCIA PLAYER
-   // player2.inicializa
-    //player1.inicializa(200.0f, 200.0f, jogo->getGerenciadorGrafico().getTexturePlayer1(), jogo->getGerenciadorGrafico().getVecPlayer1(), 0.2f);
-
-    ///PRECISA RESETAR O PLAYER   ---- FALTA RESETAR OUTRAS COISAS, COMO A PONTUAÇÃO
-    jogo->getPlayer1()->setVida(10);
-
     ///CRIA PROTOTYPE
     prototype.inicializa(             new Caixa(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(300.0f, 0.0f), jogo->getGerenciadorGrafico().getBoxTexture(), 0.3f),
                                       new Pedra(sf::Vector2f(90.0f, 90.0f), sf::Vector2f(4700.0f, 605.0f), jogo->getGerenciadorGrafico().getStoneTexture1(), 0.7f),
@@ -73,10 +66,10 @@ sf::RectangleShape* Fase::getPlayer1()
 {
     return jogo->getPlayer1()->getBody();
 }
-/*sf::RectangleShape* Fase::getPlayer2()
+sf::RectangleShape* Fase::getPlayer2()
 {
-    //return player2->getBody();
-}*/
+    return jogo->getPlayer2()->getBody();///PLAYER2
+}
 
 void Fase::lancarBolaDeFogo(int x, int y)
 {
