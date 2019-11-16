@@ -1,26 +1,29 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-#include "Lemurya.h"
+class Lemurya;
 
 #include <sstream>
 #include <fstream>
 #include <stdlib.h>
 #include <iostream>
+#include <string>
 
 class GerenciadorDePontuacao
 {
 private:
+    Lemurya* jogo;
     sf::Text Rank;
-    stringstream pRank;
-    int pontuacao;
+    sf::Font font;
+    std::string playerRank;
+    //int pontuacao;
 
 public:
     GerenciadorDePontuacao();
-    GerenciadorDePontuacao(Lemurya* jogo);
+    GerenciadorDePontuacao(Lemurya* j);
     ~GerenciadorDePontuacao();
 
-    void inicializa(Lemurya* jogo);
+    void inicializa(Lemurya* j);
     void destruir();
 
     void executar();
@@ -29,4 +32,5 @@ public:
     void incrementarPontuacao(const int pont);
     int getPontuacao() const;
 
+    void draw();
 };

@@ -1,8 +1,11 @@
 #include "Fase.h"
+#include "Lemurya.h"
 
-Fase::Fase(sf::Vector2f tam):
-Entidade()
+Fase::Fase(sf::Vector2f tam, Lemurya* jogo):
+Entidade(),
+State()
 {
+    this->jogo = jogo;
     body = new sf::RectangleShape();
 
     body->setSize(tam);
@@ -10,18 +13,21 @@ Entidade()
 
     ///INSTANCIA PLAYER
    // player2.inicializa
-    player1.inicializa(200.0f, 200.0f, gerenciadorGrafico.getTexturePlayer1(), gerenciadorGrafico.getVecPlayer1(), 0.2f);
+    //player1.inicializa(200.0f, 200.0f, jogo->getGerenciadorGrafico().getTexturePlayer1(), jogo->getGerenciadorGrafico().getVecPlayer1(), 0.2f);
+
+    ///PRECISA RESETAR O PLAYER   ---- FALTA RESETAR OUTRAS COISAS, COMO A PONTUAÇÃO
+    jogo->getPlayer1()->setVida(10);
 
     ///CRIA PROTOTYPE
-    prototype.inicializa(             new Caixa(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(300.0f, 0.0f), gerenciadorGrafico.getBoxTexture(), 0.3f),
-                                      new Pedra(sf::Vector2f(90.0f, 90.0f), sf::Vector2f(4700.0f, 605.0f), gerenciadorGrafico.getStoneTexture1(), 0.7f),
-                                      new Pedra(sf::Vector2f(90.0f, 90.0f), sf::Vector2f(3200.0f, 600.0f), gerenciadorGrafico.getStoneTexture2(), 0.7f, 5),
-                                      new Esqueleto(gerenciadorGrafico.getTextureEsqueleto(), gerenciadorGrafico.getVecEsqueleto(), sf::Vector2f(600.0f, 600.0f), static_cast<Fase*> (this)),
-                                      new Mago(gerenciadorGrafico.getTextureMago(), gerenciadorGrafico.getVecMago(), sf::Vector2f(200.0f, 600.0f), static_cast<Fase*> (this)),
-                                      new Platform(sf::Vector2f(250.0f, 40.0f), sf::Vector2f(600.0f, 400.0f), gerenciadorGrafico.getPlatTexture(), 2),
-                                      new Platform(sf::Vector2f(500.0f, 100.0f), sf::Vector2f(250.0f, 695.0f), gerenciadorGrafico.getChaoTexture()),
-                                      new Tritao(gerenciadorGrafico.getTextureTritao(), gerenciadorGrafico.getVecTritao(), sf::Vector2f(900.0f, 600.0f), static_cast<Fase*> (this)),
-                                      new BolaDeFogo(gerenciadorGrafico.getFireballTexture(), sf::Vector2f(1000.0f,1000.0f), player1.getBody()));
+    prototype.inicializa(             new Caixa(sf::Vector2f(100.0f, 100.0f), sf::Vector2f(300.0f, 0.0f), jogo->getGerenciadorGrafico().getBoxTexture(), 0.3f),
+                                      new Pedra(sf::Vector2f(90.0f, 90.0f), sf::Vector2f(4700.0f, 605.0f), jogo->getGerenciadorGrafico().getStoneTexture1(), 0.7f),
+                                      new Pedra(sf::Vector2f(90.0f, 90.0f), sf::Vector2f(3200.0f, 600.0f), jogo->getGerenciadorGrafico().getStoneTexture2(), 0.7f, 5),
+                                      new Esqueleto(jogo->getGerenciadorGrafico().getTextureEsqueleto(), jogo->getGerenciadorGrafico().getVecEsqueleto(), sf::Vector2f(600.0f, 600.0f), static_cast<Fase*> (this)),
+                                      new Mago(jogo->getGerenciadorGrafico().getTextureMago(), jogo->getGerenciadorGrafico().getVecMago(), sf::Vector2f(200.0f, 600.0f), static_cast<Fase*> (this)),
+                                      new Platform(sf::Vector2f(250.0f, 40.0f), sf::Vector2f(600.0f, 400.0f), jogo->getGerenciadorGrafico().getPlatTexture(), 2),
+                                      new Platform(sf::Vector2f(500.0f, 100.0f), sf::Vector2f(250.0f, 695.0f), jogo->getGerenciadorGrafico().getChaoTexture()),
+                                      new Tritao(jogo->getGerenciadorGrafico().getTextureTritao(), jogo->getGerenciadorGrafico().getVecTritao(), sf::Vector2f(900.0f, 600.0f), static_cast<Fase*> (this)),
+                                      new BolaDeFogo(jogo->getGerenciadorGrafico().getFireballTexture(), sf::Vector2f(1000.0f,1000.0f), jogo->getPlayer1()->getBody()));
 
 }
 
@@ -65,7 +71,7 @@ void Fase::executar()
 
 sf::RectangleShape* Fase::getPlayer1()
 {
-    return player1.getBody();
+    return jogo->getPlayer1()->getBody();
 }
 /*sf::RectangleShape* Fase::getPlayer2()
 {

@@ -6,7 +6,7 @@ class FaseAquatica2: public Fase
 private:
 
 public:
-    FaseAquatica2(sf::Vector2f tam);
+    FaseAquatica2(sf::Vector2f tam, Lemurya* jogo);
     ~FaseAquatica2();
 
     void Draw(sf::RenderWindow& window);

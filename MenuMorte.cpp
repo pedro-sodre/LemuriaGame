@@ -1,27 +1,14 @@
 #include "MenuMorte.h"
 #include "MenuPause.h"
 #include "FaseAquatica1.h"
-MenuMorte::MenuMorte(Lemurya* jogo)
+MenuMorte::MenuMorte(Lemurya* jogo):
+Menu(jogo)
 {
 	this->jogo = jogo;
 	this->inicializar();
 }
 
 MenuMorte::~MenuMorte()
-{
-	destruir();
-}
-
-void MenuMorte::executar(float deltaTime)
-{
-}
-
-void MenuMorte::destruir()
-{
-	delete body;
-}
-
-void MenuMorte::Draw(sf::RenderWindow& window)
 {
 }
 
@@ -98,14 +85,10 @@ void MenuMorte::inicializar()
 {
 	viewMenu.setSize(jogo->window.getSize().x, jogo->window.getSize().y);
 	viewMenu.setCenter(jogo->window.getSize().x / 2, jogo->window.getSize().y / 2);
-	if (!font.loadFromFile("data/BlackCastleMF.ttf"))
-		printf("Fonte Não Carregou");
 
-	if (!font2.loadFromFile("data/game_over.ttf"))
-		printf("Fonte Não Carregou");
-
-	if (!texture.loadFromFile("data/FundoGameOver.png"))
-		printf("Erro ao carregar a textura do Menu");
+    font    = jogo->getGerenciadorGrafico().getFontBlackCastle();
+	font2   = jogo->getGerenciadorGrafico().getFontGameOver();
+    texture = jogo->getGerenciadorGrafico().getMenuMorteTexture();
 
 	//Define a cor do texto
 	cor1.r = 6;
@@ -147,17 +130,6 @@ void MenuMorte::inicializar()
 
 	selectedItem = 0;
 }
-void MenuMorte::MoveUp()
-{
-	if (selectedItem - 1 >= 0)
-	{
-		menu[selectedItem].setFillColor(sf::Color::White);
-		menu[selectedItem].setStyle(sf::Text::Style::Regular);
-		selectedItem--;
-		menu[selectedItem].setFillColor(cor1);
-		menu[selectedItem].setStyle(sf::Text::Style::Bold);
-	}
-}
 
 void MenuMorte::MoveDown()
 {
@@ -170,10 +142,4 @@ void MenuMorte::MoveDown()
 		menu[selectedItem].setStyle(sf::Text::Style::Bold);
 		menu[selectedItem].setFillColor(cor1);
 	}
-}
-
-
-int MenuMorte::getPressedItem()
-{
-	return selectedItem;
 }

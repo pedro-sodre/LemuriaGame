@@ -1,7 +1,8 @@
 #include "FaseAquatica2.h"
+#include "Lemurya.h"
 
-FaseAquatica2::FaseAquatica2(sf::Vector2f tam):
-Fase(tam)
+FaseAquatica2::FaseAquatica2(sf::Vector2f tam, Lemurya* jogo):
+Fase(tam, jogo)
 {
     if(!texture.loadFromFile("data/Fase2.png"))
         std::cout << "Erro ao carregar a textura da FaseAquatica2" << std::endl;
@@ -37,10 +38,10 @@ void FaseAquatica2::executar()
     sf::View view(sf::Vector2f(0,0), sf::Vector2f(VIEW_HEIGHT,VIEW_HEIGHT));
 
     ///CARREGA O MAPA
-    recuperarJogo(Lentidades, Linimigos, Lobstaculos, Lplataformas, Lprojeteis, prototype, player1);
+    recuperarJogo(Lentidades, Linimigos, Lobstaculos, Lplataformas, Lprojeteis, prototype, *jogo->getPlayer1());
 
     ///CRIA GERENCIADOR DE COLISÕES
-    GerenciadorDeColisoes gerenciadorDeColisoes(&player1, &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+    GerenciadorDeColisoes gerenciadorDeColisoes(jogo->getPlayer1(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
 
     ///CLOCK DO JOGO
     float deltaTime = 0.0f;
@@ -65,38 +66,21 @@ void FaseAquatica2::executar()
         }
 
         ///SETA AS COISAS DA JANELA
-        view.setCenter(player1.getPosition().x, 200.0f);
+        view.setCenter(jogo->getPlayer1()->getPosition().x, 200.0f);
         window.clear();       //LIMPA BUFFER
         window.setView(view);
-        this->getBody()->setPosition(player1.getPosition().x, 200.0f );
+        this->getBody()->setPosition(jogo->getPlayer1()->getPosition().x, 200.0f );
         this->Draw(window);
 
         ///GERENCIA COLISÕES
         gerenciadorDeColisoes.executar();
-
-        ///INICIALIZA RANKING
-        sf::Text Rank;      //dando mensagens de erro qunado compiila
-        sf::Font font1;     //
-        if (!font1.loadFromFile("data/BlackCastleMF.ttf")) {
-            printf("Fonte Não Carregou");
-        }
-        Rank.setFont(font1);
-
-        stringstream pRank;
-        pRank << "Pontuação: " << player1.getRanking();
-        string p1Rank = pRank.str();
-
-        Rank.setString(p1Rank);
-        Rank.setPosition(sf::Vector2f(player1.getPosition().x+300.0f, -300.0f));
-        Rank.setCharacterSize(40);
-        window.draw(Rank);
 
         ///EXECUTA E DESENHA
         Lentidades.executar(deltaTime);
         Lentidades.Draw(window);
 
         ///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
-        if(!player1.estaVivo())
+        if(!jogo->getPlayer1()->estaVivo())
         {
             break;
             printf("VOCE MORREU\n");

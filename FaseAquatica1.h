@@ -1,10 +1,9 @@
 #pragma once
 #include "Fase.h"
 
-class FaseAquatica1: public Fase, public State
+class FaseAquatica1: public Fase
 {
 private:
-	Lemurya* jogo;
 	sf::View view;
 public:
     FaseAquatica1(sf::Vector2f tam, Lemurya* jogo);

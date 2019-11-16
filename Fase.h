@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 
 #include "GerenciadorDeColisoes.h"
+#include "GerenciadorDePontuacao.h"
 #include "GerenciadorGrafico.h"
 
 #include <sstream>
@@ -26,8 +27,6 @@ using std::vector;
 #include "ListaEntidades.h"
 #include "ListaProjeteis.h"
 
-#include "Menu.h"
-
 #include "BolaDeFogo.h"
 #include "Mago.h"
 #include "Tritao.h"
@@ -37,19 +36,26 @@ using std::vector;
 #include "Caixa.h"
 #include "Pedra.h"
 
+#include "State.h"
+
+class Lemurya;
+
 static const float VIEW_HEIGHT = 1080.0f;
 
-class Fase: public Entidade
+class Fase: public Entidade, public State
 {
 protected:
+    Lemurya* jogo;
+
     sf::RectangleShape* body;
     sf::Music musicaFundo;
-    GerenciadorGrafico gerenciadorGrafico;
+    //GerenciadorGrafico gerenciadorGrafico;
+    GerenciadorDeColisoes gerenciadorDeColisoes;
+    GerenciadorDePontuacao gerenciadorDePontuacao;
     LemuryaPrototypeFactory prototype;
-	GerenciadorDeColisoes gerenciadorDeColisoes;
 
-    Player player1;
-    Player player2;
+    //Player player1;
+    //Player player2;
 
     ///CRIA LISTAS
     ListaInimigos Linimigos;
@@ -58,7 +64,7 @@ protected:
     ListaEntidades Lentidades;
     ListaProjeteis Lprojeteis;
 public:
-    Fase(sf::Vector2f tam);
+    Fase(sf::Vector2f tam, Lemurya* jogo);
     virtual ~Fase();
     void destruir();
 
@@ -80,6 +86,10 @@ public:
     ///FAZER FUNÇÃO VIRTUAL, CADA FASE VAI GRAVAR EM UM ARQUIVO
     virtual void recuperarJogo() = 0;
     virtual void gravarJogo() = 0;
+
+    virtual void draw() = 0;
+	virtual void input() = 0;
+	virtual void update() = 0;
 };
 
 

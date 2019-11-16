@@ -4,29 +4,39 @@
 #include <stack>
 
 class Lemurya {
-	private:
+private:
 
-		sf::Event eventos;
+    sf::Event eventos;
 
-		std::stack<State*> states;
-		void inicializar();
-		void inicializarStates();
+    std::stack<State*> states;
+    void inicializar();
+    void inicializarStates();
 
-		sf::Clock clock;
+    sf::Clock clock;
 
-	public:
-		Lemurya();
-		~Lemurya();
+    GerenciadorGrafico gerenciadorGrafico;
+    //GerenciadorDePontuacao gerenciadorDePontuacao;
 
-		float deltaTime;            ///PECADO
-		sf::RenderWindow window;    ///PECADO
+    Player player1;
 
-		void pushState(State* state);
-		void popState();
-		State* stateAtual();
 
-		void rodar();
+public:
+    Lemurya();
+    ~Lemurya();
 
-		void encerrar();
+    float deltaTime;            ///PECADO
+    sf::RenderWindow window;    ///PECADO
+
+    void pushState(State* state);
+    void popState();
+    State* stateAtual();
+
+    void rodar();
+
+    void encerrar();
+
+    Player* getPlayer1();
+    GerenciadorGrafico getGerenciadorGrafico() const;
+    //GerenciadorDePontuacao getGerenciadorDePontuacao();
 };
 

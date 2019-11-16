@@ -33,11 +33,14 @@ private:
     sf::Texture fase2Texture;
     sf::Texture fase3Texture;
 
-    sf::Texture menuTexture;
+    sf::Texture menuPrincipalTexture;
+    sf::Texture menuPauseTexture;
+    sf::Texture menuMorteTexture;
     sf::Texture logoTexture;
 
     sf::Font fontBlackCastle;
     sf::Font fontAudiowide;
+    sf::Font fontGameOver;
 
 public:
     GerenciadorGrafico();
@@ -67,9 +70,12 @@ public:
     sf::Texture getFase2Texture() const;
     sf::Texture getFase3Texture() const;
 
-    sf::Texture getMenuTexture() const;
+    sf::Texture getMenuPrincipalTexture() const;
+    sf::Texture getMenuPauseTexture() const;
+    sf::Texture getMenuMorteTexture() const;
     sf::Texture getLogoTexture() const;
 
     sf::Font getFontBlackCastle() const;
     sf::Font getFontAudiowide() const;
+    sf::Font getFontGameOver() const;
 };

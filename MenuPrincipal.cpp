@@ -1,21 +1,20 @@
-#include "MenuPause.h"
-#include "FaseAquatica1.h"
 #include "MenuPrincipal.h"
+#include "FaseAquatica1.h"
 
-MenuPause::MenuPause(Lemurya* jogo):
+MenuPrincipal::MenuPrincipal(Lemurya* jogo):
 Menu(jogo)
 {
+
 	this->jogo = jogo;
 	this->inicializar();
 }
-
-MenuPause::~MenuPause()
+MenuPrincipal::~MenuPrincipal()
 {
 }
 
-void MenuPause::draw()
+void MenuPrincipal::draw()
 {
-	jogo->window.draw(*body);
+    jogo->window.draw(*body);
 	jogo->window.draw(tituloDoJogo);
 	jogo->window.draw(LogoDoJogo);
 	int i;
@@ -23,10 +22,12 @@ void MenuPause::draw()
 
 		jogo->window.draw(menu[i]);
 	}
-}
 
-void MenuPause::input()
+
+}
+void MenuPrincipal::input()
 {
+
 	while (jogo->window.pollEvent(event))
 	{
 		switch (event.type)
@@ -40,41 +41,51 @@ void MenuPause::input()
 				jogo->window.close();
 			else if (event.key.code == sf::Keyboard::Up) {
 				this->MoveUp();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::Down) {
 				this->MoveDown();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::W) {
 				this->MoveUp();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::S) {
 				this->MoveDown();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
-				switch (getPressedItem())
+				//Verifica se o submenu está ativo
+				if (getPressedItem() == 0 && escolhaDeJogadores)
 				{
-				case 0:
-					printf("Deu Resume");
-					jogo->popState();
-					printf("Passou do pop");
-					break;
-				case 1:
-					//Salvar Jogo
-					break;
-				case 2:
-					voltarAoMenu();
-					//jogo->popState();
-
-					//jogo->popState();
-					break;
-				case 3:
-					jogo->window.close();
-					break;
+					musicaMenu.stop();
+					carregarJogo();
 				}
+				else if (getPressedItem() == 1 && escolhaDeJogadores)
+				{
+					musicaMenu.stop();
+
+					carregarJogo();
+				}
+				else if (getPressedItem() == 2 && escolhaDeJogadores)
+				{
+					this->inicializar();
+				}
+				//Verifica do menu Principal
+				else if (getPressedItem() == 0)
+				{
+					abrirEscolhaDeJogadores();
+				}
+				else if (getPressedItem() == 1)
+				{
+					//abrir load game
+				}
+				else if (getPressedItem() == 2)
+				{
+					//abre o ranking
+				}
+				else if (getPressedItem() == 3)
+				{
+					jogo->window.close();
+				}
+
 			}
 			break;
 
@@ -82,21 +93,22 @@ void MenuPause::input()
 	}
 }
 
-void MenuPause::update()
+void MenuPrincipal::update()
 {
     jogo->window.setView(viewMenu);
 }
 
-void MenuPause::inicializar()
+void MenuPrincipal::inicializar()
 {
-
     viewMenu.setSize(jogo->window.getSize().x, jogo->window.getSize().y);
     viewMenu.setCenter(jogo->window.getSize().x/2, jogo->window.getSize().y/2);
 
     font    = jogo->getGerenciadorGrafico().getFontBlackCastle();
 	font2   = jogo->getGerenciadorGrafico().getFontAudiowide();
-    texture = jogo->getGerenciadorGrafico().getMenuPauseTexture();
+    texture = jogo->getGerenciadorGrafico().getMenuPrincipalTexture();
     textura1 = jogo->getGerenciadorGrafico().getLogoTexture();
+
+	escolhaDeJogadores = false;
 
 	num_de_itens = MAX_NUMBER_ITEMS;
 	//Define a cor do texto
@@ -112,18 +124,18 @@ void MenuPause::inicializar()
 
 	//Opções do Menu
 	menu[0].setFont(font);
-	menu[0].setString("Resume");
+	menu[0].setString("New Game");
 	menu[0].setFillColor(cor1);
 	menu[0].setStyle(sf::Text::Style::Bold);
 	menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 400.0));
 
 	menu[1].setFont(font);
 	menu[1].setFillColor(sf::Color::White);
-	menu[1].setString("Save Game");
+	menu[1].setString("Load Game");
 	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 460.0));
 
 	menu[2].setFont(font);
-	menu[2].setString("Main Menu");
+	menu[2].setString("Ranking");
 	menu[2].setFillColor(sf::Color::White);
 	menu[2].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 520.0));
 
@@ -133,16 +145,20 @@ void MenuPause::inicializar()
 	menu[3].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 580.0));
 
 	tituloDoJogo.setFont(font2);
-	tituloDoJogo.setString("PAUSE");
+	tituloDoJogo.setString("LEMURYA");
 	tituloDoJogo.setFillColor(cor2);
 	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
-	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 125, 250.0));
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 200, 250.0));
 
 	tituloDoJogo.setCharacterSize(80);
 
 	LogoDoJogo.setSize(sf::Vector2f(200.0f, 200.0f));
 	LogoDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 65, 50.0f));
 	LogoDoJogo.setTexture(&textura1);
+
+	musicaMenu.openFromFile("data/MusicaMenu.wav");
+	musicaMenu.setLoop(true);
+	musicaMenu.play();
 
 	body = new sf::RectangleShape();
 	body->setTexture(&texture);
@@ -152,13 +168,30 @@ void MenuPause::inicializar()
 
 	selectedItem = 0;
 }
-
-void MenuPause::voltarAoMenu()
+void MenuPrincipal::carregarJogo()
 {
-	jogo->pushState(new MenuPrincipal(jogo));
-}
-
-void MenuPause::voltarAFase()
-{
+	//Coloca a Fase na pilha
 	jogo->pushState(new FaseAquatica1(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
 }
+void MenuPrincipal::abrirEscolhaDeJogadores()
+{
+	escolhaDeJogadores = true;
+	num_de_itens = 3;
+	tituloDoJogo.setFont(font);
+	tituloDoJogo.setString("Selecionar número de jogadores");
+	tituloDoJogo.setCharacterSize(40);
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 200, 300.0));
+	tituloDoJogo.setFillColor(sf::Color::White);
+
+	menu[0].setString("1 Jogador");
+	menu[1].setString("2 Jogadores");
+	menu[2].setString("Voltar");
+	menu[3].setString("");
+
+}
+
+void MenuPrincipal::stopMusic()
+{
+    musicaMenu.stop();
+}
+

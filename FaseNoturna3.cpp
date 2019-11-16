@@ -1,7 +1,7 @@
 #include "FaseNoturna3.h"
 
-FaseNoturna3::FaseNoturna3(sf::Vector2f tam):
-Fase(tam)
+FaseNoturna3::FaseNoturna3(sf::Vector2f tam, Lemurya* jogo):
+Fase(tam, jogo)
 {
     if(!texture.loadFromFile("data/Fase3.png"))
         std::cout << "Erro ao carregar a textura da FaseNoturna3" << std::endl;

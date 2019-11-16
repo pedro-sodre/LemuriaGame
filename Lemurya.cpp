@@ -1,5 +1,5 @@
 #include "Lemurya.h"
-
+#include "MenuPrincipal.h"
 
 Lemurya::Lemurya()
 {
@@ -43,11 +43,14 @@ void Lemurya::inicializar()
 	sf::Image icon;
 	icon.loadFromFile("data/LemuryaIcon.JPG");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
+
+    player1.inicializa(200.0f, 200.0f, gerenciadorGrafico.getTexturePlayer1(), gerenciadorGrafico.getVecPlayer1(), 0.2f);
+   // gerenciadorDePontuacao.inicializa(this);         ESTÁ SENDO FEITO NA FASE
 }
 
 void Lemurya::inicializarStates()
 {
-	states.push(new Menu(this));
+	states.push(new MenuPrincipal(this));
 }
 
 void Lemurya::rodar()
@@ -81,3 +84,17 @@ void Lemurya::encerrar()
 	//cout para encerrar
 }
 
+GerenciadorGrafico Lemurya::getGerenciadorGrafico() const
+{
+    return gerenciadorGrafico;
+}
+
+Player* Lemurya::getPlayer1()
+{
+    return &(player1);
+}
+/*
+GerenciadorDePontuacao* Lemurya::getGerenciadorDePontuacao()
+{
+    return gerenciadorDePontuacao;
+}*/

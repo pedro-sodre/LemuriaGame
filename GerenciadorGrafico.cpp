@@ -20,11 +20,19 @@ void GerenciadorGrafico::inicializar()
         std::cout << "Erro ao carregar a fonte BlackCastleMF" << std::endl;
 	if (!fontAudiowide.loadFromFile("data/Audiowide.ttf"))
         std::cout << "Erro ao carregar a fonte Audiowide" << std::endl;
-	if (!menuTexture.loadFromFile("data/Menu.jpg"))
-        std::cout << "Erro ao carregar a textura do Menu" << std::endl;
+    if (!fontGameOver.loadFromFile("data/game_over.ttf"))
+        std::cout << "Erro ao carregar a fonte GameOver" << std::endl;
+
+
+    ///TEXTURAS MENUS
+	if (!menuPrincipalTexture.loadFromFile("data/Menu.jpg"))
+        std::cout << "Erro ao carregar a textura do Menu Principal" << std::endl;
+	if (!menuPauseTexture.loadFromFile("data/Pause.jpg"))
+        std::cout << "Erro ao carregar a textura do Menu de Pause" << std::endl;
+	if (!menuMorteTexture.loadFromFile("data/FundoGameOver.png"))
+        std::cout << "Erro ao carregar a textura do Menu de Morte" << std::endl;
 	if (!logoTexture.loadFromFile("data/LemuryaIcon.jpg"))
 		std::cout << "Erro ao carregar a textura da Logo" << std::endl;
-
 
 
     ///TEXTURAS DAS FASES
@@ -250,9 +258,24 @@ sf::Font GerenciadorGrafico::getFontAudiowide() const
     return fontAudiowide;
 }
 
-sf::Texture GerenciadorGrafico::getMenuTexture() const
+sf::Font GerenciadorGrafico::getFontGameOver() const
 {
-    return menuTexture;
+    return fontGameOver;
+}
+
+sf::Texture GerenciadorGrafico::getMenuPauseTexture() const
+{
+    return menuPauseTexture;
+}
+
+sf::Texture GerenciadorGrafico::getMenuMorteTexture() const
+{
+    return menuMorteTexture;
+}
+
+sf::Texture GerenciadorGrafico::getMenuPrincipalTexture() const
+{
+    return menuPrincipalTexture;
 }
 
 sf::Texture GerenciadorGrafico::getLogoTexture() const

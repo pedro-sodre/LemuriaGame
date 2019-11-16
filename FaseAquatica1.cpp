@@ -1,12 +1,11 @@
 #include "FaseAquatica1.h"
 #include "MenuPause.h"
 #include "MenuMorte.h"
-FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo):
-Fase(tam), State()
-{
-	this->jogo = jogo;
-	texture = gerenciadorGrafico.getFase1Texture();
 
+FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo):
+Fase(tam, jogo)
+{
+	texture = jogo->getGerenciadorGrafico().getFase1Texture();
     body->setTexture(&texture);
 
     musicaFundo.openFromFile("data/MusicaFundo.wav");
@@ -24,7 +23,7 @@ FaseAquatica1::~FaseAquatica1()
 void FaseAquatica1::draw()
 {
 	jogo->window.draw(*body);
-	//jogo->window.draw(Rank)
+	gerenciadorDePontuacao.draw();
 	Lentidades.Draw(jogo->window);
 }
 
@@ -49,10 +48,10 @@ void FaseAquatica1::input()
 				//Pulo do Player
 			}
 			else if (event.key.code == sf::Keyboard::Down) {
-				
+
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
-				
+
 			}
 			break;
 
@@ -63,32 +62,14 @@ void FaseAquatica1::input()
 
 void FaseAquatica1::update()
 {
+
 	///UPDATE NA VIEW
-	view.setCenter(player1.getPosition().x, 200.0f);
+	view.setCenter(jogo->getPlayer1()->getPosition().x, 200.0f);
 	jogo->window.setView(view);
 	///UPDATE BACKGROUND
-	this->getBody()->setPosition(player1.getPosition().x, 200.0f);
+	this->getBody()->setPosition(jogo->getPlayer1()->getPosition().x, 200.0f);
 
-
-    ///BOTAR RANKING EM OUTRO LUGAR - ACHO UMA BOA IDEIA FAZER GERENCIADOR DE RANKING
-	//Coloca o Ranking
-	sf::Text Rank;      //dando mensagens de erro qunado compiila
-	sf::Font font1;     //
-	if (!font1.loadFromFile("data/BlackCastleMF.ttf")) {
-		printf("Fonte Não Carregou");
-	}
-	Rank.setFont(font1);
-
-	stringstream pRank;
-	pRank << "Pontuação: " << player1.getRanking();
-	string p1Rank = pRank.str();
-
-	Rank.setString(p1Rank);
-	Rank.setPosition(sf::Vector2f(player1.getPosition().x + 300.0f, -300.0f));
-	Rank.setCharacterSize(40);
-	jogo->window.draw(Rank);    ///COLOCAR NA FUNÇ O DRAW
-
-
+    gerenciadorDePontuacao.executar();
 
 	///GERENCIA COLISÕES
     gerenciadorDeColisoes.executar();
@@ -96,9 +77,9 @@ void FaseAquatica1::update()
 	Lentidades.executar(jogo->deltaTime);
 
 	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
-	if (!player1.estaVivo())
+	if (!jogo->getPlayer1()->estaVivo())
 	{
-		jogo->pushState(new MenuMorte(jogo));
+	    jogo->pushState(new MenuMorte(jogo));
 		printf("VOCE MORREU\n");
 		///VOLTA PRO MENU
 	}
@@ -110,7 +91,8 @@ void FaseAquatica1::update()
 void FaseAquatica1::inicializar()
 {
 	recuperarJogo();
-    gerenciadorDeColisoes.inicializa(&player1, &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+    gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+    gerenciadorDePontuacao.inicializa(jogo);
 
 	view.setCenter(sf::Vector2f(0, 0));
 	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
@@ -278,7 +260,7 @@ void FaseAquatica1::recuperarJogo()
                 Linimigos.incluir(static_cast<Inimigo*> (prototype.MakeTritao(x,y)));
                 break;
             case 9:
-                player1.getBody()->setPosition(x,y);
+                jogo->getPlayer1()->getBody()->setPosition(x,y);
                 ///PLAYER
                 break;
             case 10:
@@ -299,7 +281,7 @@ void FaseAquatica1::recuperarJogo()
     for(Platform* aux = Lplataformas.reiniciar(); aux != NULL; aux = Lplataformas.percorrer())
         Lentidades.incluir(static_cast<Entidade*> (aux));
 
-    Lentidades.incluir(static_cast<Entidade*> (&player1));
+    Lentidades.incluir(static_cast<Entidade*> (jogo->getPlayer1()));
 
     Recuperador.close();
 }

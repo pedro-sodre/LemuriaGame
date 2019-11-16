@@ -5,55 +5,42 @@
 #include "State.h"
 #define MAX_NUMBER_ITEMS 4
 
-class Lemurya;
-class Menu: public Entidade, public State
+class Menu: public State, public Entidade
 {
-	private:
-		int selectedItem;
-		int num_de_itens;
-		Lemurya* jogo;
-		bool escolhaDeJogadores;
+protected:
+    int selectedItem;
+    int num_de_itens;
+    Lemurya* jogo;
 
-		sf::Font font;
-		sf::Font font2;
-		sf::Text menu[MAX_NUMBER_ITEMS];
-		sf::Color cor1;
-		sf::Color cor2;
-		sf::Text tituloDoJogo;
-		sf::Texture textura1;
-		sf::RectangleShape LogoDoJogo;
-		sf::RectangleShape* body;
-		sf::Music musicaMenu;
+    sf::Font font;
+    sf::Font font2;
+    sf::Text menu[MAX_NUMBER_ITEMS];
+    sf::Color cor1;
+    sf::Color cor2;
+    sf::Text tituloDoJogo;
+    sf::Texture textura1;
+    sf::RectangleShape LogoDoJogo;
+    sf::RectangleShape* body; //O body virá do entidade depois
 
-		sf::Event event;
-		sf::View viewMenu;
+    sf::View viewMenu;
+    sf::Event event;
 
-	public:
-		Menu(Lemurya* jogo);
-		~Menu();
-		//Métodos de Entidade
-		void executar(float deltaTime);
-		//void executar();
-		void destruir();
-		void Draw(sf::RenderWindow& window);
-		//Métodos de State
-		void draw();
-		void input();
-		void update();
+public:
+    Menu(Lemurya* jogo);
+    ~Menu();
+    //Métodos de Entidade
+	void executar(float deltaTime);
+	//void executar();
+	void destruir();
+	void Draw(sf::RenderWindow& window);
+	//Métodos de State
+	void draw() = 0;
+	void input() = 0;
+	void update() = 0;
 
-		void inicializar();
-		void carregarJogo();
+	///void inicializar();
 
-		void abrirEscolhaDeJogadores();
-
-		void MoveUp();
-		void MoveDown();
-		int getPressedItem();
-		void stopMusic();
-
-		
-
-	
+	void MoveUp();
+	virtual void MoveDown();
+	int getPressedItem();
 };
-
-
