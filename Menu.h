@@ -26,7 +26,7 @@ class Menu: public Entidade, public State
 		sf::Music musicaMenu;
 
 		sf::Event event;
-
+		sf::View viewMenu;
 
 	public:
 		Menu(Lemurya* jogo);

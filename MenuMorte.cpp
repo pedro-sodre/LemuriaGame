@@ -1,42 +1,42 @@
+#include "MenuMorte.h"
 #include "MenuPause.h"
 #include "FaseAquatica1.h"
-MenuPause::MenuPause(Lemurya* jogo)
+MenuMorte::MenuMorte(Lemurya* jogo)
 {
 	this->jogo = jogo;
 	this->inicializar();
 }
 
-MenuPause::~MenuPause()
+MenuMorte::~MenuMorte()
 {
 	destruir();
 }
 
-void MenuPause::executar(float deltaTime)
+void MenuMorte::executar(float deltaTime)
 {
 }
 
-void MenuPause::destruir()
+void MenuMorte::destruir()
 {
 	delete body;
 }
 
-void MenuPause::Draw(sf::RenderWindow& window)
+void MenuMorte::Draw(sf::RenderWindow& window)
 {
 }
 
-void MenuPause::draw()
+void MenuMorte::draw()
 {
 	jogo->window.draw(*body);
 	jogo->window.draw(tituloDoJogo);
-	jogo->window.draw(LogoDoJogo);
 	int i;
-	for (i = 0; i < MAX_NUMBER_ITEMS; i++) {
+	for (i = 0; i < 2; i++) {
 
 		jogo->window.draw(menu[i]);
 	}
 }
 
-void MenuPause::input()
+void MenuMorte::input()
 {
 	while (jogo->window.pollEvent(event))
 	{
@@ -69,16 +69,16 @@ void MenuPause::input()
 				switch (getPressedItem())
 				{
 				case 0:
-					jogo->popState(); //arrumar pop
+					/*State * ultimoState;
+					while (!jogo->stateAtual()) {
+						ultimoState = jogo->stateAtual();
+						jogo->popState();
+					}
+					jogo->pushState(ultimoState);*/
+					jogo->popState();
+					jogo->popState();
 					break;
 				case 1:
-					//Salvar Jogo
-					break;
-				case 2:
-					jogo->popState();
-					jogo->popState();
-					break;
-				case 3:
 					jogo->window.close();
 					break;
 				}
@@ -89,72 +89,55 @@ void MenuPause::input()
 	}
 }
 
-void MenuPause::update()
+void MenuMorte::update()
 {
 	jogo->window.setView(viewMenu);
 }
 
-void MenuPause::inicializar()
+void MenuMorte::inicializar()
 {
 	viewMenu.setSize(jogo->window.getSize().x, jogo->window.getSize().y);
 	viewMenu.setCenter(jogo->window.getSize().x / 2, jogo->window.getSize().y / 2);
 	if (!font.loadFromFile("data/BlackCastleMF.ttf"))
 		printf("Fonte Não Carregou");
 
-	if (!font2.loadFromFile("data/Audiowide.ttf"))
+	if (!font2.loadFromFile("data/game_over.ttf"))
 		printf("Fonte Não Carregou");
-	//if (jogo->stateAtual()== FaseAquatica1)
-	if (!texture.loadFromFile("data/Pause.jpg"))
+
+	if (!texture.loadFromFile("data/FundoGameOver.png"))
 		printf("Erro ao carregar a textura do Menu");
 
-	if (!textura1.loadFromFile("data/LemuryaIcon.jpg"))
-		printf("Erro ao carregar a do Logo");
-
-	num_de_itens = MAX_NUMBER_ITEMS;
 	//Define a cor do texto
 	cor1.r = 6;
 	cor1.g = 59;
 	cor1.b = 255;
 
 	//Define a cor do título
-	cor2.r = 6;
-	cor2.g = 59;
-	cor2.b = 103;
+	cor2.r = 1;
+	cor2.g = 8;
+	cor2.b = 34;
 
 
 	//Opções do Menu
 	menu[0].setFont(font);
-	menu[0].setString("Resume");
+	menu[0].setString("Voltar ao Menu");
 	menu[0].setFillColor(cor1);
 	menu[0].setStyle(sf::Text::Style::Bold);
-	menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 400.0));
+	menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x -400.0, 500.0));
 
 	menu[1].setFont(font);
+	menu[1].setString("Sair");
 	menu[1].setFillColor(sf::Color::White);
-	menu[1].setString("Save Game");
-	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 460.0));
-
-	menu[2].setFont(font);
-	menu[2].setString("Main Menu");
-	menu[2].setFillColor(sf::Color::White);
-	menu[2].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 520.0));
-
-	menu[3].setFont(font);
-	menu[3].setFillColor(sf::Color::White);
-	menu[3].setString("Exit");
-	menu[3].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 580.0));
+	//menu[1].setStyle(sf::Text::Style::Bold);
+	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x -400.0, 600.0));
 
 	tituloDoJogo.setFont(font2);
-	tituloDoJogo.setString("PAUSE");
+	tituloDoJogo.setString("GAME OVER");
 	tituloDoJogo.setFillColor(cor2);
 	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
-	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 130, 250.0));
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 300, -100.0));
 
-	tituloDoJogo.setCharacterSize(80);
-
-	LogoDoJogo.setSize(sf::Vector2f(200.0f, 200.0f));
-	LogoDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 65, 50.0f));
-	LogoDoJogo.setTexture(&textura1);
+	tituloDoJogo.setCharacterSize(300);
 
 	body = new sf::RectangleShape();
 	body->setTexture(&texture);
@@ -164,8 +147,7 @@ void MenuPause::inicializar()
 
 	selectedItem = 0;
 }
-
-void MenuPause::MoveUp()
+void MenuMorte::MoveUp()
 {
 	if (selectedItem - 1 >= 0)
 	{
@@ -177,9 +159,9 @@ void MenuPause::MoveUp()
 	}
 }
 
-void MenuPause::MoveDown()
+void MenuMorte::MoveDown()
 {
-	if (selectedItem + 1 < num_de_itens)
+	if (selectedItem + 1 < 2)
 	{
 		menu[selectedItem].setFillColor(sf::Color::White);
 		menu[selectedItem].setStyle(sf::Text::Style::Regular);
@@ -190,7 +172,8 @@ void MenuPause::MoveDown()
 	}
 }
 
-int MenuPause::getPressedItem()
+
+int MenuMorte::getPressedItem()
 {
 	return selectedItem;
 }

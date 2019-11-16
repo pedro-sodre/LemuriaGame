@@ -1,10 +1,12 @@
 #include "FaseAquatica1.h"
 #include "MenuPause.h"
+#include "MenuMorte.h"
 FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo):
 Fase(tam), State()
 {
 	this->jogo = jogo;
 	texture = gerenciadorGrafico.getFase1Texture();
+
     body->setTexture(&texture);
 
     musicaFundo.openFromFile("data/MusicaFundo.wav");
@@ -47,10 +49,10 @@ void FaseAquatica1::input()
 				//Pulo do Player
 			}
 			else if (event.key.code == sf::Keyboard::Down) {
-
+				
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
-
+				
 			}
 			break;
 
@@ -71,7 +73,11 @@ void FaseAquatica1::update()
     ///BOTAR RANKING EM OUTRO LUGAR - ACHO UMA BOA IDEIA FAZER GERENCIADOR DE RANKING
 	//Coloca o Ranking
 	sf::Text Rank;      //dando mensagens de erro qunado compiila
-	Rank.setFont(gerenciadorGrafico.getFontBlackCastle());
+	sf::Font font1;     //
+	if (!font1.loadFromFile("data/BlackCastleMF.ttf")) {
+		printf("Fonte Não Carregou");
+	}
+	Rank.setFont(font1);
 
 	stringstream pRank;
 	pRank << "Pontuação: " << player1.getRanking();
@@ -92,6 +98,7 @@ void FaseAquatica1::update()
 	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
 	if (!player1.estaVivo())
 	{
+		jogo->pushState(new MenuMorte(jogo));
 		printf("VOCE MORREU\n");
 		///VOLTA PRO MENU
 	}

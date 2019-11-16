@@ -107,6 +107,8 @@ void Menu::update()
 }
 void Menu::inicializar()
 {
+	viewMenu.setSize(jogo->window.getSize().x, jogo->window.getSize().y);
+	viewMenu.setCenter(jogo->window.getSize().x / 2, jogo->window.getSize().y);
 	if (!font.loadFromFile("data/BlackCastleMF.ttf"))
 		printf("Fonte Não Carregou");
 
