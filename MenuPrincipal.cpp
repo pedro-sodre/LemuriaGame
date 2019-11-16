@@ -17,6 +17,7 @@ void MenuPrincipal::draw()
     jogo->window.draw(*body);
 	jogo->window.draw(tituloDoJogo);
 	jogo->window.draw(LogoDoJogo);
+	jogo->window.draw(entradaDeTexto);
 	int i;
 	for (i = 0; i < MAX_NUMBER_ITEMS; i++) {
 
@@ -56,13 +57,17 @@ void MenuPrincipal::input()
 				if (getPressedItem() == 0 && escolhaDeJogadores)
 				{
 				    jogo->setP2(false);
+					abrirInputNome(); //2 inputs ou 1 só
 					musicaMenu.stop();
+					inicializar();
 					carregarJogo();
 				}
 				else if (getPressedItem() == 1 && escolhaDeJogadores)
 				{
 				    jogo->setP2(true);
+					abrirInputNome();
 					musicaMenu.stop();
+					inicializar();
 					carregarJogo();
 				}
 				else if (getPressedItem() == 2 && escolhaDeJogadores)
@@ -92,7 +97,15 @@ void MenuPrincipal::input()
 
 			}
 			break;
-
+		case sf::Event::TextEntered:
+			if (event.text.unicode == '\b') {
+				nome.erase(nome.getSize() - 1, 1);
+			}
+			else if (event.text.unicode < 128) {
+				nome += event.text.unicode;
+				entradaDeTexto.setString(nome);
+			}
+			break;
 		}
 	}
 }
@@ -125,6 +138,8 @@ void MenuPrincipal::inicializar()
 	cor2.g = 59;
 	cor2.b = 103;
 
+	//Se não colocar ele aparece no fundo depois que o retorna pro Menu principal
+	entradaDeTexto.setFillColor(sf::Color::Transparent);
 
 	//Opções do Menu
 	menu[0].setFont(font);
@@ -192,6 +207,20 @@ void MenuPrincipal::abrirEscolhaDeJogadores()
 	menu[2].setString("Voltar");
 	menu[3].setString("");
 
+}
+
+void MenuPrincipal::abrirInputNome()
+{
+	tituloDoJogo.setString("Coloque o nome do jogador:");
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 160, 300.0));
+	menu[0].setString("");
+	menu[1].setString("");
+	menu[2].setString("");
+	menu[3].setString("");
+	entradaDeTexto.setFont(font);
+	entradaDeTexto.setFillColor(sf::Color::White);
+	entradaDeTexto.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 160.0, 400.0));
+	nome = "";
 }
 
 void MenuPrincipal::stopMusic()

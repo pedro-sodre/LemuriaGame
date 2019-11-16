@@ -1,23 +1,86 @@
 #include "FaseAquatica2.h"
 #include "Lemurya.h"
+#include "MenuMorte.h"
+#include "MenuPause.h"
+#include "FaseNoturna3.h"
 
 FaseAquatica2::FaseAquatica2(sf::Vector2f tam, Lemurya* jogo):
 Fase(tam, jogo)
 {
-    if(!texture.loadFromFile("data/Fase2.png"))
-        std::cout << "Erro ao carregar a textura da FaseAquatica2" << std::endl;
-
+	texture = jogo->getGerenciadorGrafico().getFase2Texture(); 
     body->setTexture(&texture);
 
     musicaFundo.openFromFile("data/MusicaFundo.wav");
     musicaFundo.setLoop(true);
 
-    this->executar();
+	inicializar();
 }
 
 FaseAquatica2::~FaseAquatica2()
 {
 
+}
+
+void FaseAquatica2::draw()
+{
+	jogo->window.draw(*body);
+	gerenciadorDePontuacao.draw();
+	Lentidades.Draw(jogo->window);
+}
+
+void FaseAquatica2::input()
+{
+	sf::Event event;
+
+	while (jogo->window.pollEvent(event))
+	{
+		switch (event.type)
+		{
+			/* Se Sair da Janela Vai pro Pause*/
+		case sf::Event::LostFocus:
+			carregarPause();
+			break;
+			/* Fecha a Janela */
+		case sf::Event::Closed:
+			jogo->window.close();
+			break;
+
+			/* Mudança entre estados do jogo */
+		case sf::Event::KeyPressed:
+			if (event.key.code == sf::Keyboard::Escape)
+				carregarPause();
+			break;
+
+
+		}
+	}
+}
+
+void FaseAquatica2::update()
+{
+	///UPDATE NA VIEW
+	view.setCenter(jogo->getPlayer1()->getPosition().x, 200.0f);
+	jogo->window.setView(view);
+	///UPDATE BACKGROUND
+	this->getBody()->setPosition(jogo->getPlayer1()->getPosition().x, 200.0f);
+
+	gerenciadorDePontuacao.executar();
+
+	///GERENCIA COLISÕES
+	gerenciadorDeColisoes.executar();
+	///EXECUTA
+	Lentidades.executar(jogo->deltaTime);
+
+	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
+	if (!jogo->getPlayer1()->estaVivo())
+	{
+		jogo->pushState(new MenuMorte(jogo));
+	}
+	if (jogo->getPlayer1()->getPosition().x > 4000.0f) {
+		carregarProxFase();
+	}
+	///GRAVA O JOGO (TIRAR DAQUI NA VERSÃO FINAL)
+	Lentidades.gravarJogo();
 }
 
 void FaseAquatica2::Draw(sf::RenderWindow& window)
@@ -27,7 +90,7 @@ void FaseAquatica2::Draw(sf::RenderWindow& window)
 
 void FaseAquatica2::executar()
 {
-
+	/*
     ///INICIALIZA JANELA
     sf::RenderWindow window(sf::VideoMode(1280.0f, 720.0f), "Lemurya");
 
@@ -91,7 +154,33 @@ void FaseAquatica2::executar()
         Lentidades.gravarJogo();
      ///gravarJogo(Lentidades);              POR ALGUM MOTIVO NÃO FUNCIONA
         window.display();
-    }
+    }*/
+}
+
+void FaseAquatica2::inicializar()
+{
+	recuperarJogo();
+	gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+	gerenciadorDePontuacao.inicializa(jogo);
+
+	view.setCenter(sf::Vector2f(0, 0));
+	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
+}
+
+void FaseAquatica2::carregarPause()
+{
+	jogo->pushState(new MenuPause(jogo));
+}
+
+void FaseAquatica2::carregarMorte()
+{
+	jogo->pushState(new MenuMorte(jogo));
+}
+
+void FaseAquatica2::carregarProxFase()
+{
+	jogo->popState();
+	jogo->pushState(new FaseNoturna3(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
 }
 
 void FaseAquatica2::gravarJogo()

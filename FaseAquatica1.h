@@ -19,6 +19,8 @@ public:
     void executar();
 
 	void carregarPause();
+	void carregarMorte();
+	void carregarProxFase();
 
     void recuperarJogo(bool player2 = false);
     void novoJogo(bool player2 = false);

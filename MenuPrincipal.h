@@ -7,6 +7,8 @@ private:
     bool escolhaDeJogadores;
 
     sf::Music musicaMenu;
+	sf::Text entradaDeTexto;
+	sf::String nome;
 
     bool newGame;
 
@@ -23,6 +25,7 @@ public:
 
     void carregarJogo();
     void abrirEscolhaDeJogadores();
+	void abrirInputNome();
 
     void stopMusic();
 };

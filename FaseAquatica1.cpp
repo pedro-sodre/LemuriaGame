@@ -1,6 +1,7 @@
 #include "FaseAquatica1.h"
 #include "MenuPause.h"
 #include "MenuMorte.h"
+#include "FaseAquatica2.h"
 
 FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2):
 Fase(tam, jogo)
@@ -38,6 +39,10 @@ void FaseAquatica1::input()
 	{
 		switch (event.type)
 		{
+			/* Se Sair da Janela Vai pro Pause*/
+		case sf::Event::LostFocus:
+			carregarPause();
+			break;
 			/* Fecha a Janela */
 		case sf::Event::Closed:
 			jogo->window.close();
@@ -47,15 +52,6 @@ void FaseAquatica1::input()
 		case sf::Event::KeyPressed:
 			if (event.key.code == sf::Keyboard::Escape)
 				carregarPause();
-			else if (event.key.code == sf::Keyboard::Up) {
-				//Pulo do Player
-			}
-			else if (event.key.code == sf::Keyboard::Down) {
-
-			}
-			else if (event.key.code == sf::Keyboard::Enter) {
-
-			}
 			break;
 
 
@@ -82,9 +78,7 @@ void FaseAquatica1::update()
 	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
 	if (!jogo->getPlayer1()->estaVivo())
 	{
-	    jogo->pushState(new MenuMorte(jogo));
-		printf("VOCE MORREU\n");
-		///VOLTA PRO MENU
+		carregarMorte();
 	}
 
 	///GRAVA O JOGO (TIRAR DAQUI NA VERSÃO FINAL)
@@ -204,6 +198,17 @@ void FaseAquatica1::executar()
 void FaseAquatica1::carregarPause()
 {
 	jogo->pushState(new MenuPause(jogo));
+}
+
+void FaseAquatica1::carregarMorte()
+{
+	jogo->pushState(new MenuMorte(jogo));
+}
+
+void FaseAquatica1::carregarProxFase()
+{
+	jogo->popState();
+	jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
 }
 
 void FaseAquatica1::gravarJogo()
