@@ -1,5 +1,6 @@
 #include "MenuPrincipal.h"
 #include "FaseAquatica1.h"
+#include "FaseAquatica2.h"
 
 MenuPrincipal::MenuPrincipal(Lemurya* jogo):
 Menu(jogo)
@@ -190,7 +191,7 @@ void MenuPrincipal::inicializar()
 void MenuPrincipal::carregarJogo()
 {
 	//Coloca a Fase na pilha
-	jogo->pushState(new FaseAquatica1(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, newGame, jogo->getP2()));
+	jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, newGame, jogo->getP2()));
 }
 void MenuPrincipal::abrirEscolhaDeJogadores()
 {

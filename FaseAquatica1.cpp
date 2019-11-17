@@ -15,6 +15,7 @@ Fase(tam, jogo)
 
     musicaFundo.openFromFile("data/MusicaFundo.wav");
     musicaFundo.setLoop(true);
+    //musicaFundo.play();
 
     if(newGame)
         inicializar(player2);
@@ -25,7 +26,7 @@ Fase(tam, jogo)
 
 FaseAquatica1::~FaseAquatica1()
 {
-
+    musicaFundo.stop();
 }
 
 void FaseAquatica1::draw()
@@ -169,9 +170,13 @@ void FaseAquatica1::gerarObstaculos()
     int nObstaculos = (rand()%4)+3;
     int obstaculosGerados = 0;
     ///ACHAR UMA FORMA DE DEIXAR A ORDEM QUE SÃO INICIALIZADOS ALEATÓRIA
-   /* std::vector<int> v;
-    int sorteio = (rand()%4)+3;
-    v.push_back(sorteio);
+/*    srand(time(NULL));
+    int nObstaculos = (rand()%4)+3;
+    int obstaculosGerados = 0;
+    int v[6];
+    int sorteio = (rand()%6)+1;
+    printf("Primeiro sorteio: %d\n",sorteio);
+    v[obstaculosGerados] = sorteio;
     while(obstaculosGerados < nObstaculos)
     {
         if(v[obstaculosGerados] == 1)
@@ -212,27 +217,27 @@ void FaseAquatica1::gerarObstaculos()
         }
 
         obstaculosGerados++;
-        printf("While\n");
 
-        sorteio = (rand()%4)+3;
-
+        sorteio = (rand()%6)+1;
+        printf("Sorteio antes: %d\n", sorteio);
         int i = 0;
-        while(i != v.size())
+        while(i < obstaculosGerados)
         {
-            if(sorteio == i)
+            if(sorteio == v[i])
             {
-                sorteio = (rand()%4)+3;
+                sorteio = (rand()%6)+1;
                 i = 0;
             }
             else
                 i++;
         }
 
-        v.push_back(sorteio);
+        printf("Sorteio depois: %d\n", sorteio);
+        v[obstaculosGerados] = sorteio;
     }
-    for(int i=0; i<v.size(); i++)
-        printf("%d  ", v[i]);
-    */
+    for(int i=0; i<6; i++)
+        printf("%d  ", v[i]);*/
+
 
     if(obstaculosGerados < nObstaculos)
     {
@@ -478,4 +483,3 @@ void FaseAquatica1::novoJogo(bool player2)
     jogo->getPlayer1()->reiniciar();
     Recuperador.close();
 }
-

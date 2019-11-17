@@ -60,6 +60,8 @@ void Lemurya::rodar()
 	while (window.isOpen())
 	{
 		deltaTime = clock.restart().asSeconds();
+        if(deltaTime > 1/20.0f)
+            deltaTime = 1/20.0f;
 
 		if (stateAtual() == nullptr)
 			continue;
