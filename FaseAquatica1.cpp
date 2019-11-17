@@ -3,11 +3,15 @@
 #include "MenuMorte.h"
 #include "FaseAquatica2.h"
 
+#include <stdlib.h>
+#include <time.h>
+
 FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2):
 Fase(tam, jogo)
 {
 	texture = jogo->getGerenciadorGrafico().getFase1Texture();
     body->setTexture(&texture);
+    spawnInimigo = 0;
 
     musicaFundo.openFromFile("data/MusicaFundo.wav");
     musicaFundo.setLoop(true);
@@ -67,18 +71,35 @@ void FaseAquatica1::update()
 	jogo->window.setView(view);
 	///UPDATE BACKGROUND
 	this->getBody()->setPosition(jogo->getPlayer1()->getPosition().x, 200.0f);
-
+    ///GERENCIA PONTUAÇÃO
     gerenciadorDePontuacao.executar();
-
 	///GERENCIA COLISÕES
     gerenciadorDeColisoes.executar();
+    ///SOMENTE TESTE, PODE SER FEITO NO PRÓPRIO EXECUTAR DO PLAYER, PORÉM, ACHO QUE DESSA FORMA FICA MAIS BONITO (QUANDO INCLUIR PLAYER2 DEVE FICAR MAIS FÁCIL FAZER PELO PLAYER)
+    ///GERENCIA VIDA
+    jogo->getPlayer1()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -300.0f));
+    jogo->getPlayer1()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer1()->getVida()*20)) - 430.0f, -300.0f));
+    jogo->getPlayer1()->getLifeIcon()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 520.0f, -330.0f));
+
+    jogo->getPlayer2()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -150.0f));
+    jogo->getPlayer2()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer2()->getVida()*20)) - 430.0f, -150.0f));
+    jogo->getPlayer2()->getLifeIcon()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 520.0f, -180.0f));
     ///EXECUTA
 	Lentidades.executar(jogo->deltaTime);
+
+    ///SPAWN DE INIMIGOS
+    spawnInimigo -= jogo->deltaTime;
+    if(spawnInimigo <= 0)
+        gerarInimigos();
 
 	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
 	if (!jogo->getPlayer1()->estaVivo())
 	{
 		carregarMorte();
+	}
+    if (jogo->getPlayer1()->getPosition().x > 6000.0f)
+    {
+		carregarProxFase();
 	}
 
 	///GRAVA O JOGO (TIRAR DAQUI NA VERSÃO FINAL)
@@ -88,6 +109,7 @@ void FaseAquatica1::update()
 void FaseAquatica1::inicializar(bool player2)
 {
 	novoJogo(player2);
+	gerarObstaculos();
     gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
     gerenciadorDePontuacao.inicializa(jogo);
 
@@ -112,88 +134,150 @@ void FaseAquatica1::Draw(sf::RenderWindow& window)
 
 void FaseAquatica1::executar()
 {
-    ///INICIALIZA JANELA
-    //sf::RenderWindow window(sf::VideoMode(1280.0f, 720.0f), "Lemurya");
 
-	///COLOCA OS ÍCONES
-	/*sf::Image icon;
-	icon.loadFromFile("data/LemuryaIcon.JPG");
-	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
-    sf::View view(sf::Vector2f(0,0), sf::Vector2f(VIEW_HEIGHT,VIEW_HEIGHT));
-	*/
-    ///CARREGA O MAPA
-    //recuperarJogo(Lentidades, Linimigos, Lobstaculos, Lplataformas, Lprojeteis, prototype, player1);
-
-    ///CRIA GERENCIADOR DE COLISÕES
-    //GerenciadorDeColisoes gerenciadorDeColisoes(&player1, &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
-
-    ///CLOCK DO JOGO
-   /* float deltaTime = 0.0f;
-    sf::Clock clock;*/
-
-    ///JANELA JOGO
-    /*while (window.isOpen())
-    {
-        deltaTime = clock.restart().asSeconds();
-        if(deltaTime > 1.0f / 20.0f)
-            deltaTime = 1.0f / 20.0f;
-
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            switch(event.type)
-            {
-                case sf::Event::Closed:
-                    window.close();
-                    break;
-            }
-        }*/
-
-        ///SETA AS COISAS DA JANELA
-        /*view.setCenter(player1.getPosition().x, 200.0f);
-        window.clear();       //LIMPA BUFFER
-        window.setView(view);
-        this->getBody()->setPosition(player1.getPosition().x, 200.0f );
-        this->Draw(window);
-		*/
-        ///INICIALIZA RANKING
-        /*sf::Text Rank;      //dando mensagens de erro qunado compiila
-        sf::Font font1;     //
-        if (!font1.loadFromFile("data/BlackCastleMF.ttf")) {
-            printf("Fonte Não Carregou");
-        }
-        Rank.setFont(font1);
-
-        stringstream pRank;
-        pRank << "Pontuação: " << player1.ranking;
-        string p1Rank = pRank.str();
-
-        Rank.setString(p1Rank);
-        Rank.setPosition(sf::Vector2f(player1.getPosition().x+300.0f, -300.0f));
-        Rank.setCharacterSize(40);
-        window.draw(Rank);
-		*/
-        ///GERENCIA COLISÕES
-        //gerenciadorDeColisoes.executar();
-
-        ///EXECUTA E DESENHA
-        //Lentidades.executar(deltaTime);
-        //Lentidades.Draw(window);
-
-        ///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
-        /*if(!player1.estaVivo())
-        {
-            break;
-            printf("VOCE MORREU\n");
-            ///VOLTA PRO MENU
-        }*/
-
-        ///SALVA O JOGO
-        //Lentidades.gravarJogo();
-     ///gravarJogo(Lentidades);              POR ALGUM MOTIVO NÃO FUNCIONA
-        //window.display();
-    //}
 }
+
+void FaseAquatica1::gerarInimigos()
+{
+    spawnInimigo = 1.5;
+    srand(time(NULL));
+    int nada = rand(); ///PARA O RAND DAR CERTO (?????)
+    int coord = (rand()%300)+100;
+    int chance = (rand()%100)+1;
+
+    if((chance >= 50 && chance <= 65 ) || (chance >= 80 && chance <= 90))
+        coord *= -1;
+
+    if(chance >= 50 && chance <= 80)
+    {
+        Inimigo* inimigo = static_cast<Inimigo*> (prototype.MakeEsqueleto(jogo->getPlayer1()->getPosition().x+coord, std::max(coord, 0)));
+        Linimigos.incluir(inimigo);
+        Lentidades.incluir(static_cast<Entidade*> (inimigo));
+    }
+    else if(chance > 80)
+    {
+        Inimigo* inimigo = prototype.MakeTritao(jogo->getPlayer1()->getPosition().x+coord, 0);
+        Linimigos.incluir(inimigo);
+        Lentidades.incluir(static_cast<Entidade*> (inimigo));
+    }
+
+}
+
+void FaseAquatica1::gerarObstaculos()
+{
+    srand(time(NULL));
+    int nObstaculos = (rand()%4)+3;
+    int obstaculosGerados = 0;
+    ///ACHAR UMA FORMA DE DEIXAR A ORDEM QUE SÃO INICIALIZADOS ALEATÓRIA
+   /* std::vector<int> v;
+    int sorteio = (rand()%4)+3;
+    v.push_back(sorteio);
+    while(obstaculosGerados < nObstaculos)
+    {
+        if(v[obstaculosGerados] == 1)
+        {
+            Obstaculo* ob1 = static_cast<Obstaculo*> (prototype.MakeCaixa(1175, 0));
+            Lobstaculos.incluir(ob1);
+            Lentidades.incluir(static_cast<Entidade*> (ob1));
+        }
+        else if(v[obstaculosGerados] == 2)
+        {
+            Obstaculo* ob2 = static_cast<Obstaculo*> (prototype.MakeCaixa(5300, 0));
+            Lobstaculos.incluir(ob2);
+            Lentidades.incluir(static_cast<Entidade*> (ob2));
+        }
+        else if(v[obstaculosGerados] == 3)
+        {
+            Obstaculo* ob3 = static_cast<Obstaculo*> (prototype.MakeCaixa(1925, 0));
+            Lobstaculos.incluir(ob3);
+            Lentidades.incluir(static_cast<Entidade*> (ob3));
+        }
+        else if(v[obstaculosGerados] == 4)
+        {
+            Obstaculo* ob4 = static_cast<Obstaculo*> (prototype.MakeCaixa(3525, 0));
+            Lobstaculos.incluir(ob4);
+            Lentidades.incluir(static_cast<Entidade*> (ob4));
+        }
+        else if(v[obstaculosGerados] == 5)
+        {
+            Obstaculo* ob5 = static_cast<Obstaculo*> (prototype.MakeCaixa(4425, 0));
+            Lobstaculos.incluir(ob5);
+            Lentidades.incluir(static_cast<Entidade*> (ob5));
+        }
+        else
+        {
+            Obstaculo* ob6 = static_cast<Obstaculo*> (prototype.MakeCaixa(5625, 0));
+            Lobstaculos.incluir(ob6);
+            Lentidades.incluir(static_cast<Entidade*> (ob6));
+        }
+
+        obstaculosGerados++;
+        printf("While\n");
+
+        sorteio = (rand()%4)+3;
+
+        int i = 0;
+        while(i != v.size())
+        {
+            if(sorteio == i)
+            {
+                sorteio = (rand()%4)+3;
+                i = 0;
+            }
+            else
+                i++;
+        }
+
+        v.push_back(sorteio);
+    }
+    for(int i=0; i<v.size(); i++)
+        printf("%d  ", v[i]);
+    */
+
+    if(obstaculosGerados < nObstaculos)
+    {
+        Obstaculo* ob1 = static_cast<Obstaculo*> (prototype.MakeCaixa(1175, 0));
+        Lobstaculos.incluir(ob1);
+        Lentidades.incluir(static_cast<Entidade*> (ob1));
+        obstaculosGerados++;
+    }
+    if(obstaculosGerados < nObstaculos)
+    {
+        Obstaculo* ob2 = static_cast<Obstaculo*> (prototype.MakeCaixa(5300, 0));
+        Lobstaculos.incluir(ob2);
+        Lentidades.incluir(static_cast<Entidade*> (ob2));
+        obstaculosGerados++;
+    }
+    if(obstaculosGerados < nObstaculos)
+    {
+        Obstaculo* ob3 = static_cast<Obstaculo*> (prototype.MakeCaixa(1925, 0));
+        Lobstaculos.incluir(ob3);
+        Lentidades.incluir(static_cast<Entidade*> (ob3));
+        obstaculosGerados++;
+    }
+    if(obstaculosGerados < nObstaculos)
+    {
+        Obstaculo* ob4 = static_cast<Obstaculo*> (prototype.MakeCaixa(3525, 0));
+        Lobstaculos.incluir(ob4);
+        Lentidades.incluir(static_cast<Entidade*> (ob4));
+        obstaculosGerados++;
+    }
+    if(obstaculosGerados < nObstaculos)
+    {
+        Obstaculo* ob5 = static_cast<Obstaculo*> (prototype.MakeCaixa(4425, 0));
+        Lobstaculos.incluir(ob5);
+        Lentidades.incluir(static_cast<Entidade*> (ob5));
+        obstaculosGerados++;
+    }
+    if(obstaculosGerados < nObstaculos)
+    {
+        Obstaculo* ob6 = static_cast<Obstaculo*> (prototype.MakeCaixa(5625, 0));
+        Lobstaculos.incluir(ob6);
+        Lentidades.incluir(static_cast<Entidade*> (ob6));
+        obstaculosGerados++;
+    }
+}
+
 
 void FaseAquatica1::carregarPause()
 {
@@ -208,7 +292,7 @@ void FaseAquatica1::carregarMorte()
 void FaseAquatica1::carregarProxFase()
 {
 	jogo->popState();
-	jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
+	jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, true, jogo->getP2()));
 }
 
 void FaseAquatica1::gravarJogo()

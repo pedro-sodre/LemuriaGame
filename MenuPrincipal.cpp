@@ -175,10 +175,10 @@ void MenuPrincipal::inicializar()
 	LogoDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 65, 50.0f));
 	LogoDoJogo.setTexture(&textura1);
 
-	musicaMenu.openFromFile("data/MusicaMenu.wav");
+	/**musicaMenu.openFromFile("data/MusicaMenu.wav");
 	musicaMenu.setLoop(true);
 	musicaMenu.play();
-
+**/
 	body = new sf::RectangleShape();
 	body->setTexture(&texture);
 	body->setSize(sf::Vector2f(jogo->window.getSize().x, jogo->window.getSize().y));

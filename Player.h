@@ -39,12 +39,19 @@ public:
     int getRanking() const;
     void setRanking(const int r);
 
+    sf::RectangleShape* getDamage();
+    sf::RectangleShape* getLife();
+    sf::RectangleShape* getLifeIcon();
 
 private:
     sf::RectangleShape* atackBody;
     sf::RectangleShape* animationBody;
     bool atacking;
     int nImagem;
+
+    sf::RectangleShape* lifeIcon;
+    sf::RectangleShape* life;
+    sf::RectangleShape* damage;
 
     int ranking;
     bool player2;

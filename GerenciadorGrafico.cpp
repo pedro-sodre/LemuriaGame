@@ -78,6 +78,10 @@ void GerenciadorGrafico::inicializar()
     texturePlayer1.push_back(p1Morrendo);
     vecPlayer1.push_back(sf::Vector2u(4,1));
 
+    sf::Texture iconeVida;
+    if (!iconeVida.loadFromFile("data/LemuryaIcon.png"))
+		std::cout << "Erro ao carregar a textura da Logo" << std::endl;
+    texturePlayer1.push_back(iconeVida);
 
 
     ///ESQUELETO

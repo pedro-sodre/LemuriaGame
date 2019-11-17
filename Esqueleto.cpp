@@ -54,18 +54,18 @@ void Esqueleto::executar(float deltaTime)
             row = 1;
             body->setTexture(&vecTexture[row]);
             faceRight = true;
-            velocity.x += speed;
+            if((fase->getPlayer1()->getPosition().x - body->getPosition().x) < 1000)
+                velocity.x += speed;
         }
         else if(fase->getPlayer1()->getPosition().x < body->getPosition().x)
         {
             row = 1;
             body->setTexture(&vecTexture[row]);
             faceRight = false;
-            velocity.x -= speed;
+            if((body->getPosition().x - fase->getPlayer1()->getPosition().x) < 1000)
+                velocity.x -= speed;
         }
-/*        if(abs(player1->getPosition().x - body->getPosition().x) < body->getSize().x && abs(player1->getPosition().y - body->getPosition().y) < body->getSize().y)
-            row = 2;
- */
+
         velocity.y += 981.0f * deltaTime;                    //GRAVIDADE
 
         animacao[row]->Update(deltaTime, faceRight);

@@ -48,18 +48,9 @@ void GerenciadorDeColisoes::inicializa(Player* p1, Player* p2, ListaPlataformas*
 
 void GerenciadorDeColisoes::executar()
 {
-    int i, j;/*
-    ///GERECIAR COLISÕES DOS OBSTACULOS/INIMIGOS COM AS PAREDES
+    int i, j;
 
-    //COLISÃO COM AS PAREDES
-    if(player1->getBody()->getPosition().x < player1->getBody()->getSize().x/2)
-        player1->getBody()->setPosition(player1->getBody()->getSize().x/2, player1->getBody()->getPosition().y);
-    if(player1->getBody()->getPosition().x > 6100 - player1->getBody()->getSize().x/2)
-        player1->getBody()->setPosition(6100 - player1->getBody()->getSize().x/2, player1->getBody()->getPosition().y);
-    //COLISÃO COM O TETO
-    if(player1->getBody()->getPosition().y < -250)
-        player1->getBody()->setPosition(player1->getBody()->getPosition().x, -250);
-*/
+
 ///PLAYER2
  //   if(player2->getCollider().CheckCollision(player1->getCollider(), direction, 0.5f))
    //     player1->onCollision(direction);
@@ -116,13 +107,12 @@ void GerenciadorDeColisoes::executar()
                 Linimigos->retirar(i);
                 //Lentidades->retirar();
                 player1->setRanking(player1->getRanking() + 10);
-                printf("Ranking: %d \n", player1->getRanking());
             }
             else
             {
                 player1->knockback(direction);
                 player1->setVida(player1->getVida()-1);
-                printf("VIDA: %d\n", player1->getVida());
+                player1->getDamage()->setSize(sf::Vector2f(200 - std::max(0, (player1->getVida()*20)), 50));
 
             }
         }
@@ -137,14 +127,12 @@ void GerenciadorDeColisoes::executar()
                 Linimigos->retirar(i);
                 //Lentidades->retirar();
                 player2->setRanking(player2->getRanking() + 10);
-                printf("Ranking: %d \n", player2->getRanking());
             }
             else
             {
                 player2->knockback(direction);
                 player2->setVida(player2->getVida()-1);
-                printf("VIDA: %d\n", player2->getVida());
-
+                player2->getDamage()->setSize(sf::Vector2f(200 - std::max(0, (player2->getVida()*20)), 50));
             }
         }
 
@@ -155,7 +143,7 @@ void GerenciadorDeColisoes::executar()
             Lprojeteis->getLTProjeteis()[i]->setVida(0);
             player1->knockback(direction);
             player1->setVida(player1->getVida()-1);
-            printf("VIDA: %d\n", player1->getVida());
+            player1->getDamage()->setSize(sf::Vector2f(200 - std::max(0, (player1->getVida()*20)), 50));
             Lprojeteis->retirar(i);
 
             //Lentidades->retirar();
@@ -168,7 +156,7 @@ void GerenciadorDeColisoes::executar()
             Lprojeteis->getLTProjeteis()[i]->setVida(0);
             player2->knockback(direction);
             player2->setVida(player2->getVida()-1);
-            printf("VIDA: %d\n", player2->getVida());
+            player2->getDamage()->setSize(sf::Vector2f(200 - std::max(0, (player2->getVida()*20)), 50));
             Lprojeteis->retirar(i);
 
             //Lentidades->retirar();

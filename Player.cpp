@@ -13,6 +13,8 @@ Personagem()
 
 void Player::reiniciar()
 {
+    damage->setSize(sf::Vector2f(0,50.0f));
+    damage->setPosition(200, -300);
     vida = 10;
     ranking = 0;
 }
@@ -42,7 +44,7 @@ void Player::inicializa(const float speed, const float jumpHeight, vector<sf::Te
     body->setOrigin(body->getSize() / 2.0f);
     body->setPosition(50.0f, 500.0f);
     if(player2)
-        body->setFillColor(sf::Color::Blue);
+        body->setFillColor(sf::Color(6,59,255));
     else
         body->setFillColor(sf::Color::White);
 
@@ -59,6 +61,21 @@ void Player::inicializa(const float speed, const float jumpHeight, vector<sf::Te
     animationBody->setOrigin(atackBody->getSize() / 2.0f);
     animationBody->setPosition(50.0f, 500.0f);
     animationBody->setFillColor(sf::Color::Transparent);
+
+    life     = new sf::RectangleShape();
+    damage   = new sf::RectangleShape();
+    life->setFillColor(sf::Color::Green);
+    damage->setFillColor(sf::Color::Red);
+    life->setSize(sf::Vector2f(200.0f, 50.0f));
+    damage->setSize(sf::Vector2f(0.0f, 50.0f));
+    life->setPosition(100, -300);
+    damage->setPosition(200, -300);
+
+    lifeIcon = new sf::RectangleShape();
+    lifeIcon->setSize(sf::Vector2f(75.0, 110.0));
+    lifeIcon->setFillColor(sf::Color::White);
+    lifeIcon->setPosition(30, -300);
+    lifeIcon->setTexture(&vecTexture[5]);           ///SE FOR PLAYER2 BOTAR A TEXTURA NO GERENCIADOR DE TEXTURAS E USAR vecTexture[6]
 
     setTexture(vecTexture[0]);
 
@@ -264,7 +281,7 @@ void Player::Update(float deltaTime)
 
             }
 
-                body->setFillColor(sf::Color::Blue);
+                body->setFillColor(sf::Color(6,59,255));
                 animationBody->setFillColor(sf::Color::Transparent);
                 animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
                 body->setTextureRect(animacao[row]->uvRect);
@@ -280,7 +297,7 @@ void Player::Update(float deltaTime)
                     body->setPosition(x+70, y);
 
                 body->setFillColor(sf::Color::Transparent);
-                animationBody->setFillColor(sf::Color::Blue);
+                animationBody->setFillColor(sf::Color(6,59,255));
                 animationBody->setTextureRect(animacao[row]->uvRect);
                 animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
 
@@ -305,6 +322,9 @@ void Player::Update(float deltaTime)
                 animationBody->setPosition(x-80,y);
             }
     }
+ //   life->setPosition(sf::Vector2f(x - 500.0f, -300.0f));
+ //  damage->setPosition(sf::Vector2f(x + 20*vida - 500.0f, -300.0f));
+
 }
 
 void Player::executar(float deltaTime)
@@ -356,6 +376,9 @@ void Player::Draw(sf::RenderWindow& window)
     window.draw(*atackBody);
     window.draw(*body);
     window.draw(*animationBody);
+    window.draw(*life);
+    window.draw(*damage);
+    window.draw(*lifeIcon);
 }
 
 Collider Player::getCollider() const
@@ -381,3 +404,17 @@ void Player::setRanking(const int r)
     ranking = r;
 }
 
+sf::RectangleShape* Player::getDamage()
+{
+    return damage;
+}
+
+sf::RectangleShape* Player::getLife()
+{
+    return life;
+}
+
+sf::RectangleShape* Player::getLifeIcon()
+{
+    return lifeIcon;
+}

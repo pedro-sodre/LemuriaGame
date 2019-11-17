@@ -4,16 +4,19 @@
 #include "MenuPause.h"
 #include "FaseNoturna3.h"
 
-FaseAquatica2::FaseAquatica2(sf::Vector2f tam, Lemurya* jogo):
+FaseAquatica2::FaseAquatica2(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2):
 Fase(tam, jogo)
 {
-	texture = jogo->getGerenciadorGrafico().getFase2Texture(); 
+	texture = jogo->getGerenciadorGrafico().getFase2Texture();
     body->setTexture(&texture);
 
     musicaFundo.openFromFile("data/MusicaFundo.wav");
     musicaFundo.setLoop(true);
 
-	inicializar();
+    if(newGame)
+        inicializar(player2);
+    else
+        carregar(player2);
 }
 
 FaseAquatica2::~FaseAquatica2()
@@ -76,11 +79,32 @@ void FaseAquatica2::update()
 	{
 		jogo->pushState(new MenuMorte(jogo));
 	}
-	if (jogo->getPlayer1()->getPosition().x > 4000.0f) {
+	if (jogo->getPlayer1()->getPosition().x > 4000.0f)
+    {
 		carregarProxFase();
 	}
 	///GRAVA O JOGO (TIRAR DAQUI NA VERSÃO FINAL)
 	Lentidades.gravarJogo();
+}
+
+void FaseAquatica2::inicializar(bool player2)
+{
+	novoJogo(player2);
+    gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+    gerenciadorDePontuacao.inicializa(jogo);
+
+	view.setCenter(sf::Vector2f(0, 0));
+	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
+}
+
+void FaseAquatica2::carregar(bool player2)
+{
+	recuperarJogo(player2);
+    gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+    gerenciadorDePontuacao.inicializa(jogo);
+
+	view.setCenter(sf::Vector2f(0, 0));
+	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 }
 
 void FaseAquatica2::Draw(sf::RenderWindow& window)
@@ -157,16 +181,6 @@ void FaseAquatica2::executar()
     }*/
 }
 
-void FaseAquatica2::inicializar()
-{
-	recuperarJogo();
-	gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
-	gerenciadorDePontuacao.inicializa(jogo);
-
-	view.setCenter(sf::Vector2f(0, 0));
-	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
-}
-
 void FaseAquatica2::carregarPause()
 {
 	jogo->pushState(new MenuPause(jogo));
@@ -180,7 +194,7 @@ void FaseAquatica2::carregarMorte()
 void FaseAquatica2::carregarProxFase()
 {
 	jogo->popState();
-	jogo->pushState(new FaseNoturna3(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
+	//jogo->pushState(new FaseNoturna3(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
 }
 
 void FaseAquatica2::gravarJogo()
@@ -279,10 +293,8 @@ void FaseAquatica2::recuperarJogo(bool player2)
     if(player2)
     {
         Lentidades.incluir(static_cast<Entidade*> (jogo->getPlayer2()));///PLAYER2
-        jogo->getPlayer2()->reiniciar();
     }
 
-    jogo->getPlayer1()->reiniciar();
     Recuperador.close();
 }
 
@@ -360,10 +372,8 @@ void FaseAquatica2::novoJogo(bool player2)
     if(player2)
     {
         Lentidades.incluir(static_cast<Entidade*> (jogo->getPlayer2()));///PLAYER2
-        jogo->getPlayer2()->reiniciar();
     }
 
-    jogo->getPlayer1()->reiniciar();
     Recuperador.close();
 }
 

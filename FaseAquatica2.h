@@ -6,16 +6,17 @@ class FaseAquatica2: public Fase
 private:
 	sf::View view;
 public:
-    FaseAquatica2(sf::Vector2f tam, Lemurya* jogo);
+    FaseAquatica2(sf::Vector2f tam, Lemurya* jogo, bool newGame = true, bool player2 = false);
     ~FaseAquatica2();
-
-    void Draw(sf::RenderWindow& window);
-    void executar();
 
 	void draw();
 	void input();
 	void update();
-	void inicializar();
+	void inicializar(bool player2 = false);
+	void carregar(bool player2 = false);
+
+    void Draw(sf::RenderWindow& window);
+    void executar();
 
 	void carregarPause();
 	void carregarMorte();

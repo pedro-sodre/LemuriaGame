@@ -82,7 +82,7 @@ void FaseNoturna3::update()
 void FaseNoturna3::inicializar()
 {
 	recuperarJogo();
-	gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+//	gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
 	gerenciadorDePontuacao.inicializa(jogo);
 
 	view.setCenter(sf::Vector2f(0, 0));

@@ -48,12 +48,14 @@ void Tritao::executar(float deltaTime)
             if(fase->getPlayer1()->getPosition().x > body->getPosition().x)
         {
             faceRight = true;
-            velocity.x += speed;
+            if((fase->getPlayer1()->getPosition().x - body->getPosition().x) < 1000)
+                velocity.x += speed;
         }
         else
         {
             faceRight = false;
-            velocity.x -= speed;
+            if((body->getPosition().x - fase->getPlayer1()->getPosition().x) < 1000)
+                velocity.x -= speed;
         }
 
         velocity.y += 981.0f * deltaTime;                    //GRAVIDADE
