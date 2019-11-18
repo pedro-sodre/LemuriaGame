@@ -7,7 +7,7 @@ private:
 	sf::View view;
 	float spawnInimigo;
 public:
-    FaseAquatica2(sf::Vector2f tam, Lemurya* jogo, bool newGame = true, bool player2 = false);
+    FaseAquatica2(sf::Vector2f tam, Lemurya* jogo, bool newGame = true, bool player2 = false, int pont = 0);
     ~FaseAquatica2();
 
 	void draw();

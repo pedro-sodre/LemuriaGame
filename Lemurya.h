@@ -15,7 +15,10 @@ private:
     sf::Clock clock;
 
     GerenciadorGrafico gerenciadorGrafico;
-    //GerenciadorDePontuacao gerenciadorDePontuacao;
+
+    bool salvarFase1;
+    bool salvarFase2;
+    bool salvarFase3;
 
     bool p2;    ///PARA USAR NO MENU
 
@@ -37,8 +40,15 @@ public:
 
     void encerrar();
 
+    bool getSalvarFase1() const;
+    bool getSalvarFase2() const;
+    bool getSalvarFase3() const;
+    void setSalvarFase1(const bool b);
+    void setSalvarFase2(const bool b);
+    void setSalvarFase3(const bool b);
+
     bool getP2() const;
-    bool setP2(const bool bp);
+    void setP2(const bool bp);
     Player* getPlayer1();
     Player* getPlayer2();       ///PLAYER2
     GerenciadorGrafico getGerenciadorGrafico() const;

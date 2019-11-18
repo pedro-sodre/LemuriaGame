@@ -76,6 +76,7 @@ public:
     void spawnarEsqueleto(int x, int y);
     int getNInimigos();
 
+    ListaEntidades* getLentidades();
 
     virtual void executar(float deltaTime);
     virtual void executar();

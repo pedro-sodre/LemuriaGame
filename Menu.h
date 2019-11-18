@@ -41,6 +41,6 @@ public:
 	///void inicializar();
 
 	void MoveUp();
-	virtual void MoveDown();
+	void MoveDown();
 	int getPressedItem();
 };

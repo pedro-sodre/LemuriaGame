@@ -3,7 +3,7 @@
 #include "MenuMorte.h"
 #include "MenuPause.h"
 
-FaseNoturna3::FaseNoturna3(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2) :
+FaseNoturna3::FaseNoturna3(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2, int pont):
 Fase(tam, jogo)
 {
 	texture = jogo->getGerenciadorGrafico().getFase3Texture();
@@ -14,10 +14,14 @@ Fase(tam, jogo)
     musicaFundo.setLoop(true);
     //musicaFundo.play();
 
+    jogo->setSalvarFase3(false);
+
     if(newGame)
         inicializar(player2);
     else
         carregar(player2);
+
+    jogo->getPlayer1()->setRanking(pont);
 }
 
 FaseNoturna3::~FaseNoturna3()
@@ -100,8 +104,12 @@ void FaseNoturna3::update()
 		carregarProxFase();
 	}
 
-	///GRAVA O JOGO (TIRAR DAQUI NA VERSÃO FINAL)
-	Lentidades.gravarJogo();
+    if(jogo->getSalvarFase3())
+    {
+        jogo->setSalvarFase3(false);
+        Lentidades.gravarJogo3();
+    }
+
 }
 
 void FaseNoturna3::inicializar(bool player2)
@@ -180,6 +188,7 @@ void FaseNoturna3::carregarMorte()
 void FaseNoturna3::carregarProxFase()
 {
 	jogo->popState();
+	///SALVAR PONTUAÇÃO NO ARQUIVO gerenciadorDePontuacao.getPontuacao()
 	///MENU DE FIM DE JOGO
 }
 

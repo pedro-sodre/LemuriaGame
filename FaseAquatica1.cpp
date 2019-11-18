@@ -17,6 +17,8 @@ Fase(tam, jogo)
     musicaFundo.setLoop(true);
     //musicaFundo.play();
 
+    jogo->setSalvarFase1(false);
+
     if(newGame)
         inicializar(player2);
     else
@@ -103,8 +105,11 @@ void FaseAquatica1::update()
 		carregarProxFase();
 	}
 
-	///GRAVA O JOGO (TIRAR DAQUI NA VERSÃO FINAL)
-	Lentidades.gravarJogo();
+    if(jogo->getSalvarFase1())
+    {
+        jogo->setSalvarFase1(false);
+        Lentidades.gravarJogo1();
+    }
 }
 
 void FaseAquatica1::inicializar(bool player2)
@@ -297,7 +302,7 @@ void FaseAquatica1::carregarMorte()
 void FaseAquatica1::carregarProxFase()
 {
 	jogo->popState();
-	jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, true, jogo->getP2()));
+	jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, true, jogo->getP2(), gerenciadorDePontuacao.getPontuacao()));
 }
 
 void FaseAquatica1::gravarJogo()

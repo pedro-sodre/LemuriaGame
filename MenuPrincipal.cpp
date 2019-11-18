@@ -1,6 +1,7 @@
 #include "MenuPrincipal.h"
 #include "FaseAquatica1.h"
 #include "FaseAquatica2.h"
+#include "FaseNoturna3.h"
 
 MenuPrincipal::MenuPrincipal(Lemurya* jogo):
 Menu(jogo)
@@ -55,23 +56,46 @@ void MenuPrincipal::input()
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
 				//Verifica se o submenu está ativo
-				if (getPressedItem() == 0 && escolhaDeJogadores)
+				//Fase 1
+				if (getPressedItem() == 0 && escolhaDeFases && !escolhaDeJogadores)
+				{
+					musicaMenu.stop();
+					inicializar();
+					fase = 1;
+					carregarJogo();
+				}
+				//Fase 2
+				else if (getPressedItem() == 1 && escolhaDeFases  && !escolhaDeJogadores)
+				{
+					musicaMenu.stop();
+					inicializar();
+					fase = 2;
+					carregarJogo();
+				}
+				//Fase 3
+				else if (getPressedItem() == 2 && escolhaDeFases && !escolhaDeJogadores)
+				{
+					musicaMenu.stop();
+					inicializar();
+					fase = 3;
+					carregarJogo();
+				}
+				//Voltar
+				else if (getPressedItem() == 3 && escolhaDeFases && !escolhaDeJogadores)
+				{
+					this->inicializar();
+				}
+				if (getPressedItem() == 0 && escolhaDeJogadores && !escolhaDeFases )
 				{
 				    jogo->setP2(false);
-					abrirInputNome(); //2 inputs ou 1 só
-					musicaMenu.stop();
-					inicializar();
-					carregarJogo();
+					abrirEscolhaDeFases();
 				}
-				else if (getPressedItem() == 1 && escolhaDeJogadores)
+				else if (getPressedItem() == 1 && escolhaDeJogadores && !escolhaDeFases)
 				{
 				    jogo->setP2(true);
-					abrirInputNome();
-					musicaMenu.stop();
-					inicializar();
-					carregarJogo();
+					abrirEscolhaDeFases();
 				}
-				else if (getPressedItem() == 2 && escolhaDeJogadores)
+				else if (getPressedItem() == 2 && escolhaDeJogadores && !escolhaDeFases)
 				{
 					this->inicializar();
 				}
@@ -84,9 +108,8 @@ void MenuPrincipal::input()
 				else if (getPressedItem() == 1)
 				{
 				    newGame = false;
-                    musicaMenu.stop();
-					carregarJogo();
-				}
+                    abrirEscolhaDeFases();
+                }
 				else if (getPressedItem() == 2)
 				{
 					//abre o ranking
@@ -96,15 +119,6 @@ void MenuPrincipal::input()
 					jogo->window.close();
 				}
 
-			}
-			break;
-		case sf::Event::TextEntered:
-			if (event.text.unicode == '\b') {
-				nome.erase(nome.getSize() - 1, 1);
-			}
-			else if (event.text.unicode < 128) {
-				nome += event.text.unicode;
-				entradaDeTexto.setString(nome);
 			}
 			break;
 		}
@@ -127,6 +141,7 @@ void MenuPrincipal::inicializar()
     textura1 = jogo->getGerenciadorGrafico().getLogoTexture();
 
 	escolhaDeJogadores = false;
+    escolhaDeFases = false;
 
 	num_de_itens = MAX_NUMBER_ITEMS;
 	//Define a cor do texto
@@ -191,10 +206,23 @@ void MenuPrincipal::inicializar()
 void MenuPrincipal::carregarJogo()
 {
 	//Coloca a Fase na pilha
-	jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, newGame, jogo->getP2()));
+	switch(fase)
+	{
+	    case 1:
+            jogo->pushState(new FaseAquatica1(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, newGame, jogo->getP2()));
+            break;
+	    case 2:
+            jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, newGame, jogo->getP2()));
+            break;
+	    case 3:
+            jogo->pushState(new FaseNoturna3(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, newGame, jogo->getP2()));
+            break;
+
+	}
 }
 void MenuPrincipal::abrirEscolhaDeJogadores()
 {
+    escolhaDeFases = false;
 	escolhaDeJogadores = true;
 	num_de_itens = 3;
 	tituloDoJogo.setFont(font);
@@ -210,19 +238,27 @@ void MenuPrincipal::abrirEscolhaDeJogadores()
 
 }
 
-void MenuPrincipal::abrirInputNome()
+void MenuPrincipal::abrirEscolhaDeFases()
 {
-	tituloDoJogo.setString("Coloque o nome do jogador:");
-	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 160, 300.0));
-	menu[0].setString("");
-	menu[1].setString("");
-	menu[2].setString("");
-	menu[3].setString("");
-	entradaDeTexto.setFont(font);
-	entradaDeTexto.setFillColor(sf::Color::White);
-	entradaDeTexto.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 160.0, 400.0));
-	nome = "";
+    escolhaDeJogadores = false;
+    escolhaDeFases = true;
+    num_de_itens = 4;
+
+    tituloDoJogo.setFont(font);
+	tituloDoJogo.setString("Selecionar a fase");
+	tituloDoJogo.setCharacterSize(40);
+	tituloDoJogo.setFillColor(sf::Color::White);
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 100, 300.0));
+    menu[0].setString("Fase 1");
+    menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 400.0));
+	menu[1].setString("Fase 2");
+	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 460.0));
+	menu[2].setString("Fase 3");
+	menu[2].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 520.0));
+	menu[3].setString("Voltar");
+	menu[3].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 580.0));
 }
+
 
 void MenuPrincipal::stopMusic()
 {

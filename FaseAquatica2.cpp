@@ -4,7 +4,7 @@
 #include "MenuPause.h"
 #include "FaseNoturna3.h"
 
-FaseAquatica2::FaseAquatica2(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2):
+FaseAquatica2::FaseAquatica2(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2, int pont):
 Fase(tam, jogo)
 {
 	texture = jogo->getGerenciadorGrafico().getFase2Texture();
@@ -15,10 +15,14 @@ Fase(tam, jogo)
     musicaFundo.setLoop(true);
     //musicaFundo.play();
 
+    jogo->setSalvarFase2(false);
+
     if(newGame)
         inicializar(player2);
     else
         carregar(player2);
+
+    jogo->getPlayer1()->setRanking(pont);
 }
 
 FaseAquatica2::~FaseAquatica2()
@@ -99,8 +103,11 @@ void FaseAquatica2::update()
 		carregarProxFase();
 	}
 
-	///GRAVA O JOGO (TIRAR DAQUI NA VERSÃO FINAL)
-	Lentidades.gravarJogo();
+    if(jogo->getSalvarFase2())
+    {
+        jogo->setSalvarFase2(false);
+        Lentidades.gravarJogo2();
+    }
 }
 
 void FaseAquatica2::inicializar(bool player2)
@@ -306,7 +313,7 @@ void FaseAquatica2::carregarMorte()
 void FaseAquatica2::carregarProxFase()
 {
 	jogo->popState();
-	jogo->pushState(new FaseNoturna3(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo));
+	jogo->pushState(new FaseNoturna3(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, true, jogo->getP2(), gerenciadorDePontuacao.getPontuacao()));
 }
 
 void FaseAquatica2::gravarJogo()

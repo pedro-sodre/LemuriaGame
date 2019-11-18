@@ -94,3 +94,7 @@ int Fase::getNInimigos()
     return Linimigos.getTamanho();
 }
 
+ListaEntidades* Fase::getLentidades()
+{
+    return &(Lentidades);
+}

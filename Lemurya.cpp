@@ -7,6 +7,9 @@ Lemurya::Lemurya()
 	this->inicializar();
 	this->inicializarStates();
 	deltaTime = 0;
+	salvarFase1 = 0;
+	salvarFase2 = 0;
+	salvarFase3 = 0;
 }
 Lemurya::~Lemurya()
 {
@@ -112,7 +115,37 @@ bool Lemurya::getP2() const
     return p2;
 }
 
-bool Lemurya::setP2(const bool bp)
+void Lemurya::setP2(const bool bp)
 {
     p2 = bp;
+}
+
+bool Lemurya::getSalvarFase1() const
+{
+    return salvarFase1;
+}
+
+bool Lemurya::getSalvarFase2() const
+{
+    return salvarFase2;
+}
+
+bool Lemurya::getSalvarFase3() const
+{
+    return salvarFase3;
+}
+
+void Lemurya::setSalvarFase1(const bool b)
+{
+    salvarFase1 = b;
+}
+
+void Lemurya::setSalvarFase2(const bool b)
+{
+    salvarFase2 = b;
+}
+
+void Lemurya::setSalvarFase3(const bool b)
+{
+    salvarFase3 = b;
 }

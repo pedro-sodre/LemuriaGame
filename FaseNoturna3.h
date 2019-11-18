@@ -7,7 +7,7 @@ private:
 	sf::View view;
 	float spawnInimigo;
 public:
-	FaseNoturna3(sf::Vector2f tam, Lemurya* jogo, bool newGame = true, bool player2 = false);
+	FaseNoturna3(sf::Vector2f tam, Lemurya* jogo, bool newGame = true, bool player2 = false, int pont = 0);
 	~FaseNoturna3();
 
 	void draw();

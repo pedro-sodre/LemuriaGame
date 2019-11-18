@@ -103,6 +103,7 @@ void GerenciadorDeColisoes::executar()
         {
             if(player1->isAtacking())
             {
+                //if(Linimigos->getLTInimigos()[i]->getID == 7)
                 Linimigos->getLTInimigos()[i]->setVida(0);
                 Linimigos->retirar(i);
                 //Lentidades->retirar();

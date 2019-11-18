@@ -18,7 +18,9 @@ public:
     void executar(float deltaTime);
     void Draw(sf::RenderWindow& window);
 
-    void gravarJogo();
+    void gravarJogo1();
+    void gravarJogo2();
+    void gravarJogo3();
 
     void limpaLista();
     void incluir(Entidade* pe);

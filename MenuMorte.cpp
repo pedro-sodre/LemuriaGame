@@ -16,6 +16,8 @@ void MenuMorte::draw()
 {
 	jogo->window.draw(*body);
 	jogo->window.draw(tituloDoJogo);
+	jogo->window.draw(titulo);
+	jogo->window.draw(entradaDeTexto);
 	int i;
 	for (i = 0; i < 2; i++) {
 
@@ -38,22 +40,18 @@ void MenuMorte::input()
 				jogo->window.close();
 			else if (event.key.code == sf::Keyboard::Up) {
 				this->MoveUp();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::Down) {
 				this->MoveDown();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
-			else if (event.key.code == sf::Keyboard::W) {
+			else if (event.key.code == sf::Keyboard::W && menuAtivado) {
 				this->MoveUp();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
-			else if (event.key.code == sf::Keyboard::S) {
+			else if (event.key.code == sf::Keyboard::S && menuAtivado) {
 				this->MoveDown();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
-				switch (getPressedItem())
+				/*switch (getPressedItem())
 				{
 				case 0:
 					/*State * ultimoState;
@@ -61,17 +59,48 @@ void MenuMorte::input()
 						ultimoState = jogo->stateAtual();
 						jogo->popState();
 					}
-					jogo->pushState(ultimoState);*/
+					jogo->pushState(ultimoState); //
 					jogo->popState();
 					jogo->popState();
 					break;
 				case 1:
 					jogo->window.close();
 					break;
+				}*/
+				if (getPressedItem()==0 && menuAtivado){
+                    /*State * ultimoState;
+					while (!jogo->stateAtual()) {
+						ultimoState = jogo->stateAtual();
+						jogo->popState();
+					}
+					jogo->pushState(ultimoState); */
+					jogo->popState();
+					jogo->popState();
+					break;
 				}
+				else if (getPressedItem()==1 && menuAtivado){
+                    jogo->window.close();
+					break;
+				}
+				else {
+                    gravarRanking();
+                    menuAtivado = true;
+                    break;
+				}
+
 			}
 			break;
-
+        case sf::Event::TextEntered:
+            if(!menuAtivado){
+                if (event.text.unicode == '\b') {
+                    nome.erase(nome.getSize() - 1, 1);
+                }
+                else if (event.text.unicode < 128) {
+                    nome += event.text.unicode;
+                    entradaDeTexto.setString(nome);
+                }
+                break;
+            }
 		}
 	}
 }
@@ -100,7 +129,9 @@ void MenuMorte::inicializar()
 	cor2.g = 8;
 	cor2.b = 34;
 
+    menuAtivado = false;
 
+    num_de_itens = 2;
 	//Opções do Menu
 	menu[0].setFont(font);
 	menu[0].setString("Voltar ao Menu");
@@ -111,8 +142,17 @@ void MenuMorte::inicializar()
 	menu[1].setFont(font);
 	menu[1].setString("Sair");
 	menu[1].setFillColor(sf::Color::White);
-	//menu[1].setStyle(sf::Text::Style::Bold);
 	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x -400.0, 600.0));
+
+	entradaDeTexto.setFont(font);
+	entradaDeTexto.setFillColor(sf::Color::White);
+	entradaDeTexto.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 300.0, 400.0));
+
+	titulo.setFont(font);
+	titulo.setString("Coloque o nome do jogador");
+	titulo.setFillColor(sf::Color::White);
+	titulo.setCharacterSize(40);
+	titulo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 300, 300.0));
 
 	tituloDoJogo.setFont(font2);
 	tituloDoJogo.setString("GAME OVER");
@@ -131,15 +171,13 @@ void MenuMorte::inicializar()
 	selectedItem = 0;
 }
 
-void MenuMorte::MoveDown()
+void MenuMorte::gravarRanking()
 {
-	if (selectedItem + 1 < 2)
-	{
-		menu[selectedItem].setFillColor(sf::Color::White);
-		menu[selectedItem].setStyle(sf::Text::Style::Regular);
-		selectedItem++;
+    FILE* Gravador = fopen("data/Ranking.txt", "a+");
 
-		menu[selectedItem].setStyle(sf::Text::Style::Bold);
-		menu[selectedItem].setFillColor(cor1);
-	}
+    nomestr = nome.substring(0, 128);
+    fseek(Gravador, 0, SEEK_END);
+    if(nomestr.empty())
+        nomestr = "JogadorSemNome";
+    fprintf(Gravador, "\n%s %d", nomestr.c_str(), (jogo->getPlayer1()->getRanking() + jogo->getPlayer2()->getRanking()));
 }

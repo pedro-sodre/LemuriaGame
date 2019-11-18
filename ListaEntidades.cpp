@@ -54,7 +54,7 @@ void ListaEntidades::retirar()
             pElPost = pElAux->getProximo();
             printf("2\n");
             pElAnt->setProximo(pElPost);
-            printf("3\n");
+            printf("3 %p\n", pElAnt);
             pElPost->setAnterior(pElAnt); //NÃO FUNCIONA NEM SETANDO COMO NULL
             printf("4\n");
 
@@ -110,7 +110,7 @@ Entidade* ListaEntidades::reiniciar()
     return LTEntidades.getpPrimeiro()->getInfo();
 }
 
-void ListaEntidades::gravarJogo()
+void ListaEntidades::gravarJogo1()
 {
     ofstream Gravador("data/Fase1Gravando.txt", ios::out);
 
@@ -140,3 +140,62 @@ void ListaEntidades::gravarJogo()
     Gravador.close();
 }
 
+void ListaEntidades::gravarJogo2()
+{
+    ofstream Gravador("data/Fase2Gravando.txt", ios::out);
+
+    if ( !Gravador )
+    {
+        cerr << "Arquivo não pode ser aberto" << endl;
+        fflush ( stdin );
+        getchar ( );
+        return;
+    }
+
+    Elemento<Entidade>* pElAux = NULL;
+    Entidade* pEntAux = NULL;
+    pElAux = LTEntidades.getpPrimeiro();
+
+    while (NULL != pElAux)
+    {
+        pEntAux = pElAux->getInfo();
+
+        Gravador    << pEntAux->getID() << " "
+                    << pEntAux->getX() << " "
+                    << pEntAux->getY() << endl;
+
+        pElAux = pElAux->getProximo();
+    }
+
+    Gravador.close();
+}
+
+void ListaEntidades::gravarJogo3()
+{
+    ofstream Gravador("data/Fase3Gravando.txt", ios::out);
+
+    if ( !Gravador )
+    {
+        cerr << "Arquivo não pode ser aberto" << endl;
+        fflush ( stdin );
+        getchar ( );
+        return;
+    }
+
+    Elemento<Entidade>* pElAux = NULL;
+    Entidade* pEntAux = NULL;
+    pElAux = LTEntidades.getpPrimeiro();
+
+    while (NULL != pElAux)
+    {
+        pEntAux = pElAux->getInfo();
+
+        Gravador    << pEntAux->getID() << " "
+                    << pEntAux->getX() << " "
+                    << pEntAux->getY() << endl;
+
+        pElAux = pElAux->getProximo();
+    }
+
+    Gravador.close();
+}

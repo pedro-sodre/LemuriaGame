@@ -5,6 +5,8 @@ class MenuPrincipal: public Menu
 {
 private:
     bool escolhaDeJogadores;
+    bool escolhaDeFases;
+    int fase;
 
     sf::Music musicaMenu;
 	sf::Text entradaDeTexto;
@@ -26,6 +28,7 @@ public:
     void carregarJogo();
     void abrirEscolhaDeJogadores();
 	void abrirInputNome();
+	void abrirEscolhaDeFases();
 
     void stopMusic();
 };

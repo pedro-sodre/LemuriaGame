@@ -40,30 +40,27 @@ void MenuPause::input()
 				jogo->window.close();
 			else if (event.key.code == sf::Keyboard::Up) {
 				this->MoveUp();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::Down) {
 				this->MoveDown();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::W) {
 				this->MoveUp();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::S) {
 				this->MoveDown();
-				printf("Item Selecionado: %d \n", getPressedItem());
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
 				switch (getPressedItem())
 				{
 				case 0:
-					printf("Deu Resume");
 					jogo->popState();
-					printf("Passou do pop");
 					break;
 				case 1:
-					//Salvar Jogo
+					jogo->popState();
+					jogo->setSalvarFase1(true);
+					jogo->setSalvarFase2(true);
+					jogo->setSalvarFase3(true);
 					break;
 				case 2:
 					voltarAoMenu();
