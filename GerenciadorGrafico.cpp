@@ -15,156 +15,172 @@ void GerenciadorGrafico::inicializar()
     ///Necessita de janela pra textura carregar
 
 
-    ///FONTES
-    if(!fontBlackCastle.loadFromFile("data/BlackCastleMF.ttf"))
-        std::cout << "Erro ao carregar a fonte BlackCastleMF" << std::endl;
-	if (!fontAudiowide.loadFromFile("data/Audiowide.ttf"))
-        std::cout << "Erro ao carregar a fonte Audiowide" << std::endl;
-    if (!fontGameOver.loadFromFile("data/game_over.ttf"))
-        std::cout << "Erro ao carregar a fonte GameOver" << std::endl;
+    ///REPTILIANO REI
+    sf::Texture p1Parado;
+    sf::Texture p1Andando;
+    sf::Texture p1Pulando;
+    sf::Texture p1Atacando;
+    sf::Texture p1Morrendo;
+    sf::Texture iconeVida;
+    ///ESQUELETO
+    sf::Texture esqueletoParado;
+    sf::Texture esqueletoAndando;
+    sf::Texture esqueletoAtacando;
+    ///TRITÃO
+    sf::Texture tritaoParado;
+    ///MAGO
+    sf::Texture magoParado;
+    sf::Texture magoAndando;
+    sf::Texture magoAtacando;
+    sf::Texture magoSpawnando;
 
+    try
+    {
+        ///FONTES
+        if(!fontBlackCastle.loadFromFile("data/BlackCastleMF.ttf"))
+            throw 1;
+        if (!fontAudiowide.loadFromFile("data/Audiowide.ttf"))
+            throw 1;
+        if (!fontGameOver.loadFromFile("data/game_over.ttf"))
+            throw 1;
 
-    ///TEXTURAS MENUS
-	if (!menuPrincipalTexture.loadFromFile("data/Menu.jpg"))
-        std::cout << "Erro ao carregar a textura do Menu Principal" << std::endl;
-	if (!menuPauseTexture.loadFromFile("data/Pause.jpg"))
-        std::cout << "Erro ao carregar a textura do Menu de Pause" << std::endl;
-	if (!menuMorteTexture.loadFromFile("data/FundoGameOver.png"))
-        std::cout << "Erro ao carregar a textura do Menu de Morte" << std::endl;
-	if (!logoTexture.loadFromFile("data/LemuryaIcon.jpg"))
-		std::cout << "Erro ao carregar a textura da Logo" << std::endl;
+        ///TEXTURAS MENU
+    	if (!menuPrincipalTexture.loadFromFile("data/Menu.jpg"))
+            throw 2;
+        if (!menuPauseTexture.loadFromFile("data/Pause.jpg"))
+            throw 2;
+        if (!menuMorteTexture.loadFromFile("data/FundoGameOver.png"))
+            throw 2;
+        if (!logoTexture.loadFromFile("data/LemuryaIcon.jpg"))
+            throw 2;
 
+        ///TEXTURAS DAS FASES
+        if(!fase1Texture.loadFromFile("data/Fase1.png"))
+            throw 3;
+        if(!fase2Texture.loadFromFile("data/Fase2.png"))
+            throw 3;
+        if(!fase3Texture.loadFromFile("data/Fase3.png"))
+            throw 3;
 
-    ///TEXTURAS DAS FASES
-    if(!fase1Texture.loadFromFile("data/Fase1.png"))
-        std::cout << "Erro ao carregar a textura da FaseAquatica1" << std::endl;
+        ///TEXTURAS PLAYER
+        if(!p1Parado.loadFromFile("data/Parado.png"))
+            throw 4;
+        if(!p1Andando.loadFromFile("data/Andando.png"))
+            throw 4;
+        if(!p1Pulando.loadFromFile("data/Pulando.png"))
+            throw 4;
+        if(!p1Atacando.loadFromFile("data/Atacando.png"))
+            throw 4;
+        if(!p1Morrendo.loadFromFile("data/Morrendo.png"))
+            throw 4;
+        if(!iconeVida.loadFromFile("data/LemuryaIcon.png"))
+            throw 4;
 
-    if(!fase2Texture.loadFromFile("data/Fase2.png"))
-        std::cout << "Erro ao carregar a textura da FaseAquatica2" << std::endl;
+        ///ESQUELETO
+        if(!esqueletoParado.loadFromFile("data/EsqueletoParado.png"))
+            throw 5;
+        if(!esqueletoAndando.loadFromFile("data/EsqueletoAndando.png"))
+            throw 5;
+        if(!esqueletoAtacando.loadFromFile("data/EsqueletoAtacando1.png"))
+            throw 5;
 
-    if(!fase3Texture.loadFromFile("data/Fase3.png"))
-        std::cout << "Erro ao carregar a textura da FaseNoturna3" << std::endl;
+        ///TRITÃO
+        if(!tritaoParado.loadFromFile("data/TritaoTeste.png"))
+            throw 6;
 
+        ///MAGO
+        if(!magoParado.loadFromFile("data/MagoTeste.png"))
+            throw 7;
+        if(!magoAndando.loadFromFile("data/magoAndando.png"))
+            throw 7;
+        if(!magoAtacando.loadFromFile("data/magoAtacando.png"))
+            throw 7;
+        if(!magoSpawnando.loadFromFile("data/magoSpawnando.png"))
+            throw 7;
+        if(!fireballTexture.loadFromFile("data/BolaDeFogo.png"))
+            throw 7;
+
+        ///OBSTÁCULOS
+        if(!boxTexture.loadFromFile("data/Caixa.png"))
+            throw 8;
+        if(!stoneTexture1.loadFromFile("data/Pedra1.png"))
+            throw 8;
+        if(!stoneTexture2.loadFromFile("data/Pedra2.png"))
+            throw 8;
+        if(!platTexture.loadFromFile("data/BGplat.png"))
+            throw 8;
+        if(!chaoTexture.loadFromFile("data/Chao.png"))
+            throw 8;
+
+    }
+    catch(int i)
+    {
+        if(i == 1)
+            std::cout << "Erro ao carregar Fontes" << std::endl;
+        if(i == 2)
+            std::cout << "Erro ao carregar as texturas do Menu" << std::endl;
+        if(i == 3)
+            std::cout << "Erro ao carregar a texturas das Fases" << std::endl;
+        if(i == 4)
+            std::cout << "Erro ao carregar a textura do jogador" << std::endl;
+        if(i == 5)
+            std::cout << "Erro ao carregar a textura do esqueleto" << std::endl;
+        if(i == 6)
+            std::cout << "Erro ao carregar a textura do tritao" << std::endl;
+        if(i == 7)
+            std::cout << "Erro ao carregar a textura do mago" << std::endl;
+        if(i == 8)
+            std::cout << "Erro ao carregar as texturas dos obstaculos" << std::endl;
+
+        exit(1);
+    }
 
 
     ///REPTILIANO REI
-    sf::Texture p1Parado;
-    if(!p1Parado.loadFromFile("data/Parado.png"))
-        std::cout << "Erro ao carregar a textura do jogador" << std::endl;
     texturePlayer1.push_back(p1Parado);
     vecPlayer1.push_back(sf::Vector2u(2,1));
 
-    sf::Texture p1Andando;
-    if(!p1Andando.loadFromFile("data/Andando.png"))
-        std::cout << "Erro ao carregar a textura do jogador" << std::endl;
     texturePlayer1.push_back(p1Andando);
     vecPlayer1.push_back(sf::Vector2u(6,1));
 
-    sf::Texture p1Pulando;
-    if(!p1Pulando.loadFromFile("data/Pulando.png"))
-        std::cout << "Erro ao carregar a textura do jogador" << std::endl;
     texturePlayer1.push_back(p1Pulando);
     vecPlayer1.push_back(sf::Vector2u(5,1));
 
-    sf::Texture p1Atacando;
-    if(!p1Atacando.loadFromFile("data/Atacando.png"))
-        std::cout << "Erro ao carregar a textura do jogador" << std::endl;
     texturePlayer1.push_back(p1Atacando);
     vecPlayer1.push_back(sf::Vector2u(4,1));
 
-    sf::Texture p1Morrendo;
-    if(!p1Morrendo.loadFromFile("data/Morrendo.png"))
-        std::cout << "Erro ao carregar a textura do jogador" << std::endl;
     texturePlayer1.push_back(p1Morrendo);
     vecPlayer1.push_back(sf::Vector2u(4,1));
 
-    sf::Texture iconeVida;
-    if (!iconeVida.loadFromFile("data/LemuryaIcon.png"))
-		std::cout << "Erro ao carregar a textura da Logo" << std::endl;
     texturePlayer1.push_back(iconeVida);
 
-
     ///ESQUELETO
-
-
-
-    sf::Texture esqueletoParado;
-    esqueletoParado.loadFromFile("data/EsqueletoParado.png");
     textureEsqueleto.push_back(esqueletoParado);
     vecEsqueleto.push_back(sf::Vector2u(2,1));
 
-    sf::Texture esqueletoAndando;
-    esqueletoAndando.loadFromFile("data/EsqueletoAndando.png");
     textureEsqueleto.push_back(esqueletoAndando);
     vecEsqueleto.push_back(sf::Vector2u(6,1));
 
-    sf::Texture esqueletoAtacando;
-    esqueletoAtacando.loadFromFile("data/EsqueletoAtacando1.png");
     textureEsqueleto.push_back(esqueletoAtacando);
     vecEsqueleto.push_back(sf::Vector2u(5,1));
 
-
-
     ///TRITÃO
-
-
-
-    sf::Texture tritaoParado;
-    tritaoParado.loadFromFile("data/TritaoTeste.png");
     textureTritao.push_back(tritaoParado);
     vecTritao.push_back(sf::Vector2u(1,1));
 
-
-
     ///MAGO
-
-
-
-    sf::Texture magoParado;
-    magoParado.loadFromFile("data/MagoTeste.png");
     textureMago.push_back(magoParado);
     vecMago.push_back(sf::Vector2u(1,1));
 
-    sf::Texture magoAndando;
-    magoAndando.loadFromFile("data/magoAndando.png");
     textureMago.push_back(magoAndando);
     vecMago.push_back(sf::Vector2u(4,1));
 
-    sf::Texture magoAtacando;
-    magoAtacando.loadFromFile("data/magoAtacando.png");
     textureMago.push_back(magoAtacando);
     vecMago.push_back(sf::Vector2u(3,1));
 
-    sf::Texture magoSpawnando;
-    magoSpawnando.loadFromFile("data/magoSpawnando.png");
     textureMago.push_back(magoSpawnando);
     vecMago.push_back(sf::Vector2u(7,1));
 
-
-    ///BOLA DE FOGO
-    if(!fireballTexture.loadFromFile("data/BolaDeFogo.png"))
-        std::cout << "Erro ao carregar a textura da bola de fogo" << std::endl;
-
-
-
-    ///OBSTÁCULOS
-
-
-
-    if(!boxTexture.loadFromFile("data/Caixa.png"))
-        std::cout << "Erro ao carregar a textura da caixa" << std::endl;
-
-    if(!stoneTexture1.loadFromFile("data/Pedra1.png"))
-        std::cout << "Erro ao carregar a textura da pedra" << std::endl;
-
-    if(!stoneTexture2.loadFromFile("data/Pedra2.png"))
-        std::cout << "Erro ao carregar a textura da pedra" << std::endl;
-
-    if(!platTexture.loadFromFile("data/BGplat.png"))
-        std::cout << "Erro ao carregar a textura da plataforma" << std::endl;
-
-    if(!chaoTexture.loadFromFile("data/Chao.png"))
-        std::cout << "Erro ao carregar a textura do chao" << std::endl;
 }
 
 vector<sf::Texture> GerenciadorGrafico::getTexturePlayer1() const
