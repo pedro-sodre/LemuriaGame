@@ -226,15 +226,19 @@ void MenuPrincipal::abrirEscolhaDeJogadores()
 	escolhaDeJogadores = true;
 	num_de_itens = 3;
 	tituloDoJogo.setFont(font);
-	tituloDoJogo.setString("Selecionar número de jogadores");
+	tituloDoJogo.setString("Select number of players:");
 	tituloDoJogo.setCharacterSize(40);
-	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 200, 300.0));
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 150, 300.0));
 	tituloDoJogo.setFillColor(sf::Color::White);
 
-	menu[0].setString("1 Jogador");
-	menu[1].setString("2 Jogadores");
-	menu[2].setString("Voltar");
+	menu[0].setString("Solo");
+	menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 , 400.0));
+	menu[1].setString("Coop");
+	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 , 460.0));
+	menu[2].setString("Back");
+	menu[2].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 , 520.0));
 	menu[3].setString("");
+	menu[3].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 , 580.0));
 
 }
 
@@ -245,17 +249,17 @@ void MenuPrincipal::abrirEscolhaDeFases()
     num_de_itens = 4;
 
     tituloDoJogo.setFont(font);
-	tituloDoJogo.setString("Selecionar a fase");
+	tituloDoJogo.setString("Select level");
 	tituloDoJogo.setCharacterSize(40);
 	tituloDoJogo.setFillColor(sf::Color::White);
-	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 100, 300.0));
-    menu[0].setString("Fase 1");
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 50.0, 300.0));
+    menu[0].setString("Level 1");
     menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 400.0));
-	menu[1].setString("Fase 2");
+	menu[1].setString("Level 2");
 	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 460.0));
-	menu[2].setString("Fase 3");
+	menu[2].setString("Level 3");
 	menu[2].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 520.0));
-	menu[3].setString("Voltar");
+	menu[3].setString("Back");
 	menu[3].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 580.0));
 }
 

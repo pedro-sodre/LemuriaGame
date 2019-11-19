@@ -111,6 +111,8 @@ void GerenciadorGrafico::inicializar()
             throw 8;
         if(!chaoTexture.loadFromFile("data/Chao.png"))
             throw 8;
+        if(!logTexture.loadFromFile("data/Tronco.png"))
+            throw 8;
 
     }
     catch(int i)
@@ -301,4 +303,9 @@ sf::Texture GerenciadorGrafico::getMenuPrincipalTexture() const
 sf::Texture GerenciadorGrafico::getLogoTexture() const
 {
     return logoTexture;
+}
+
+sf::Texture GerenciadorGrafico::getLogTexture() const
+{
+    return logTexture;
 }

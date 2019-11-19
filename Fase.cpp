@@ -20,7 +20,8 @@ State()
                                       new Platform(sf::Vector2f(250.0f, 40.0f), sf::Vector2f(600.0f, 400.0f), jogo->getGerenciadorGrafico().getPlatTexture(), 2),
                                       new Platform(sf::Vector2f(500.0f, 100.0f), sf::Vector2f(250.0f, 695.0f), jogo->getGerenciadorGrafico().getChaoTexture()),
                                       new Tritao(jogo->getGerenciadorGrafico().getTextureTritao(), jogo->getGerenciadorGrafico().getVecTritao(), sf::Vector2f(900.0f, 600.0f), static_cast<Fase*> (this)),
-                                      new BolaDeFogo(jogo->getGerenciadorGrafico().getFireballTexture(), sf::Vector2f(1000.0f,1000.0f), jogo->getPlayer1()->getBody()));
+                                      new BolaDeFogo(jogo->getGerenciadorGrafico().getFireballTexture(), sf::Vector2f(1000.0f,1000.0f), jogo->getPlayer1()->getBody()),
+                                      new Tronco(sf::Vector2f(150.0f, 90.0f), sf::Vector2f(3200.0f, 600.0f), jogo->getGerenciadorGrafico().getLogTexture(), 0.99));
 
 }
 

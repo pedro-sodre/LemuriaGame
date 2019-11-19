@@ -147,7 +147,7 @@ void GerenciadorDeColisoes::executar()
             player1->getDamage()->setSize(sf::Vector2f(200 - std::max(0, (player1->getVida()*20)), 50));
             Lprojeteis->retirar(i);
 
-            //Lentidades->retirar();
+            Lentidades->retirar();
         }
 ///PLAYER2
     ///COLISÕES COM PROJETEIS

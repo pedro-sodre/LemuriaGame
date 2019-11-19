@@ -16,9 +16,6 @@ class State
 		virtual void draw() = 0;
 		virtual void update() = 0;
 		virtual void input() = 0;
-
-		virtual void gravarJogo();
-		virtual ListaEntidades* getLentidades();
 };
 
 

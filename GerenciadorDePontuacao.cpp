@@ -37,11 +37,11 @@ void GerenciadorDePontuacao::executar()
 {
     std::stringstream pRank;
     pontuacao = jogo->getPlayer1()->getRanking() + jogo->getPlayer2()->getRanking();
-    pRank << "Pontuação: " << pontuacao;
+    pRank << "Score: " << pontuacao;
     playerRank = pRank.str();
     Rank.setString(playerRank);
 
-    Rank.setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + 300.0f, -300.0f));
+    Rank.setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + 370.0f, -300.0f));
 }
 
 void GerenciadorDePontuacao::setPontuacao(const int pont)

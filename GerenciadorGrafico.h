@@ -28,6 +28,7 @@ private:
     sf::Texture platTexture;
     sf::Texture chaoTexture;
     sf::Texture fireballTexture;         //POR ENQUANTO SEM ANIMAÇÃO
+    sf::Texture logTexture;
 
     sf::Texture fase1Texture;
     sf::Texture fase2Texture;
@@ -65,6 +66,7 @@ public:
     sf::Texture getPlatTexture() const;
     sf::Texture getChaoTexture() const;
     sf::Texture getFireballTexture() const;
+    sf::Texture getLogTexture() const;
 
     sf::Texture getFase1Texture() const;
     sf::Texture getFase2Texture() const;

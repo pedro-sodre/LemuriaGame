@@ -48,14 +48,13 @@ void ListaEntidades::retirar()
 
         if(!pEntAux->getVida())
         {
-
             pElAnt = pElAux->getAnterior();
             printf("1\n");
             pElPost = pElAux->getProximo();
             printf("2\n");
             pElAnt->setProximo(pElPost);
             printf("3 %p\n", pElAnt);
-            pElPost->setAnterior(pElAnt); //NÃO FUNCIONA NEM SETANDO COMO NULL
+            pElPost->setAnterior(pElAnt);
             printf("4\n");
 
             pEntAux->destruir();

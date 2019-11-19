@@ -6,6 +6,7 @@
 #include "Platform.h"
 #include "Caixa.h"
 #include "Pedra.h"
+#include "Tronco.h"
 
 class LemuryaPrototypeFactory
 {
@@ -18,12 +19,13 @@ private:
     Caixa* caixa1;
     Pedra* pedra1;
     Pedra* pedra2;
+    Tronco* tronco;
     BolaDeFogo* bolaDeFogo;
 public:
-    LemuryaPrototypeFactory(Caixa* c1, Pedra* p1, Pedra* p2, Esqueleto* e1, Mago* m1, Platform* pf1, Platform* pf2, Tritao* t1, BolaDeFogo* bf1);
+    LemuryaPrototypeFactory(Caixa* c1, Pedra* p1, Pedra* p2, Esqueleto* e1, Mago* m1, Platform* pf1, Platform* pf2, Tritao* t1, BolaDeFogo* bf1, Tronco* tc1);
     LemuryaPrototypeFactory();
     ~LemuryaPrototypeFactory();
-    void inicializa(Caixa* c1, Pedra* p1, Pedra* p2, Esqueleto* e1, Mago* m1, Platform* pf1, Platform* pf2, Tritao* t1, BolaDeFogo* bf1);
+    void inicializa(Caixa* c1, Pedra* p1, Pedra* p2, Esqueleto* e1, Mago* m1, Platform* pf1, Platform* pf2, Tritao* t1, BolaDeFogo* bf1, Tronco* tc1);
 
     Caixa* MakeCaixa(float x, float y) const;
     Esqueleto* MakeEsqueleto(float x, float y) const;
@@ -34,7 +36,6 @@ public:
     Pedra* MakePedra(float x, float y) const;
     Pedra* MakePedra2(float x, float y) const;
     BolaDeFogo* MakeBolaDeFogo(float x, float y) const;
-
-
+    Tronco* MakeTronco(float x, float y) const;
 };
 

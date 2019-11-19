@@ -11,24 +11,26 @@ LemuryaPrototypeFactory::LemuryaPrototypeFactory()
     pedra1      = NULL;
     pedra2      = NULL;
     bolaDeFogo  = NULL;
+    tronco      = NULL;
 }
 
-LemuryaPrototypeFactory::LemuryaPrototypeFactory(Caixa* c1, Pedra* p1, Pedra* p2, Esqueleto* e1, Mago* m1, Platform* pf1, Platform* pf2, Tritao* t1, BolaDeFogo* bf1)
+LemuryaPrototypeFactory::LemuryaPrototypeFactory(Caixa* c1, Pedra* p1, Pedra* p2, Esqueleto* e1, Mago* m1, Platform* pf1, Platform* pf2, Tritao* t1, BolaDeFogo* bf1, Tronco* tc1)
 {
-    inicializa(c1, p1, p2, e1, m1, pf1, pf2,t1, bf1);
+    inicializa(c1, p1, p2, e1, m1, pf1, pf2,t1, bf1, tc1);
 }
 
-void LemuryaPrototypeFactory::inicializa(Caixa* c1, Pedra* p1, Pedra* p2, Esqueleto* e1, Mago* m1, Platform* pf1, Platform* pf2, Tritao* t1, BolaDeFogo* bf1)
+void LemuryaPrototypeFactory::inicializa(Caixa* c1, Pedra* p1, Pedra* p2, Esqueleto* e1, Mago* m1, Platform* pf1, Platform* pf2, Tritao* t1, BolaDeFogo* bf1, Tronco* tc1)
 {
-    caixa1 = c1;
-    pedra1 = p1;
-    pedra2 = p2;
-    esqueleto = e1;
-    mago = m1;
-    plataforma = pf1;
-    chao = pf2;
-    tritao = t1;
-    bolaDeFogo = bf1;
+    caixa1      = c1;
+    pedra1      = p1;
+    pedra2      = p2;
+    esqueleto   = e1;
+    mago        = m1;
+    plataforma  = pf1;
+    chao        = pf2;
+    tritao      = t1;
+    bolaDeFogo  = bf1;
+    tronco      = tc1;
 }
 
 LemuryaPrototypeFactory::~LemuryaPrototypeFactory()
@@ -42,6 +44,7 @@ LemuryaPrototypeFactory::~LemuryaPrototypeFactory()
     pedra1      = NULL;
     pedra2      = NULL;
     bolaDeFogo  = NULL;
+    tronco      = NULL;
 }
 
 Caixa* LemuryaPrototypeFactory::MakeCaixa(float x, float y) const
@@ -89,3 +92,7 @@ BolaDeFogo* LemuryaPrototypeFactory::MakeBolaDeFogo(float x, float y) const
     return bolaDeFogo->clone(x,y);
 }
 
+Tronco* LemuryaPrototypeFactory::MakeTronco(float x, float y) const
+{
+    return tronco->clone(x,y);
+}

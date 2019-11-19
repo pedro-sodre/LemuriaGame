@@ -94,10 +94,13 @@ void FaseAquatica2::update()
         gerarInimigos();
 
 	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
-	if (!jogo->getPlayer1()->estaVivo())
-	{
+	if(!jogo->getPlayer1()->estaVivo())
 		carregarMorte();
-	}
+
+    if(jogo->getP2())
+        if(!jogo->getPlayer2()->estaVivo())
+            carregarMorte();
+
     if (jogo->getPlayer1()->getPosition().x > 6000.0f)
     {
 		carregarProxFase();
@@ -382,15 +385,18 @@ void FaseAquatica2::recuperarJogo(bool player2)
             case 8:
                 Linimigos.incluir(static_cast<Inimigo*> (prototype.MakeTritao(x,y)));
                 break;
+            case 9:
+                Lobstaculos.incluir(static_cast<Obstaculo*> (prototype.MakeTronco(x,y)));
+                break;
+            case 10:
+                Lprojeteis.incluir(prototype.MakeBolaDeFogo(x,y));
+                break;
             case 101:
                 jogo->getPlayer1()->getBody()->setPosition(x,y);
                 break;
             case 102:
                 if(player2)
                     jogo->getPlayer2()->getBody()->setPosition(x,y);///PLAYER2
-                break;
-            case 10:
-                Lprojeteis.incluir(prototype.MakeBolaDeFogo(x,y));
                 break;
         }
     }
@@ -461,15 +467,18 @@ void FaseAquatica2::novoJogo(bool player2)
             case 8:
                 Linimigos.incluir(static_cast<Inimigo*> (prototype.MakeTritao(x,y)));
                 break;
+            case 9:
+                Lobstaculos.incluir(static_cast<Obstaculo*> (prototype.MakeTronco(x,y)));
+                break;
+            case 10:
+                Lprojeteis.incluir(prototype.MakeBolaDeFogo(x,y));
+                break;
             case 101:
                 jogo->getPlayer1()->getBody()->setPosition(x,y);
                 break;
             case 102:
                 if(player2)
                     jogo->getPlayer2()->getBody()->setPosition(x,y);///PLAYER2
-                break;
-            case 10:
-                Lprojeteis.incluir(prototype.MakeBolaDeFogo(x,y));
                 break;
         }
     }

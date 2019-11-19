@@ -134,13 +134,13 @@ void MenuMorte::inicializar()
     num_de_itens = 2;
 	//Opções do Menu
 	menu[0].setFont(font);
-	menu[0].setString("Voltar ao Menu");
+	menu[0].setString("Back to Menu");
 	menu[0].setFillColor(cor1);
 	menu[0].setStyle(sf::Text::Style::Bold);
 	menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x -400.0, 500.0));
 
 	menu[1].setFont(font);
-	menu[1].setString("Sair");
+	menu[1].setString("Exit");
 	menu[1].setFillColor(sf::Color::White);
 	menu[1].setPosition(sf::Vector2f(jogo->window.getSize().x -400.0, 600.0));
 
@@ -149,7 +149,7 @@ void MenuMorte::inicializar()
 	entradaDeTexto.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 300.0, 400.0));
 
 	titulo.setFont(font);
-	titulo.setString("Coloque o nome do jogador");
+	titulo.setString("Player Name");
 	titulo.setFillColor(sf::Color::White);
 	titulo.setCharacterSize(40);
 	titulo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 300, 300.0));

@@ -10,14 +10,3 @@ State::State()
 State::~State()
 {
 }
-
-
-void State::gravarJogo()
-{
-
-}
-
-ListaEntidades* State::getLentidades()
-{
-
-}
