@@ -81,13 +81,13 @@ void Fase::lancarBolaDeFogo(int x, int y)
 
 void Fase::spawnarEsqueleto(int x, int y)
 {
-    Esqueleto* esq1 = prototype.MakeEsqueleto(x+250,y);
-    Esqueleto* esq2 = prototype.MakeEsqueleto(x-250,y);
+    Inimigo* inimigo1 = prototype.MakeEsqueleto(x-250,y);
+    Inimigo* inimigo2 = prototype.MakeEsqueleto(x+250,y);
 
-    Linimigos.incluir(static_cast<Inimigo*>(esq1));
-    Linimigos.incluir(static_cast<Inimigo*>(esq2));
-    Lentidades.incluir(static_cast<Entidade*> (esq1));
-    Lentidades.incluir(static_cast<Entidade*> (esq2));
+    Linimigos.incluir(static_cast<Inimigo*>(inimigo1));
+    Linimigos.incluir(static_cast<Inimigo*>(inimigo2));
+    Lentidades.incluir(static_cast<Entidade*>(inimigo1));
+    Lentidades.incluir(static_cast<Entidade*>(inimigo2));
 }
 
 int Fase::getNInimigos()

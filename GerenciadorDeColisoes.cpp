@@ -103,10 +103,9 @@ void GerenciadorDeColisoes::executar()
         {
             if(player1->isAtacking())
             {
-                //if(Linimigos->getLTInimigos()[i]->getID == 7)
                 Linimigos->getLTInimigos()[i]->setVida(0);
+               // Lentidades->retirar();
                 Linimigos->retirar(i);
-                //Lentidades->retirar();
                 player1->setRanking(player1->getRanking() + 10);
             }
             else
@@ -141,26 +140,20 @@ void GerenciadorDeColisoes::executar()
     for(i=0; i < Lprojeteis->getLTProjeteis().size(); i++)
         if(Lprojeteis->getLTProjeteis()[i]->getCollider().CheckCollision(player1->getCollider(), direction, 0.97f))
         {
-            Lprojeteis->getLTProjeteis()[i]->setVida(0);
             player1->knockback(direction);
             player1->setVida(player1->getVida()-1);
             player1->getDamage()->setSize(sf::Vector2f(200 - std::max(0, (player1->getVida()*20)), 50));
             Lprojeteis->retirar(i);
-
-            Lentidades->retirar();
         }
 ///PLAYER2
     ///COLISÕES COM PROJETEIS
     for(i=0; i < Lprojeteis->getLTProjeteis().size(); i++)
         if(Lprojeteis->getLTProjeteis()[i]->getCollider().CheckCollision(player2->getCollider(), direction, 0.97f))
         {
-            Lprojeteis->getLTProjeteis()[i]->setVida(0);
             player2->knockback(direction);
             player2->setVida(player2->getVida()-1);
             player2->getDamage()->setSize(sf::Vector2f(200 - std::max(0, (player2->getVida()*20)), 50));
             Lprojeteis->retirar(i);
-
-            //Lentidades->retirar();
         }
 
 

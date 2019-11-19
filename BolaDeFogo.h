@@ -4,7 +4,6 @@
 class BolaDeFogo: public EntidadeColidivel
 {
 private:
-    int vida;
     sf::RectangleShape* player1;
     sf::RectangleShape* player2;
     sf::Vector2f direcao;
@@ -19,7 +18,5 @@ public:
 
     void executar(float deltaTime);
 
-    void setVida(int v);
-    int getVida();
 };
 

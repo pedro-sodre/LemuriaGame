@@ -12,6 +12,8 @@ public:
 
     vector<BolaDeFogo*> getLTProjeteis();
 
+    void Draw(sf::RenderWindow& window);
+
     void limpaLista();
     void incluir(BolaDeFogo* pp);
     void retirar(int i);

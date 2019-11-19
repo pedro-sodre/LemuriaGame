@@ -14,6 +14,10 @@ Fase(tam, jogo)
     musicaFundo.setLoop(true);
     //musicaFundo.play();
 
+    boss = prototype.MakeMago(1000, -200);
+    Linimigos.incluir(static_cast<Inimigo*>(boss));
+    Lentidades.incluir(static_cast<Entidade*>(boss));
+
     jogo->setSalvarFase3(false);
 
     if(newGame)
@@ -65,9 +69,6 @@ void FaseNoturna3::input()
 
 void FaseNoturna3::update()
 {
-
-    ///**** CRIAR O BOSS EM 1000, -200 ****///
-
 	///UPDATE NA VIEW
 	view.setCenter(jogo->getPlayer1()->getPosition().x, 200.0f);
 	jogo->window.setView(view);
@@ -102,17 +103,17 @@ void FaseNoturna3::update()
         if(!jogo->getPlayer2()->estaVivo())
             carregarMorte();
 
-    if (jogo->getPlayer1()->getPosition().x > 6000.0f)
-    {
-		carregarProxFase();
-	}
-
     if(jogo->getSalvarFase3())
     {
         jogo->setSalvarFase3(false);
         Lentidades.gravarJogo3();
     }
 
+    if(!boss->getVida())
+    {
+        printf("VOCE GANHOU\n");
+        exit(1);
+    }
 }
 
 void FaseNoturna3::inicializar(bool player2)
@@ -273,9 +274,6 @@ void FaseNoturna3::recuperarJogo(bool player2)
             case 9:
                 Lobstaculos.incluir(static_cast<Obstaculo*> (prototype.MakeTronco(x,y)));
                 break;
-            case 10:
-                Lprojeteis.incluir(prototype.MakeBolaDeFogo(x,y));
-                break;
             case 101:
                 jogo->getPlayer1()->getBody()->setPosition(x,y);
                 break;
@@ -291,9 +289,6 @@ void FaseNoturna3::recuperarJogo(bool player2)
 
     for(int i=0; i < Linimigos.getLTInimigos().size(); i++)
         Lentidades.incluir(static_cast<Entidade*> ((Linimigos.getLTInimigos()[i])));
-
-    for(int i=0; i < Lprojeteis.getLTProjeteis().size(); i++)
-        Lentidades.incluir(static_cast<Entidade*> ((Lprojeteis.getLTProjeteis()[i])));
 
     for(Platform* aux = Lplataformas.reiniciar(); aux != NULL; aux = Lplataformas.percorrer())
         Lentidades.incluir(static_cast<Entidade*> (aux));
@@ -357,9 +352,6 @@ void FaseNoturna3::novoJogo(bool player2)
             case 9:
                 Lobstaculos.incluir(static_cast<Obstaculo*> (prototype.MakeTronco(x,y)));
                 break;
-            case 10:
-                Lprojeteis.incluir(prototype.MakeBolaDeFogo(x,y));
-                break;
             case 101:
                 jogo->getPlayer1()->getBody()->setPosition(x,y);
                 break;
@@ -375,9 +367,6 @@ void FaseNoturna3::novoJogo(bool player2)
 
     for(int i=0; i < Linimigos.getLTInimigos().size(); i++)
         Lentidades.incluir(static_cast<Entidade*> ((Linimigos.getLTInimigos()[i])));
-
-    for(int i=0; i < Lprojeteis.getLTProjeteis().size(); i++)
-        Lentidades.incluir(static_cast<Entidade*> ((Lprojeteis.getLTProjeteis()[i])));
 
     for(Platform* aux = Lplataformas.reiniciar(); aux != NULL; aux = Lplataformas.percorrer())
         Lentidades.incluir(static_cast<Entidade*> (aux));

@@ -60,3 +60,7 @@ sf::RectangleShape* EntidadeColidivel::getBody() const
     return body;
 }
 
+int EntidadeColidivel::getVida() const
+{
+    return 1;
+}

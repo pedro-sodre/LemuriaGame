@@ -56,10 +56,6 @@ void ListaEntidades::retirar()
             printf("3 %p\n", pElAnt);
             pElPost->setAnterior(pElAnt);
             printf("4\n");
-
-            pEntAux->destruir();
-            printf("5\n");
-
             break;
         }
 

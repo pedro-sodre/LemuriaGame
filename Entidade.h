@@ -20,7 +20,7 @@ public:
     int getY() const;
     int getID() const;
 
-    virtual int getVida();
+    virtual int getVida() const;
     virtual void destruir() = 0;
     virtual void executar(float deltaTime) = 0;
     virtual void Draw(sf::RenderWindow& window) = 0;

@@ -13,7 +13,6 @@ void BolaDeFogo::inicializa(sf::Texture t, sf::Vector2f posicao, sf::RectangleSh
 {
     player1 = p1;
     player2 = p2;
-    vida = 1;
     id = ID;
     texture = t;
     setTexture(texture);
@@ -60,13 +59,3 @@ void BolaDeFogo::executar(float deltaTime)
     x = this->getPosition().x;
     y = this->getPosition().y;
 }
-
-void BolaDeFogo::setVida(int v)
-{
-    vida = v;
-}
-int BolaDeFogo::getVida()
-{
-    return vida;
-}
-

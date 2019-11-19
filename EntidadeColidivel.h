@@ -25,6 +25,7 @@ public:
 
     sf::Vector2f getPosition() const { return body->getPosition(); }
 
+    virtual int getVida() const;
     virtual void Draw(sf::RenderWindow& window);    //VIRTUAL PRA DESENHAR OS DOIS BODYS DO PLAYER
 
     virtual void executar(float deltaTime);

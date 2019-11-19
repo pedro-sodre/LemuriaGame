@@ -27,6 +27,7 @@ vector<Inimigo*> ListaInimigos::getLTInimigos()
 
 void ListaInimigos::retirar(int i)
 {
+    //delete LTInimigos[i];                     DESSA FORMA DÁ CERTO
     LTInimigos.erase(LTInimigos.begin() + i);
 }
 
@@ -34,4 +35,3 @@ int ListaInimigos::getTamanho()
 {
     return LTInimigos.size();
 }
-

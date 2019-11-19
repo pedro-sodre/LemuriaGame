@@ -30,3 +30,8 @@ void ListaProjeteis::retirar(int i)
     LTProjeteis.erase(LTProjeteis.begin() + i);
 }
 
+void ListaProjeteis::Draw(sf::RenderWindow& window)
+{
+    for(int i=0; i<LTProjeteis.size(); i++)
+        LTProjeteis[i]->Draw(window);
+}

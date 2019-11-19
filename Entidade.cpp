@@ -40,7 +40,7 @@ int Entidade::getID() const
     return id;
 }
 
-int Entidade::getVida()
+int Entidade::getVida() const
 {
     return 1;
 }

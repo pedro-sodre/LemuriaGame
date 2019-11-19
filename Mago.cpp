@@ -92,14 +92,14 @@ void Mago::executar(float deltaTime)
         {
             if(fase->getPlayer1()->getPosition().x > body->getPosition().x)
             {
-                row = 1;
+                row = 0;
                 body->setTexture(&vecTexture[row]);
                 faceRight = true;
                // velocity.x += speed;
             }
             else // ELSE IF, PQ PODE SER Q VELOCITY = 0
             {
-                row = 1;
+                row = 0;
                 body->setTexture(&vecTexture[row]);
                 faceRight = false;
                 //velocity.x -= speed;
@@ -110,9 +110,9 @@ void Mago::executar(float deltaTime)
             spawn = true;
             spawning = false;
 
-            if(abs(fase->getPlayer1()->getPosition().x - x) < 500 && coolDownSpawn <= 0 && fase->getNInimigos() < 7)
+            if(abs(fase->getPlayer1()->getPosition().x - x) < 500 && coolDownSpawn <= 0 && fase->getNInimigos() < 15)
                 spawning = true;
-            if(abs(fase->getPlayer1()->getPosition().x - x) > 200 && coolDownAtack <= 0 && !spawning)
+            if(coolDownAtack <= 0 && !spawning)
                 atacking = true;
 
             animacao[row]->Update(deltaTime, faceRight);
