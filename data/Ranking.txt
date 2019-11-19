@@ -1,0 +1,17 @@
+Gabriel 0
+
+Linke 400
+JogadorSemNome 40
+JogadorSemNome 0
+JogadorSemNome 20
+JogadorSemNome 0
+JogadorSemNome 0
+JogadorSemNome 20
+JogadorSemNome 0
+a 30
+JogadorSemNome 10
+JogadorSemNome 0
+testando 220
+JogadorSemNome 10
+JogadorSemNome 40
+a 190
