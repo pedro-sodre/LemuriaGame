@@ -21,6 +21,7 @@ private:
     bool salvarFase3;
 
     bool p2;    ///PARA USAR NO MENU
+    bool ganharJogo;
 
     Player player1;
     Player player2;///PLAYER2
@@ -46,6 +47,9 @@ public:
     void setSalvarFase1(const bool b);
     void setSalvarFase2(const bool b);
     void setSalvarFase3(const bool b);
+
+    bool getGanharJogo() const;
+    void setGanharJogo(const bool b);
 
     bool getP2() const;
     void setP2(const bool bp);

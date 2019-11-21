@@ -89,10 +89,14 @@ void MenuMorte::input()
 				}
 
 			}
+			/*else if(event.key.code == sf::Keyboard::BackSpace && nome.getSize() != 0)
+            {
+                nome -= event.text.unicode;
+            }*/
 			break;
         case sf::Event::TextEntered:
             if(!menuAtivado){
-                if (event.text.unicode == '\b') {
+                if (event.text.unicode == '\b' && nome.getSize() != 0) {
                     nome.erase(nome.getSize() - 1, 1);
                 }
                 else if (event.text.unicode < 128) {
@@ -154,13 +158,22 @@ void MenuMorte::inicializar()
 	titulo.setCharacterSize(40);
 	titulo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 300, 300.0));
 
-	tituloDoJogo.setFont(font2);
-	tituloDoJogo.setString("GAME OVER");
-	tituloDoJogo.setFillColor(cor2);
-	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
-	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 300, -100.0));
+    if(!jogo->getGanharJogo()){
+        tituloDoJogo.setFont(font2);
+        tituloDoJogo.setString("GAME OVER");
+        tituloDoJogo.setFillColor(cor2);
+        tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 300, -100.0));
+        tituloDoJogo.setCharacterSize(300);
+    }
+    else
+    {
+        tituloDoJogo.setFont(font);
+        tituloDoJogo.setString("YOU WIN");
+        tituloDoJogo.setFillColor(cor1);
+        tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 150, 50.0));
+        tituloDoJogo.setCharacterSize(100);
+    }
 
-	tituloDoJogo.setCharacterSize(300);
 
 	body = new sf::RectangleShape();
 	body->setTexture(&texture);
@@ -173,7 +186,7 @@ void MenuMorte::inicializar()
 
 void MenuMorte::gravarRanking()
 {
-    FILE* Gravador = fopen("data/Ranking.txt", "a+");
+    FILE* Gravador = fopen("data/saves/Ranking.txt", "a+");
 
     nomestr = nome.substring(0, 128);
     fseek(Gravador, 0, SEEK_END);

@@ -22,14 +22,15 @@ void MenuPrincipal::draw()
     jogo->window.draw(*body);
 	jogo->window.draw(tituloDoJogo);
 	jogo->window.draw(LogoDoJogo);
-	jogo->window.draw(entradaDeTexto);
 	int i;
-	for (i = 0; i < MAX_NUMBER_ITEMS; i++) {
-
-		jogo->window.draw(menu[i]);
-	}
-
-
+	if(!ranking)
+        for (i = 0; i < MAX_NUMBER_ITEMS; i++)
+            jogo->window.draw(menu[i]);
+    else{
+        for(i=0; i < 5; i++)
+            jogo->window.draw(pontuacao[i]);
+    jogo->window.draw(menu[0]);
+    }
 }
 void MenuPrincipal::input()
 {
@@ -59,10 +60,13 @@ void MenuPrincipal::input()
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
 				//Verifica se o submenu está ativo
+				if (ranking)
+                {
+                    this->inicializar();
+                }
 				//Fase 1
-				if (getPressedItem() == 0 && escolhaDeFases && !escolhaDeJogadores)
+				else if (getPressedItem() == 0 && escolhaDeFases && !escolhaDeJogadores)
 				{
-					musicaMenu.stop();
 					inicializar();
 					fase = 1;
 					carregarJogo();
@@ -70,7 +74,6 @@ void MenuPrincipal::input()
 				//Fase 2
 				else if (getPressedItem() == 1 && escolhaDeFases  && !escolhaDeJogadores)
 				{
-					musicaMenu.stop();
 					inicializar();
 					fase = 2;
 					carregarJogo();
@@ -78,7 +81,6 @@ void MenuPrincipal::input()
 				//Fase 3
 				else if (getPressedItem() == 2 && escolhaDeFases && !escolhaDeJogadores)
 				{
-					musicaMenu.stop();
 					inicializar();
 					fase = 3;
 					carregarJogo();
@@ -88,7 +90,7 @@ void MenuPrincipal::input()
 				{
 					this->inicializar();
 				}
-				if (getPressedItem() == 0 && escolhaDeJogadores && !escolhaDeFases )
+				else if (getPressedItem() == 0 && escolhaDeJogadores && !escolhaDeFases )
 				{
 				    jogo->setP2(false);
 					abrirEscolhaDeFases();
@@ -115,6 +117,7 @@ void MenuPrincipal::input()
                 }
 				else if (getPressedItem() == 2)
 				{
+				    ranking = true;
 					setRanking();
 				}
 				else if (getPressedItem() == 3)
@@ -145,6 +148,7 @@ void MenuPrincipal::inicializar()
 
 	escolhaDeJogadores = false;
     escolhaDeFases = false;
+    ranking = false;
 
 	num_de_itens = MAX_NUMBER_ITEMS;
 	//Define a cor do texto
@@ -156,9 +160,6 @@ void MenuPrincipal::inicializar()
 	cor2.r = 6;
 	cor2.g = 59;
 	cor2.b = 103;
-
-	//Se não colocar ele aparece no fundo depois que o retorna pro Menu principal
-	entradaDeTexto.setFillColor(sf::Color::Transparent);
 
 	//Opções do Menu
 	menu[0].setFont(font);
@@ -194,10 +195,6 @@ void MenuPrincipal::inicializar()
 	LogoDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 65, 50.0f));
 	LogoDoJogo.setTexture(&textura1);
 
-	/**musicaMenu.openFromFile("data/MusicaMenu.wav");
-	musicaMenu.setLoop(true);
-	musicaMenu.play();
-**/
 	body = new sf::RectangleShape();
 	body->setTexture(&texture);
 	body->setSize(sf::Vector2f(jogo->window.getSize().x, jogo->window.getSize().y));
@@ -266,16 +263,10 @@ void MenuPrincipal::abrirEscolhaDeFases()
 	menu[3].setPosition(sf::Vector2f(jogo->window.getSize().x / 2, 580.0));
 }
 
-
-void MenuPrincipal::stopMusic()
-{
-    musicaMenu.stop();
-}
-
 void MenuPrincipal::setRanking()
 {
-
-    ifstream Recuperador("data/Ranking.txt", ios::in);
+    num_de_itens = 1;
+    ifstream Recuperador("data/saves/Ranking.txt", ios::in);
     if ( !Recuperador )
     {
         cerr << "Arquivo não pode ser aberto" << endl;
@@ -297,13 +288,73 @@ void MenuPrincipal::setRanking()
         ranking.insert(RankPair(iAux, sAux));
     }
 
-    int i;
-    std::cout << "RANKING TOP 5:\n";
-    for(it = ranking.begin(), i =0; it!=ranking.begin(), i<5; it++, i++)        ///PEGA O TOP 5 PONTUAÇÃO
-        std::cout << it->second << ": " << it->first << endl;
+    std::stringstream pRank;
+    it = ranking.begin();
+    std::string str1;
+	pRank << it->second << "  " << it->first;
+    str1 = pRank.str();
+
+	pontuacao[0].setFont(font);
+	pontuacao[0].setString(str1);
+	pontuacao[0].setFillColor(sf::Color::White);
+	pontuacao[0].setStyle(sf::Text::Style::Bold);
+	pontuacao[0].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 340.0));
+
+	it++;
+	std::stringstream pRank2;
+	std::string str2;
+    pRank2 << it->second << "  " << it->first;
+    str2 = pRank2.str();
+	pontuacao[1].setFont(font);
+	pontuacao[1].setFillColor(sf::Color::White);
+	pontuacao[1].setString(str2);
+	pontuacao[1].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 400.0));
+
+    it++;
+    std::stringstream pRank3;
+	std::string str3;
+    pRank3 << it->second << "  " << it->first;
+    str3 = pRank3.str();
+	pontuacao[2].setFont(font);
+	pontuacao[2].setString(str3);
+	pontuacao[2].setFillColor(sf::Color::White);
+	pontuacao[2].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 460.0));
+
+    it++;
+    std::stringstream pRank4;
+	std::string str4;
+    pRank4 << it->second << "  " << it->first;
+    str4 = pRank4.str();
+	pontuacao[3].setFont(font);
+	pontuacao[3].setFillColor(sf::Color::White);
+	pontuacao[3].setString(str4);
+	pontuacao[3].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 520.0));
+
+    it++;
+    std::stringstream pRank5;
+	std::string str5;
+    pRank5 << it->second << "  " << it->first;
+    str5 = pRank5.str();
+	pontuacao[4].setFont(font);
+	pontuacao[4].setFillColor(sf::Color::White);
+	pontuacao[4].setString(str5);
+	pontuacao[4].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 40.0, 580.0));
 
 
-    ///FAZER UM DESIGN PARA MOSTRAR O RANKING. FAZER TAMBÉM UMA TELA PARA CARREGAR QUANDO VENCER O JOGO
+    menu[0].setFont(font);
+	menu[0].setString("BACK");
+	menu[0].setFillColor(cor1);
+	menu[0].setStyle(sf::Text::Style::Bold);
+	menu[0].setPosition(sf::Vector2f(jogo->window.getSize().x / 2 -40.0, 640.0));
+
+
+	tituloDoJogo.setFont(font2);
+	tituloDoJogo.setString("RANKING");
+	tituloDoJogo.setFillColor(cor2);
+	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
+	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 170, 250.0));
+
+	tituloDoJogo.setCharacterSize(80);
 
     Recuperador.close();
 }

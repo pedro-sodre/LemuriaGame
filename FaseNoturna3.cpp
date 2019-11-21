@@ -10,10 +10,6 @@ Fase(tam, jogo)
     body->setTexture(&texture);
     spawnInimigo = 2;
 
-    musicaFundo.openFromFile("data/MusicaFundo.wav");
-    musicaFundo.setLoop(true);
-    //musicaFundo.play();
-
     boss = prototype.MakeMago(1000, -200);
     Linimigos.incluir(static_cast<Inimigo*>(boss));
     Lentidades.incluir(static_cast<Entidade*>(boss));
@@ -30,7 +26,6 @@ Fase(tam, jogo)
 
 FaseNoturna3::~FaseNoturna3()
 {
-    musicaFundo.stop();
 }
 void FaseNoturna3::draw()
 {
@@ -111,8 +106,11 @@ void FaseNoturna3::update()
 
     if(!boss->getVida())
     {
+        bool vencer=true;
+        jogo->setGanharJogo(vencer);
+        jogo->getPlayer1()->setRanking(jogo->getPlayer1()->getRanking()+500);
+        carregarMorte();
         printf("VOCE GANHOU\n");
-        exit(1);
     }
 }
 
@@ -207,7 +205,7 @@ void FaseNoturna3::executar()
 
 void FaseNoturna3::gravarJogo()
 {
-    ofstream Gravador("data/Fase3Gravando.txt", ios::out);
+    ofstream Gravador("data/saves/Fase3Gravando.txt", ios::out);
 
     if ( !Gravador )
     {
@@ -230,7 +228,7 @@ void FaseNoturna3::gravarJogo()
 void FaseNoturna3::recuperarJogo(bool player2)
 {
 
-    ifstream Recuperador("data/Fase3Gravando.txt", ios::in);
+    ifstream Recuperador("data/saves/Fase3Gravando.txt", ios::in);
     if ( !Recuperador )
     {
         cerr << "Arquivo não pode ser aberto" << endl;
@@ -308,7 +306,7 @@ void FaseNoturna3::recuperarJogo(bool player2)
 void FaseNoturna3::novoJogo(bool player2)
 {
 
-    ifstream Recuperador("data/Fase3Base.txt", ios::in);
+    ifstream Recuperador("data/saves/Fase3Base.txt", ios::in);
     if ( !Recuperador )
     {
         cerr << "Arquivo não pode ser aberto" << endl;

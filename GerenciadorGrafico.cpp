@@ -37,81 +37,81 @@ void GerenciadorGrafico::inicializar()
     try
     {
         ///FONTES
-        if(!fontBlackCastle.loadFromFile("data/BlackCastleMF.ttf"))
+        if(!fontBlackCastle.loadFromFile("data/fonts/BlackCastleMF.ttf"))
             throw 1;
-        if (!fontAudiowide.loadFromFile("data/Audiowide.ttf"))
+        if (!fontAudiowide.loadFromFile("data/fonts/Audiowide.ttf"))
             throw 1;
-        if (!fontGameOver.loadFromFile("data/game_over.ttf"))
+        if (!fontGameOver.loadFromFile("data/fonts/game_over.ttf"))
             throw 1;
 
         ///TEXTURAS MENU
-    	if (!menuPrincipalTexture.loadFromFile("data/Menu.jpg"))
+    	if (!menuPrincipalTexture.loadFromFile("data/sprites/Menu.jpg"))
             throw 2;
-        if (!menuPauseTexture.loadFromFile("data/Pause.jpg"))
+        if (!menuPauseTexture.loadFromFile("data/sprites/Pause.jpg"))
             throw 2;
-        if (!menuMorteTexture.loadFromFile("data/FundoGameOver.png"))
+        if (!menuMorteTexture.loadFromFile("data/sprites/FundoGameOver.png"))
             throw 2;
-        if (!logoTexture.loadFromFile("data/LemuryaIcon.jpg"))
+        if (!logoTexture.loadFromFile("data/sprites/LemuryaIcon.jpg"))
             throw 2;
 
         ///TEXTURAS DAS FASES
-        if(!fase1Texture.loadFromFile("data/Fase1.png"))
+        if(!fase1Texture.loadFromFile("data/sprites/Fase1.png"))
             throw 3;
-        if(!fase2Texture.loadFromFile("data/Fase2.png"))
+        if(!fase2Texture.loadFromFile("data/sprites/Fase2.png"))
             throw 3;
-        if(!fase3Texture.loadFromFile("data/Fase3.png"))
+        if(!fase3Texture.loadFromFile("data/sprites/Fase3.png"))
             throw 3;
 
         ///TEXTURAS PLAYER
-        if(!p1Parado.loadFromFile("data/Parado.png"))
+        if(!p1Parado.loadFromFile("data/sprites/Parado.png"))
             throw 4;
-        if(!p1Andando.loadFromFile("data/Andando.png"))
+        if(!p1Andando.loadFromFile("data/sprites/Andando.png"))
             throw 4;
-        if(!p1Pulando.loadFromFile("data/Pulando.png"))
+        if(!p1Pulando.loadFromFile("data/sprites/Pulando.png"))
             throw 4;
-        if(!p1Atacando.loadFromFile("data/Atacando.png"))
+        if(!p1Atacando.loadFromFile("data/sprites/Atacando.png"))
             throw 4;
-        if(!p1Morrendo.loadFromFile("data/Morrendo.png"))
+        if(!p1Morrendo.loadFromFile("data/sprites/Morrendo.png"))
             throw 4;
-        if(!iconeVida.loadFromFile("data/LemuryaIcon.png"))
+        if(!iconeVida.loadFromFile("data/sprites/LemuryaIcon.png"))
             throw 4;
 
         ///ESQUELETO
-        if(!esqueletoParado.loadFromFile("data/EsqueletoParado.png"))
+        if(!esqueletoParado.loadFromFile("data/sprites/EsqueletoParado.png"))
             throw 5;
-        if(!esqueletoAndando.loadFromFile("data/EsqueletoAndando.png"))
+        if(!esqueletoAndando.loadFromFile("data/sprites/EsqueletoAndando.png"))
             throw 5;
-        if(!esqueletoAtacando.loadFromFile("data/EsqueletoAtacando1.png"))
+        if(!esqueletoAtacando.loadFromFile("data/sprites/EsqueletoAtacando1.png"))
             throw 5;
 
         ///TRITÃO
-        if(!tritaoParado.loadFromFile("data/TritaoTeste.png"))
+        if(!tritaoParado.loadFromFile("data/sprites/TritaoTeste.png"))
             throw 6;
 
         ///MAGO
-        if(!magoParado.loadFromFile("data/MagoTeste.png"))
+        if(!magoParado.loadFromFile("data/sprites/MagoTeste.png"))
             throw 7;
-        if(!magoAndando.loadFromFile("data/magoAndando.png"))
+        if(!magoAndando.loadFromFile("data/sprites/magoAndando.png"))
             throw 7;
-        if(!magoAtacando.loadFromFile("data/magoAtacando.png"))
+        if(!magoAtacando.loadFromFile("data/sprites/magoAtacando.png"))
             throw 7;
-        if(!magoSpawnando.loadFromFile("data/magoSpawnando.png"))
+        if(!magoSpawnando.loadFromFile("data/sprites/magoSpawnando.png"))
             throw 7;
-        if(!fireballTexture.loadFromFile("data/BolaDeFogo.png"))
+        if(!fireballTexture.loadFromFile("data/sprites/BolaDeFogo.png"))
             throw 7;
 
         ///OBSTÁCULOS
-        if(!boxTexture.loadFromFile("data/Caixa.png"))
+        if(!boxTexture.loadFromFile("data/sprites/Caixa.png"))
             throw 8;
-        if(!stoneTexture1.loadFromFile("data/Pedra1.png"))
+        if(!stoneTexture1.loadFromFile("data/sprites/Pedra1.png"))
             throw 8;
-        if(!stoneTexture2.loadFromFile("data/Pedra2.png"))
+        if(!stoneTexture2.loadFromFile("data/sprites/Pedra2.png"))
             throw 8;
-        if(!platTexture.loadFromFile("data/BGplat.png"))
+        if(!platTexture.loadFromFile("data/sprites/BGplat.png"))
             throw 8;
-        if(!chaoTexture.loadFromFile("data/Chao.png"))
+        if(!chaoTexture.loadFromFile("data/sprites/Chao.png"))
             throw 8;
-        if(!logTexture.loadFromFile("data/Tronco.png"))
+        if(!logTexture.loadFromFile("data/sprites/Tronco.png"))
             throw 8;
 
     }

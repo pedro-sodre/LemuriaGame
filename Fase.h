@@ -1,6 +1,5 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
 
 #include "GerenciadorDeColisoes.h"
 #include "GerenciadorDePontuacao.h"
@@ -48,14 +47,9 @@ protected:
     Lemurya* jogo;
 
     sf::RectangleShape* body;
-    sf::Music musicaFundo;
-    //GerenciadorGrafico gerenciadorGrafico;
     GerenciadorDeColisoes gerenciadorDeColisoes;
     GerenciadorDePontuacao gerenciadorDePontuacao;
     LemuryaPrototypeFactory prototype;
-
-    //Player player1;
-    //Player player2;
 
     ///CRIA LISTAS
     ListaInimigos Linimigos;

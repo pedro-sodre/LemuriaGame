@@ -1,5 +1,4 @@
 #pragma once
-#include <SFML/Audio.hpp>
 #include "Entidade.h"
 #include "Lemurya.h"
 #include "State.h"

@@ -107,7 +107,7 @@ Entidade* ListaEntidades::reiniciar()
 
 void ListaEntidades::gravarJogo1()
 {
-    ofstream Gravador("data/Fase1Gravando.txt", ios::out);
+    ofstream Gravador("data/saves/Fase1Gravando.txt", ios::out);
 
     if ( !Gravador )
     {
@@ -137,7 +137,7 @@ void ListaEntidades::gravarJogo1()
 
 void ListaEntidades::gravarJogo2()
 {
-    ofstream Gravador("data/Fase2Gravando.txt", ios::out);
+    ofstream Gravador("data/saves/Fase2Gravando.txt", ios::out);
 
     if ( !Gravador )
     {
@@ -167,7 +167,7 @@ void ListaEntidades::gravarJogo2()
 
 void ListaEntidades::gravarJogo3()
 {
-    ofstream Gravador("data/Fase3Gravando.txt", ios::out);
+    ofstream Gravador("data/saves/Fase3Gravando.txt", ios::out);
 
     if ( !Gravador )
     {

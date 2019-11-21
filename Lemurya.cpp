@@ -45,7 +45,7 @@ void Lemurya::inicializar()
 	window.setFramerateLimit(60);
 
 	sf::Image icon;
-	icon.loadFromFile("data/LemuryaIcon.JPG");
+	icon.loadFromFile("data/sprites/LemuryaIcon.JPG");
 	window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     player1.inicializa(200.0f, 200.0f, gerenciadorGrafico.getTexturePlayer1(), gerenciadorGrafico.getVecPlayer1(), 0.2f);
@@ -148,4 +148,14 @@ void Lemurya::setSalvarFase2(const bool b)
 void Lemurya::setSalvarFase3(const bool b)
 {
     salvarFase3 = b;
+}
+
+void Lemurya::setGanharJogo(const bool b)
+{
+    ganharJogo = b;
+}
+
+bool Lemurya::getGanharJogo() const
+{
+    return ganharJogo;
 }

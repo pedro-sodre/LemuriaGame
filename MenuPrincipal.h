@@ -7,10 +7,8 @@ private:
     bool escolhaDeJogadores;
     bool escolhaDeFases;
     int fase;
-
-    sf::Music musicaMenu;
-	sf::Text entradaDeTexto;
-	sf::String nome;
+    bool ranking;
+    sf::Text pontuacao[5]; ///TOP 5 JOGADORES
 
     bool newGame;
 
@@ -30,8 +28,4 @@ public:
 	void abrirInputNome();
 	void abrirEscolhaDeFases();
     void setRanking();
-
-    void stopMusic();
 };
-
-

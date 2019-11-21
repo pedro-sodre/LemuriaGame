@@ -11,10 +11,6 @@ Fase(tam, jogo)
     body->setTexture(&texture);
     spawnInimigo = 0;
 
-    musicaFundo.openFromFile("data/MusicaFundo.wav");
-    musicaFundo.setLoop(true);
-    //musicaFundo.play();
-
     jogo->setSalvarFase2(false);
 
     if(newGame)
@@ -27,7 +23,6 @@ Fase(tam, jogo)
 
 FaseAquatica2::~FaseAquatica2()
 {
-    musicaFundo.stop();
 }
 
 void FaseAquatica2::draw()
@@ -321,7 +316,7 @@ void FaseAquatica2::carregarProxFase()
 
 void FaseAquatica2::gravarJogo()
 {
-    ofstream Gravador("data/Fase2Gravando.txt", ios::out);
+    ofstream Gravador("data/saves/Fase2Gravando.txt", ios::out);
 
     if ( !Gravador )
     {
@@ -344,7 +339,7 @@ void FaseAquatica2::gravarJogo()
 void FaseAquatica2::recuperarJogo(bool player2)
 {
 
-    ifstream Recuperador("data/Fase2Gravando.txt", ios::in);
+    ifstream Recuperador("data/saves/Fase2Gravando.txt", ios::in);
     if ( !Recuperador )
     {
         cerr << "Arquivo não pode ser aberto" << endl;
@@ -426,7 +421,7 @@ void FaseAquatica2::recuperarJogo(bool player2)
 void FaseAquatica2::novoJogo(bool player2)
 {
 
-    ifstream Recuperador("data/Fase2Base.txt", ios::in);
+    ifstream Recuperador("data/saves/Fase2Base.txt", ios::in);
     if ( !Recuperador )
     {
         cerr << "Arquivo não pode ser aberto" << endl;
