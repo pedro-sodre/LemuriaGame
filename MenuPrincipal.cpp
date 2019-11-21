@@ -2,6 +2,9 @@
 #include "FaseAquatica1.h"
 #include "FaseAquatica2.h"
 #include "FaseNoturna3.h"
+#include <vector>
+#include <string>
+#include <map>
 
 MenuPrincipal::MenuPrincipal(Lemurya* jogo):
 Menu(jogo)
@@ -112,7 +115,7 @@ void MenuPrincipal::input()
                 }
 				else if (getPressedItem() == 2)
 				{
-					//abre o ranking
+					setRanking();
 				}
 				else if (getPressedItem() == 3)
 				{
@@ -269,3 +272,38 @@ void MenuPrincipal::stopMusic()
     musicaMenu.stop();
 }
 
+void MenuPrincipal::setRanking()
+{
+
+    ifstream Recuperador("data/Ranking.txt", ios::in);
+    if ( !Recuperador )
+    {
+        cerr << "Arquivo não pode ser aberto" << endl;
+        fflush ( stdin );
+        getchar ( );
+        return;
+    }
+
+        ///MULTIMAP PARA GRAVAR NOME E PONTUAÇÃO
+        std::string sAux;
+        int iAux;
+        std::multimap<int, std::string, std::greater<int>> ranking;
+        std::multimap<int, std::string>::iterator it;
+        typedef std::pair<int, std::string> RankPair;
+
+    while(!Recuperador.eof())
+    {
+        Recuperador >> sAux >> iAux;
+        ranking.insert(RankPair(iAux, sAux));
+    }
+
+    int i;
+    std::cout << "RANKING TOP 5:\n";
+    for(it = ranking.begin(), i =0; it!=ranking.begin(), i<5; it++, i++)        ///PEGA O TOP 5 PONTUAÇÃO
+        std::cout << it->second << ": " << it->first << endl;
+
+
+    ///FAZER UM DESIGN PARA MOSTRAR O RANKING. FAZER TAMBÉM UMA TELA PARA CARREGAR QUANDO VENCER O JOGO
+
+    Recuperador.close();
+}

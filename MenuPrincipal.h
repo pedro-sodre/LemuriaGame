@@ -29,6 +29,7 @@ public:
     void abrirEscolhaDeJogadores();
 	void abrirInputNome();
 	void abrirEscolhaDeFases();
+    void setRanking();
 
     void stopMusic();
 };
