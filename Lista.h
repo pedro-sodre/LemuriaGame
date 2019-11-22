@@ -1,5 +1,4 @@
 #pragma once
-#include "Elemento.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>

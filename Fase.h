@@ -39,8 +39,6 @@ using std::vector;
 
 class Lemurya;
 
-static const float VIEW_HEIGHT = 1080.0f;
-
 class Fase: public Entidade, public State
 {
 protected:

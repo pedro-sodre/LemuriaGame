@@ -172,6 +172,7 @@ void MenuMorte::inicializar()
         tituloDoJogo.setFillColor(cor1);
         tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 150, 50.0));
         tituloDoJogo.setCharacterSize(100);
+        jogo->setGanharJogo(false);
     }
 
 

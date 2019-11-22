@@ -6,6 +6,8 @@
 class Lemurya {
 private:
 
+    static const float VIEW_HEIGHT;
+
     sf::Event eventos;
 
     std::stack<State*> states;
@@ -59,3 +61,4 @@ public:
     //GerenciadorDePontuacao getGerenciadorDePontuacao();
 };
 
+const float VIEW_HEIGHT = 1080.0f;

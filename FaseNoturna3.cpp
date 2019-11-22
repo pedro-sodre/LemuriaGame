@@ -106,11 +106,9 @@ void FaseNoturna3::update()
 
     if(!boss->getVida())
     {
-        bool vencer=true;
-        jogo->setGanharJogo(vencer);
+        jogo->setGanharJogo(true);
         jogo->getPlayer1()->setRanking(jogo->getPlayer1()->getRanking()+500);
         carregarMorte();
-        printf("VOCE GANHOU\n");
     }
 }
 

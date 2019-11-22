@@ -74,7 +74,6 @@ void FaseAquatica1::update()
     gerenciadorDePontuacao.executar();
 	///GERENCIA COLISÕES
     gerenciadorDeColisoes.executar();
-    ///SOMENTE TESTE, PODE SER FEITO NO PRÓPRIO EXECUTAR DO PLAYER, PORÉM, ACHO QUE DESSA FORMA FICA MAIS BONITO (QUANDO INCLUIR PLAYER2 DEVE FICAR MAIS FÁCIL FAZER PELO PLAYER)
     ///GERENCIA VIDA
     jogo->getPlayer1()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -300.0f));
     jogo->getPlayer1()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer1()->getVida()*20)) - 430.0f, -300.0f));
@@ -91,19 +90,18 @@ void FaseAquatica1::update()
     if(spawnInimigo <= 0)
         gerarInimigos();
 
-	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
+	///VERIFICA SE OS PLAYERS ESTÃO VIVOS PARA PASSAR PARA O PRÓXIMO FRAME
 	if(!jogo->getPlayer1()->estaVivo())
 		carregarMorte();
-
     if(jogo->getP2())
         if(!jogo->getPlayer2()->estaVivo())
             carregarMorte();
 
+    ///VERIFICA SE O PLAYER PASSOU DE FASE
     if (jogo->getPlayer1()->getPosition().x > 6000.0f)
-    {
 		carregarProxFase();
-	}
 
+	///VERIFICA SE NECESSITA SALVAR A FASE
     if(jogo->getSalvarFase1())
     {
         jogo->setSalvarFase1(false);
@@ -173,75 +171,6 @@ void FaseAquatica1::gerarObstaculos()
     srand(time(NULL));
     int nObstaculos = (rand()%4)+3;
     int obstaculosGerados = 0;
-    ///ACHAR UMA FORMA DE DEIXAR A ORDEM QUE SÃO INICIALIZADOS ALEATÓRIA
-/*    srand(time(NULL));
-    int nObstaculos = (rand()%4)+3;
-    int obstaculosGerados = 0;
-    int v[6];
-    int sorteio = (rand()%6)+1;
-    printf("Primeiro sorteio: %d\n",sorteio);
-    v[obstaculosGerados] = sorteio;
-    while(obstaculosGerados < nObstaculos)
-    {
-        if(v[obstaculosGerados] == 1)
-        {
-            Obstaculo* ob1 = static_cast<Obstaculo*> (prototype.MakeCaixa(1175, 0));
-            Lobstaculos.incluir(ob1);
-            Lentidades.incluir(static_cast<Entidade*> (ob1));
-        }
-        else if(v[obstaculosGerados] == 2)
-        {
-            Obstaculo* ob2 = static_cast<Obstaculo*> (prototype.MakeCaixa(5300, 0));
-            Lobstaculos.incluir(ob2);
-            Lentidades.incluir(static_cast<Entidade*> (ob2));
-        }
-        else if(v[obstaculosGerados] == 3)
-        {
-            Obstaculo* ob3 = static_cast<Obstaculo*> (prototype.MakeCaixa(1925, 0));
-            Lobstaculos.incluir(ob3);
-            Lentidades.incluir(static_cast<Entidade*> (ob3));
-        }
-        else if(v[obstaculosGerados] == 4)
-        {
-            Obstaculo* ob4 = static_cast<Obstaculo*> (prototype.MakeCaixa(3525, 0));
-            Lobstaculos.incluir(ob4);
-            Lentidades.incluir(static_cast<Entidade*> (ob4));
-        }
-        else if(v[obstaculosGerados] == 5)
-        {
-            Obstaculo* ob5 = static_cast<Obstaculo*> (prototype.MakeCaixa(4425, 0));
-            Lobstaculos.incluir(ob5);
-            Lentidades.incluir(static_cast<Entidade*> (ob5));
-        }
-        else
-        {
-            Obstaculo* ob6 = static_cast<Obstaculo*> (prototype.MakeCaixa(5625, 0));
-            Lobstaculos.incluir(ob6);
-            Lentidades.incluir(static_cast<Entidade*> (ob6));
-        }
-
-        obstaculosGerados++;
-
-        sorteio = (rand()%6)+1;
-        printf("Sorteio antes: %d\n", sorteio);
-        int i = 0;
-        while(i < obstaculosGerados)
-        {
-            if(sorteio == v[i])
-            {
-                sorteio = (rand()%6)+1;
-                i = 0;
-            }
-            else
-                i++;
-        }
-
-        printf("Sorteio depois: %d\n", sorteio);
-        v[obstaculosGerados] = sorteio;
-    }
-    for(int i=0; i<6; i++)
-        printf("%d  ", v[i]);*/
-
 
     if(obstaculosGerados < nObstaculos)
     {
