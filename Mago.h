@@ -12,7 +12,6 @@ private:
     bool atacking;
     bool spawning;
 
-    int nImagem;
 public:
     Mago(const vector<sf::Texture> textureMago, const vector<sf::Vector2u> vecMago, const sf::Vector2f posicao, Fase* pFase, const int ID = 7);
     Mago(const Mago& other, float x, float y);

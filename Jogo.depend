@@ -1,8 +1,8 @@
 # depslib dependency file v1.0
-1574104771 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\player.cpp
+1574388122 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\player.cpp
 	"Player.h"
 
-1573968706 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\player.h
+1574388093 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\player.h
 	"Personagem.h"
 	<vector>
 	"Animation.h"
@@ -417,7 +417,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1573948189 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\main.cpp
+1574351352 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\main.cpp
 	"Lemurya.h"
 
 1539726480 c:\users\avell\desktop\gabriel\faculdade\sfml-2.5.1\include\sfml\audio.hpp
@@ -539,10 +539,10 @@
 1570587278 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\collision.h
 	<SFML/Graphics.hpp>
 
-1573736903 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\src\animation.cpp
+1574387939 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\src\animation.cpp
 	"Animation.h"
 
-1573736903 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\include\animation.h
+1574387939 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\include\animation.h
 	<SFML/Graphics.hpp>
 	<vector>
 
@@ -569,7 +569,7 @@
 1574188333 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\entidade.cpp
 	"Entidade.h"
 
-1574188333 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\entidade.h
+1574387265 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\entidade.h
 	<SFML/Graphics.hpp>
 
 1574188333 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\entidadecolidivel.cpp
@@ -612,7 +612,7 @@
 	"Fase.h"
 	"Lemurya.h"
 
-1574351334 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\fase.h
+1574387265 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\fase.h
 	<SFML/Graphics.hpp>
 	"GerenciadorDeColisoes.h"
 	"GerenciadorDePontuacao.h"
@@ -708,25 +708,25 @@
 1573948189 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\esqueleto.h
 	"Inimigo.h"
 
-1574193643 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\mago.cpp
+1574387988 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\mago.cpp
 	"Mago.h"
 	"Fase.h"
 
-1573948189 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\mago.h
+1574387777 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\mago.h
 	"Inimigo.h"
 	"BolaDeFogo.h"
 
-1573948189 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\lista.h
+1574439494 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\lista.h
 	"Elemento.h"
 	<iostream>
 	<SFML/Graphics.hpp>
 	<vector>
 
-1573948189 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\elemento.h
+1574438767 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\elemento.h
 	<stdio.h>
 	<stdlib.h>
 
-1573948189 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\listaplataformas.cpp
+1574439614 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\listaplataformas.cpp
 	"ListaPlataformas.h"
 
 1573948189 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\listaplataformas.h
@@ -739,7 +739,7 @@
 	"MenuPause.h"
 	"FaseAquatica1.h"
 
-1574351268 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\menu.h
+1574387777 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\menu.h
 	"Entidade.h"
 	"Lemurya.h"
 	"State.h"
@@ -752,14 +752,13 @@
 1574350213 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\gerenciadorgrafico.cpp
 	"GerenciadorGrafico.h"
 
-1573948189 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\gerenciadordecolisoes.h
+1574387339 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\gerenciadordecolisoes.h
 	"ListaInimigos.h"
 	"ListaPlataformas.h"
 	"ListaObstaculos.h"
 	"ListaEntidades.h"
 	"ListaProjeteis.h"
 	"Player.h"
-	<stdio.h>
 
 1574192756 source:c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\gerenciadordecolisoes.cpp
 	"GerenciadorDeColisoes.h"
@@ -830,7 +829,7 @@
 	"Lemurya.h"
 	"MenuPrincipal.h"
 
-1573948189 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\animation.h
+1574387974 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\animation.h
 	<SFML/Graphics.hpp>
 	<vector>
 
@@ -846,7 +845,7 @@
 	"GerenciadorDePontuacao.h"
 	"Lemurya.h"
 
-1573948189 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\gerenciadordepontuacao.h
+1574387777 c:\users\avell\desktop\gabriel\faculdade\2º semestre\técnicas de programação\jogo\gerenciadordepontuacao.h
 	<SFML/Graphics.hpp>
 	<sstream>
 	<fstream>

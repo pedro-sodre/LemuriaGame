@@ -5,7 +5,6 @@
 #include "ListaEntidades.h"
 #include "ListaProjeteis.h"
 #include "Player.h"
-#include <stdio.h>
 
 class GerenciadorDeColisoes
 {

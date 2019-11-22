@@ -12,7 +12,7 @@ public:
     sf::IntRect uvRect;
 
     void Update(float deltaTime, bool faceRight);
-    void Update(float deltaTime, bool faceRight, bool& notEnd, int *nImagem);
+    void Update(float deltaTime, bool faceRight, bool& notEnd);
     int getCurrentImage();
 
 

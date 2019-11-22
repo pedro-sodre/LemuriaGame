@@ -25,7 +25,7 @@ Platform* ListaPlataformas::percorrer()
 {
     if(LTPlataformas.getpPercorrimento() != NULL)
     {
-        Elemento<Platform>* pElAux = NULL;
+        Lista<Platform>::Elemento* pElAux = NULL;
         Platform* pPlatAux = NULL;
         pElAux = LTPlataformas.getpPercorrimento();
 

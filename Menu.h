@@ -19,7 +19,7 @@ protected:
     sf::Text tituloDoJogo;
     sf::Texture textura1;
     sf::RectangleShape LogoDoJogo;
-    sf::RectangleShape* body; //O body virá do entidade depois
+    sf::RectangleShape* body;
 
     sf::View viewMenu;
     sf::Event event;
@@ -29,7 +29,6 @@ public:
     ~Menu();
     //Métodos de Entidade
 	void executar(float deltaTime);
-	//void executar();
 	void destruir();
 	void Draw(sf::RenderWindow& window);
 	//Métodos de State

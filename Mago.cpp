@@ -68,7 +68,7 @@ void Mago::executar(float deltaTime)
         row = 3;
         body->setTexture(&vecTexture[row]);
         body->setTextureRect(animacao[row]->uvRect);
-        animacao[row]->Update(deltaTime, faceRight, spawning, &nImagem);
+        animacao[row]->Update(deltaTime, faceRight, spawning);
     }
 
     else if(atacking)
@@ -83,7 +83,7 @@ void Mago::executar(float deltaTime)
         row = 2;
         body->setTexture(&vecTexture[row]);
         body->setTextureRect(animacao[row]->uvRect);
-        animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+        animacao[row]->Update(deltaTime, faceRight, atacking);
     }
 
     else

@@ -119,16 +119,6 @@ void Player::onCollision(sf::Vector2f direction)
         velocity.y = 0.0f;
 }
 
-void Player::setCanJump(const bool canJump)
-{
-    this->canJump = canJump;
-}
-
-bool Player::getCanJump() const
-{
-    return canJump;
-}
-
 void Player::Update(float deltaTime)
 {
 
@@ -147,7 +137,6 @@ void Player::Update(float deltaTime)
 
         if(!atacking)
         {
-            nImagem = 0;
            if(velocity.y < -200.0f)
             {
                 atacking = false;
@@ -189,7 +178,7 @@ void Player::Update(float deltaTime)
 
                 body->setFillColor(sf::Color::White);
                 animationBody->setFillColor(sf::Color::Transparent);
-                animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+                animacao[row]->Update(deltaTime, faceRight, atacking);
                 body->setTextureRect(animacao[row]->uvRect);
         }
         else
@@ -203,9 +192,9 @@ void Player::Update(float deltaTime)
                     body->setPosition(x+70, y);
 
                 body->setFillColor(sf::Color::Transparent);
-                animationBody->setFillColor(sf::Color::White);            ///PROBLEMA AQUI PARA ATACAR ????
+                animationBody->setFillColor(sf::Color::White);
                 animationBody->setTextureRect(animacao[row]->uvRect);
-                animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+                animacao[row]->Update(deltaTime, faceRight, atacking);
 
         }
 
@@ -241,7 +230,6 @@ void Player::Update(float deltaTime)
 
         if(!atacking)
         {
-            nImagem = 0;
            if(velocity.y < -200.0f)
             {
                 atacking = false;
@@ -283,7 +271,7 @@ void Player::Update(float deltaTime)
 
                 body->setFillColor(sf::Color(6,59,255));
                 animationBody->setFillColor(sf::Color::Transparent);
-                animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+                animacao[row]->Update(deltaTime, faceRight, atacking);
                 body->setTextureRect(animacao[row]->uvRect);
         }
         else
@@ -299,7 +287,7 @@ void Player::Update(float deltaTime)
                 body->setFillColor(sf::Color::Transparent);
                 animationBody->setFillColor(sf::Color(6,59,255));
                 animationBody->setTextureRect(animacao[row]->uvRect);
-                animacao[row]->Update(deltaTime, faceRight, atacking, &nImagem);
+                animacao[row]->Update(deltaTime, faceRight, atacking);
 
         }
 
@@ -404,17 +392,17 @@ void Player::setRanking(const int r)
     ranking = r;
 }
 
-sf::RectangleShape* Player::getDamage()
+sf::RectangleShape* Player::getDamage() const
 {
     return damage;
 }
 
-sf::RectangleShape* Player::getLife()
+sf::RectangleShape* Player::getLife() const
 {
     return life;
 }
 
-sf::RectangleShape* Player::getLifeIcon()
+sf::RectangleShape* Player::getLifeIcon() const
 {
     return lifeIcon;
 }

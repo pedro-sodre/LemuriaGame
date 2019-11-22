@@ -8,7 +8,6 @@ protected:
     int y;
     int id;
     sf::Texture texture;
-	//sf::RectangleShape* body;
 public:
     Entidade();
     virtual ~Entidade();

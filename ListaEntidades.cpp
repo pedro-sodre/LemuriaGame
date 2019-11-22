@@ -22,7 +22,7 @@ void ListaEntidades::incluir(Entidade* pe)
 
 void ListaEntidades::Draw(sf::RenderWindow& window)
 {
-    Elemento<Entidade>* pElAux = NULL;
+    Lista<Entidade>::Elemento* pElAux = NULL;
     Entidade* pEntAux = NULL;
     pElAux = LTEntidades.getpPrimeiro();
 
@@ -36,12 +36,12 @@ void ListaEntidades::Draw(sf::RenderWindow& window)
 
 void ListaEntidades::retirar()
 {
-    Elemento<Entidade>* pElAux = NULL;
+    Lista<Entidade>::Elemento* pElAux = NULL;
     Entidade* pEntAux = NULL;
     pElAux = LTEntidades.getpPrimeiro();
 
-    Elemento<Entidade>* pElAnt = NULL;
-    Elemento<Entidade>* pElPost = NULL;
+    Lista<Entidade>::Elemento* pElAnt = NULL;
+    Lista<Entidade>::Elemento* pElPost = NULL;
     while (pElAux != NULL)
     {
         pEntAux = pElAux->getInfo();
@@ -66,7 +66,7 @@ void ListaEntidades::retirar()
 
 void ListaEntidades::executar(float deltaTime)
 {
-    Elemento<Entidade>* pElAux = NULL;
+    Lista<Entidade>::Elemento* pElAux = NULL;
     Entidade* pEntAux = NULL;
     pElAux = LTEntidades.getpPrimeiro();
 
@@ -84,7 +84,7 @@ Entidade* ListaEntidades::percorrer()
 {
     if(LTEntidades.getpPercorrimento() != NULL)
     {
-        Elemento<Entidade>* pElAux = NULL;
+        Lista<Entidade>::Elemento* pElAux = NULL;
         Entidade* pEntAux = NULL;
         pElAux = LTEntidades.getpPrimeiro();
 
@@ -117,7 +117,7 @@ void ListaEntidades::gravarJogo1()
         return;
     }
 
-    Elemento<Entidade>* pElAux = NULL;
+    Lista<Entidade>::Elemento* pElAux = NULL;
     Entidade* pEntAux = NULL;
     pElAux = LTEntidades.getpPrimeiro();
 
@@ -147,7 +147,7 @@ void ListaEntidades::gravarJogo2()
         return;
     }
 
-    Elemento<Entidade>* pElAux = NULL;
+    Lista<Entidade>::Elemento* pElAux = NULL;
     Entidade* pEntAux = NULL;
     pElAux = LTEntidades.getpPrimeiro();
 
@@ -177,7 +177,7 @@ void ListaEntidades::gravarJogo3()
         return;
     }
 
-    Elemento<Entidade>* pElAux = NULL;
+    Lista<Entidade>::Elemento* pElAux = NULL;
     Entidade* pEntAux = NULL;
     pElAux = LTEntidades.getpPrimeiro();
 

@@ -8,14 +8,37 @@ using std::vector;
 using std::cout;
 using std::endl;
 
-template<class TIPO>
+template<typename TIPO>
 class Lista
 {
-private:
-    Elemento<TIPO>* pPrimeiro;
-    Elemento<TIPO>* pAtual;
+public:
 
-    Elemento<TIPO>* pPercorrimento;     ///TESTE PARA GERENCIAR COLISÕES
+    class Elemento
+    {
+        private:
+            Elemento* pProximo;
+            Elemento* pAnterior;
+            TIPO* pInfo;
+
+        public:
+            Elemento();
+            ~Elemento();
+
+            void setProximo(Elemento* pp);
+            Elemento* getProximo();
+
+            void setAnterior(Elemento* pa);
+            Elemento* getAnterior();
+
+            void setInfo(TIPO* pi);
+            TIPO* getInfo();
+    };
+
+private:
+    Elemento* pPrimeiro;
+    Elemento* pAtual;
+
+    Elemento* pPercorrimento;
 
 public:
     Lista();
@@ -24,35 +47,35 @@ public:
     void inicializa();
     void limpar();
 
-    bool incluaElemento(Elemento<TIPO>* pElemento);
+    bool incluaElemento(Elemento* pElemento);
     bool incluaInfo(TIPO* pInfo);
     void listeInfos();
 
-    void setpPercorrimento(Elemento<TIPO>* p);
+    void setpPercorrimento(Elemento* p);
 
-    Elemento<TIPO>* getpPrimeiro();
-    Elemento<TIPO>* getpAtual();
-    Elemento<TIPO>* getpPercorrimento();
+    Elemento* getpPrimeiro();
+    Elemento* getpAtual();
+    Elemento* getpPercorrimento();
 
 };
 
-template<class TIPO>
+template<typename TIPO>
 Lista<TIPO>::Lista()
 {
     inicializa();
 }
 
-template<class TIPO>
+template<typename TIPO>
 Lista<TIPO>::~Lista()
 {
     limpar();
 }
 
-template<class TIPO>
+template<typename TIPO>
 void Lista<TIPO>::limpar()
 {
-    Elemento<TIPO>* paux1;
-    Elemento<TIPO>* paux2;
+    Elemento* paux1;
+    Elemento* paux2;
 
     paux1 = pPrimeiro;
     paux2 = paux1;
@@ -69,7 +92,7 @@ void Lista<TIPO>::limpar()
     pPercorrimento = NULL;
 }
 
-template<class TIPO>
+template<typename TIPO>
 void Lista<TIPO>::inicializa()
 {
     pPrimeiro = NULL;
@@ -77,8 +100,8 @@ void Lista<TIPO>::inicializa()
     pPercorrimento = NULL;
 }
 
-template<class TIPO>
-bool Lista<TIPO>::incluaElemento(Elemento<TIPO>* pElemento)
+template<typename TIPO>
+bool Lista<TIPO>::incluaElemento(Elemento* pElemento)
 {
     if (NULL != pElemento)
     {
@@ -104,13 +127,13 @@ bool Lista<TIPO>::incluaElemento(Elemento<TIPO>* pElemento)
     }
 }
 
-template<class TIPO>
+template<typename TIPO>
 bool Lista<TIPO>::incluaInfo(TIPO* pInfo)
 {
     if (NULL != pInfo)
     {
-        Elemento<TIPO>* pElemento;
-        pElemento = new Elemento<TIPO>();
+        Elemento* pElemento;
+        pElemento = new Elemento();
         pElemento->setInfo(pInfo);
         incluaElemento(pElemento);
         return true;
@@ -122,27 +145,80 @@ bool Lista<TIPO>::incluaInfo(TIPO* pInfo)
     }
 }
 
-template<class TIPO>
-Elemento<TIPO>* Lista<TIPO>::getpPrimeiro()
+template<typename TIPO>
+typename Lista<TIPO>::Elemento* Lista<TIPO>::getpPrimeiro()
 {
     return pPrimeiro;
 }
 
-template<class TIPO>
-Elemento<TIPO>* Lista<TIPO>::getpAtual()
+template<typename TIPO>
+typename Lista<TIPO>::Elemento* Lista<TIPO>::getpAtual()
 {
     return pAtual;
 }
 
-template<class TIPO>
-Elemento<TIPO>* Lista<TIPO>::getpPercorrimento()
+template<typename TIPO>
+typename Lista<TIPO>::Elemento* Lista<TIPO>::getpPercorrimento()
 {
     return pPercorrimento;
 }
 
-template<class TIPO>
-void Lista<TIPO>::setpPercorrimento(Elemento<TIPO>* p)
+template<typename TIPO>
+void Lista<TIPO>::setpPercorrimento(Elemento* p)
 {
     pPercorrimento = p;
+}
+
+
+template<typename TIPO>
+Lista<TIPO>::Elemento::Elemento()
+{
+    pProximo  = NULL;
+    pAnterior = NULL;
+    pInfo     = NULL;
+}
+
+template<typename TIPO>
+Lista<TIPO>::Elemento::~Elemento()
+{
+    pProximo  = NULL;
+    pAnterior = NULL;
+    pInfo     = NULL;
+}
+
+template<typename TIPO>
+void Lista<TIPO>::Elemento::setProximo(Elemento* pp)
+{
+    pProximo = pp;
+}
+
+template<typename TIPO>
+typename Lista<TIPO>::Elemento* Lista<TIPO>::Elemento::getProximo()
+{
+    return pProximo;
+}
+
+template<typename TIPO>
+void Lista<TIPO>::Elemento::setAnterior(Elemento* pa)
+{
+    pAnterior = pa;
+}
+
+template<typename TIPO>
+typename Lista<TIPO>::Elemento* Lista<TIPO>::Elemento::getAnterior()
+{
+    return pAnterior;
+}
+
+template<typename TIPO>
+void Lista<TIPO>::Elemento::setInfo(TIPO* pi)
+{
+    pInfo = pi;
+}
+
+template<typename TIPO>
+TIPO* Lista<TIPO>::Elemento::getInfo()
+{
+    return pInfo;
 }
 

@@ -1,13 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
-class Lemurya;
-
 #include <sstream>
 #include <fstream>
 #include <stdlib.h>
 #include <iostream>
 #include <string>
+
+class Lemurya;
 
 class GerenciadorDePontuacao
 {

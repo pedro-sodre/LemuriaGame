@@ -21,9 +21,6 @@ public:
 
     void Update(float deltaTime);
 
-    void setCanJump(const bool canJump);
-    bool getCanJump() const;
-
     void knockback(sf::Vector2f direction);
 
     void executar(float deltaTime);
@@ -39,15 +36,14 @@ public:
     int getRanking() const;
     void setRanking(const int r);
 
-    sf::RectangleShape* getDamage();
-    sf::RectangleShape* getLife();
-    sf::RectangleShape* getLifeIcon();
+    sf::RectangleShape* getDamage() const;
+    sf::RectangleShape* getLife() const;
+    sf::RectangleShape* getLifeIcon() const;
 
 private:
     sf::RectangleShape* atackBody;
     sf::RectangleShape* animationBody;
     bool atacking;
-    int nImagem;
 
     sf::RectangleShape* lifeIcon;
     sf::RectangleShape* life;

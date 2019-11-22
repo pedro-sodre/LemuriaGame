@@ -1,7 +1,7 @@
 #pragma once
 #include <stdio.h>
 #include <stdlib.h>
-
+/*
 template<class TIPO>
 class Elemento
 {
@@ -76,3 +76,4 @@ TIPO* Elemento<TIPO>::getInfo()
     return pInfo;
 }
 
+*/
