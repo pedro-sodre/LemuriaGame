@@ -23,6 +23,10 @@ public:
 	void carregarMorte();
 	void carregarProxFase();
 
+    void checkFimDaFase();
+	void checkSalvarJogo();
+    void checkPlayerVivo();
+
     void gerarInimigos();
 	void gerarObstaculos();
 

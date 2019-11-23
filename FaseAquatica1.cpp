@@ -64,49 +64,22 @@ void FaseAquatica1::input()
 
 void FaseAquatica1::update()
 {
-
-	///UPDATE NA VIEW
-	view.setCenter(jogo->getPlayer1()->getPosition().x, 200.0f);
-	jogo->window.setView(view);
-	///UPDATE BACKGROUND
-	this->getBody()->setPosition(jogo->getPlayer1()->getPosition().x, 200.0f);
+	///UPDATE NA VIEW E BACKGROUND
+    updateViewEBackground(view);
     ///GERENCIA PONTUAÇÃO
-    gerenciadorDePontuacao.executar();
-	///GERENCIA COLISÕES
-    gerenciadorDeColisoes.executar();
-    ///GERENCIA VIDA
-    jogo->getPlayer1()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -300.0f));
-    jogo->getPlayer1()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer1()->getVida()*20)) - 430.0f, -300.0f));
-    jogo->getPlayer1()->getLifeIcon()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 520.0f, -330.0f));
-
-    jogo->getPlayer2()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -150.0f));
-    jogo->getPlayer2()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer2()->getVida()*20)) - 430.0f, -150.0f));
-    jogo->getPlayer2()->getLifeIcon()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 520.0f, -180.0f));
+    gerenciarTudo();
     ///EXECUTA
 	Lentidades.executar(jogo->deltaTime);
-
     ///SPAWN DE INIMIGOS
     spawnInimigo -= jogo->deltaTime;
     if(spawnInimigo <= 0)
         gerarInimigos();
-
-	///VERIFICA SE OS PLAYERS ESTÃO VIVOS PARA PASSAR PARA O PRÓXIMO FRAME
-	if(!jogo->getPlayer1()->estaVivo())
-		carregarMorte();
-    if(jogo->getP2())
-        if(!jogo->getPlayer2()->estaVivo())
-            carregarMorte();
-
-    ///VERIFICA SE O PLAYER PASSOU DE FASE
-    if (jogo->getPlayer1()->getPosition().x > 6000.0f)
-		carregarProxFase();
-
-	///VERIFICA SE NECESSITA SALVAR A FASE
-    if(jogo->getSalvarFase1())
-    {
-        jogo->setSalvarFase1(false);
-        Lentidades.gravarJogo1();
-    }
+	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
+    checkPlayerVivo();
+    ///VERIFICA SE É NECESSÁRIO SALVAR O JOGO
+    checkSalvarJogo();
+    ///VERIFICA SE O PLAYER GANHOU O JOGO
+    checkFimDaFase();
 }
 
 void FaseAquatica1::inicializar(bool player2)
@@ -231,6 +204,31 @@ void FaseAquatica1::carregarProxFase()
 {
 	jogo->popState();
 	jogo->pushState(new FaseAquatica2(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT), jogo, true, jogo->getP2(), gerenciadorDePontuacao.getPontuacao()));
+}
+
+void FaseAquatica1::checkFimDaFase()
+{
+    if (jogo->getPlayer1()->getPosition().x > 6000.0f)
+		carregarProxFase();
+}
+
+void FaseAquatica1::checkSalvarJogo()
+{
+    if(jogo->getSalvarFase3())
+    {
+        jogo->setSalvarFase3(false);
+        Lentidades.gravarJogo3();
+    }
+}
+
+void FaseAquatica1::checkPlayerVivo()
+{
+    if(!jogo->getPlayer1()->estaVivo())
+		carregarMorte();
+
+    if(jogo->getP2())
+        if(!jogo->getPlayer2()->estaVivo())
+            carregarMorte();
 }
 
 void FaseAquatica1::gravarJogo()

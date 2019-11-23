@@ -64,52 +64,22 @@ void FaseNoturna3::input()
 
 void FaseNoturna3::update()
 {
-	///UPDATE NA VIEW
-	view.setCenter(jogo->getPlayer1()->getPosition().x, 200.0f);
-	jogo->window.setView(view);
-	///UPDATE BACKGROUND
-	this->getBody()->setPosition(jogo->getPlayer1()->getPosition().x, 200.0f);
+	///UPDATE NA VIEW E BACKGROUND
+    updateViewEBackground(view);
     ///GERENCIA PONTUAÇÃO
-    gerenciadorDePontuacao.executar();
-	///GERENCIA COLISÕES
-    gerenciadorDeColisoes.executar();
-    ///SOMENTE TESTE, PODE SER FEITO NO PRÓPRIO EXECUTAR DO PLAYER, PORÉM, ACHO QUE DESSA FORMA FICA MAIS BONITO (QUANDO INCLUIR PLAYER2 DEVE FICAR MAIS FÁCIL FAZER PELO PLAYER)
-    ///GERENCIA VIDA
-    jogo->getPlayer1()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -300.0f));
-    jogo->getPlayer1()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer1()->getVida()*20)) - 430.0f, -300.0f));
-    jogo->getPlayer1()->getLifeIcon()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 520.0f, -330.0f));
-
-    jogo->getPlayer2()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -150.0f));
-    jogo->getPlayer2()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer2()->getVida()*20)) - 430.0f, -150.0f));
-    jogo->getPlayer2()->getLifeIcon()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 520.0f, -180.0f));
+    gerenciarTudo();
     ///EXECUTA
 	Lentidades.executar(jogo->deltaTime);
-
     ///SPAWN DE INIMIGOS
     spawnInimigo -= jogo->deltaTime;
     if(spawnInimigo <= 0)
         gerarInimigos();
-
 	///VERIFICA SE PLAYER ESTÁ VIVO PARA PASSAR PARA O PRÓXIMO FRAME
-	if(!jogo->getPlayer1()->estaVivo())
-		carregarMorte();
-
-    if(jogo->getP2())
-        if(!jogo->getPlayer2()->estaVivo())
-            carregarMorte();
-
-    if(jogo->getSalvarFase3())
-    {
-        jogo->setSalvarFase3(false);
-        Lentidades.gravarJogo3();
-    }
-
-    if(!boss->getVida())
-    {
-        jogo->setGanharJogo(true);
-        jogo->getPlayer1()->setRanking(jogo->getPlayer1()->getRanking()+500);
-        carregarMorte();
-    }
+    checkPlayerVivo();
+    ///VERIFICA SE É NECESSÁRIO SALVAR O JOGO
+    checkSalvarJogo();
+    ///VERIFICA SE O PLAYER GANHOU O JOGO
+    checkFimDeJogo();
 }
 
 void FaseNoturna3::inicializar(bool player2)
@@ -187,9 +157,7 @@ void FaseNoturna3::carregarMorte()
 
 void FaseNoturna3::carregarProxFase()
 {
-	jogo->popState();
-	///SALVAR PONTUAÇÃO NO ARQUIVO gerenciadorDePontuacao.getPontuacao()
-	///MENU DE FIM DE JOGO
+    carregarMorte();
 }
 
 void FaseNoturna3::Draw(sf::RenderWindow& window)
@@ -201,6 +169,34 @@ void FaseNoturna3::executar()
 {
 }
 
+void FaseNoturna3::checkFimDeJogo()
+{
+    if(!boss->getVida())
+    {
+        jogo->setGanharJogo(true);
+        jogo->getPlayer1()->setRanking(jogo->getPlayer1()->getRanking()+500);
+        carregarProxFase();
+    }
+}
+
+void FaseNoturna3::checkSalvarJogo()
+{
+    if(jogo->getSalvarFase3())
+    {
+        jogo->setSalvarFase3(false);
+        Lentidades.gravarJogo3();
+    }
+}
+
+void FaseNoturna3::checkPlayerVivo()
+{
+    if(!jogo->getPlayer1()->estaVivo())
+		carregarMorte();
+
+    if(jogo->getP2())
+        if(!jogo->getPlayer2()->estaVivo())
+            carregarMorte();
+}
 void FaseNoturna3::gravarJogo()
 {
     ofstream Gravador("data/saves/Fase3Gravando.txt", ios::out);

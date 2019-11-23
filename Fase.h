@@ -73,7 +73,13 @@ public:
     virtual void executar(float deltaTime);
     virtual void executar();
     virtual void Draw(sf::RenderWindow& window);
+
     void gerenciarColisoes();
+    void gerenciarBarraDeVida();
+    void gerenciarPontuacao();
+    void gerenciarTudo();
+
+    void updateViewEBackground(sf::View& view);
 
 	virtual void carregarPause();
     ///FUNÇÃO VIRTUAL, CADA FASE VAI GRAVAR EM UM ARQUIVO

@@ -37,7 +37,7 @@ void Fase::destruir()
 
 void Fase::gerenciarColisoes()
 {
-
+    gerenciadorDeColisoes.executar();
 }
 
 void Fase::carregarPause()
@@ -98,4 +98,34 @@ int Fase::getNInimigos()
 ListaEntidades* Fase::getLentidades()
 {
     return &(Lentidades);
+}
+
+void Fase::gerenciarBarraDeVida()
+{
+    jogo->getPlayer1()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -300.0f));
+    jogo->getPlayer1()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer1()->getVida()*20)) - 430.0f, -300.0f));
+    jogo->getPlayer1()->getLifeIcon()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 520.0f, -330.0f));
+
+    jogo->getPlayer2()->getLife()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 430.0f, -150.0f));
+    jogo->getPlayer2()->getDamage()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x + std::max(0, (jogo->getPlayer2()->getVida()*20)) - 430.0f, -150.0f));
+    jogo->getPlayer2()->getLifeIcon()->setPosition(sf::Vector2f(jogo->getPlayer1()->getPosition().x - 520.0f, -180.0f));
+}
+
+void Fase::gerenciarPontuacao()
+{
+    gerenciadorDePontuacao.executar();
+}
+
+void Fase::gerenciarTudo()
+{
+    gerenciarColisoes();
+    gerenciarPontuacao();
+    gerenciarBarraDeVida();
+}
+
+void Fase::updateViewEBackground(sf::View& view)
+{
+    view.setCenter(jogo->getPlayer1()->getPosition().x, 200.0f);
+	jogo->window.setView(view);
+	this->getBody()->setPosition(jogo->getPlayer1()->getPosition().x, 200.0f);
 }

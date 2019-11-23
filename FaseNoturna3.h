@@ -27,6 +27,10 @@ public:
     void gerarInimigos();
 	void gerarObstaculos();
 
+	void checkFimDeJogo();
+	void checkSalvarJogo();
+    void checkPlayerVivo();
+
     void recuperarJogo(bool player2 = false);
     void novoJogo(bool player2 = false);
     void gravarJogo();
