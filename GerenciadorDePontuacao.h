@@ -30,7 +30,7 @@ public:
 
     void setPontuacao(const int pont);
     void incrementarPontuacao(const int pont);
-    int getPontuacao() const;
+    const int getPontuacao() const;
 
     void draw();
 };

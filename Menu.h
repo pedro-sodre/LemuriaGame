@@ -40,5 +40,5 @@ public:
 
 	void MoveUp();
 	void MoveDown();
-	int getPressedItem();
+	const int getPressedItem() const ;
 };

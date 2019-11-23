@@ -54,7 +54,7 @@ void GerenciadorDePontuacao::incrementarPontuacao(const int pont)
     jogo->getPlayer1()->setRanking(jogo->getPlayer1()->getRanking() + pont);
 }
 
-int GerenciadorDePontuacao::getPontuacao() const
+const int GerenciadorDePontuacao::getPontuacao() const
 {
     return jogo->getPlayer1()->getRanking();
 }

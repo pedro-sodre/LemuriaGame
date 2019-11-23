@@ -33,7 +33,7 @@ void EntidadeColidivel::Draw(sf::RenderWindow& window)
     window.draw(*body);
 }
 
-void EntidadeColidivel::onCollision(sf::Vector2f direction)
+void EntidadeColidivel::onCollision(const sf::Vector2f direction)
 {
     if(direction.x < 0.0f)
         velocity.x = 0.0f;

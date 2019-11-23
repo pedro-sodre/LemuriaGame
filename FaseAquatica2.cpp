@@ -4,7 +4,7 @@
 #include "MenuPause.h"
 #include "FaseNoturna3.h"
 
-FaseAquatica2::FaseAquatica2(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2, int pont):
+FaseAquatica2::FaseAquatica2(const sf::Vector2f tam, Lemurya* jogo, const bool newGame, const bool player2, const int pont):
 Fase(tam, jogo)
 {
 	texture = jogo->getGerenciadorGrafico().getFase2Texture();
@@ -80,7 +80,7 @@ void FaseAquatica2::update()
     checkFimDaFase();
 }
 
-void FaseAquatica2::inicializar(bool player2)
+void FaseAquatica2::inicializar(const bool player2)
 {
 	novoJogo(player2);
 	gerarObstaculos();
@@ -91,7 +91,7 @@ void FaseAquatica2::inicializar(bool player2)
 	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 }
 
-void FaseAquatica2::carregar(bool player2)
+void FaseAquatica2::carregar(const bool player2)
 {
 	recuperarJogo(player2);
     gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
@@ -265,7 +265,7 @@ void FaseAquatica2::gravarJogo()
     Gravador.close();
 }
 
-void FaseAquatica2::recuperarJogo(bool player2)
+void FaseAquatica2::recuperarJogo(const bool player2)
 {
 
     ifstream Recuperador("data/saves/Fase2Gravando.txt", ios::in);
@@ -347,7 +347,7 @@ void FaseAquatica2::recuperarJogo(bool player2)
     Recuperador.close();
 }
 
-void FaseAquatica2::novoJogo(bool player2)
+void FaseAquatica2::novoJogo(const bool player2)
 {
 
     ifstream Recuperador("data/saves/Fase2Base.txt", ios::in);

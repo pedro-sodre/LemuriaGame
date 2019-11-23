@@ -69,7 +69,7 @@ void Tritao::executar(float deltaTime)
     }
 }
 
-Tritao* Tritao::clone(float x, float y) const
+Tritao* Tritao::clone(const float x, const float y) const
 {
     return new Tritao(*this, x, y);
 }

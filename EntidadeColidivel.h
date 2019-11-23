@@ -20,7 +20,7 @@ public:
 
     void setTexture(const sf::Texture pTexture);
 
-    virtual void onCollision(sf::Vector2f direction);           //REDEFINIÇÃO PARA O PLAYER
+    virtual void onCollision(const sf::Vector2f direction);           //REDEFINIÇÃO PARA O PLAYER
     virtual Collider getCollider() { return Collider(*body); }
 
     sf::Vector2f getPosition() const { return body->getPosition(); }

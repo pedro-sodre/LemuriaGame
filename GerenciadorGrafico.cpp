@@ -185,127 +185,127 @@ void GerenciadorGrafico::inicializar()
 
 }
 
-vector<sf::Texture> GerenciadorGrafico::getTexturePlayer1() const
+const vector<sf::Texture> GerenciadorGrafico::getTexturePlayer1() const
 {
     return texturePlayer1;
 }
 
-vector<sf::Vector2u> GerenciadorGrafico::getVecPlayer1() const
+const vector<sf::Vector2u> GerenciadorGrafico::getVecPlayer1() const
 {
     return vecPlayer1;
 }
 
-vector<sf::Texture> GerenciadorGrafico::getTextureEsqueleto() const
+const vector<sf::Texture> GerenciadorGrafico::getTextureEsqueleto() const
 {
     return textureEsqueleto;
 }
 
-vector<sf::Vector2u> GerenciadorGrafico::getVecEsqueleto() const
+const vector<sf::Vector2u> GerenciadorGrafico::getVecEsqueleto() const
 {
     return vecEsqueleto;
 }
 
-vector<sf::Texture> GerenciadorGrafico::getTextureTritao() const
+const vector<sf::Texture> GerenciadorGrafico::getTextureTritao() const
 {
     return textureTritao;
 }
 
-vector<sf::Vector2u> GerenciadorGrafico::getVecTritao() const
+const vector<sf::Vector2u> GerenciadorGrafico::getVecTritao() const
 {
     return vecTritao;
 }
 
-vector<sf::Texture> GerenciadorGrafico::getTextureMago() const
+const vector<sf::Texture> GerenciadorGrafico::getTextureMago() const
 {
     return textureMago;
 }
 
-vector<sf::Vector2u> GerenciadorGrafico::getVecMago() const
+const vector<sf::Vector2u> GerenciadorGrafico::getVecMago() const
 {
     return vecMago;
 }
 
-sf::Texture GerenciadorGrafico::getBoxTexture() const
+const sf::Texture GerenciadorGrafico::getBoxTexture() const
 {
     return boxTexture;
 }
 
-sf::Texture GerenciadorGrafico::getStoneTexture1() const
+const sf::Texture GerenciadorGrafico::getStoneTexture1() const
 {
     return stoneTexture1;
 }
 
-sf::Texture GerenciadorGrafico::getStoneTexture2() const
+const sf::Texture GerenciadorGrafico::getStoneTexture2() const
 {
     return stoneTexture2;
 }
 
-sf::Texture GerenciadorGrafico::getPlatTexture() const
+const sf::Texture GerenciadorGrafico::getPlatTexture() const
 {
     return platTexture;
 }
 
-sf::Texture GerenciadorGrafico::getChaoTexture() const
+const sf::Texture GerenciadorGrafico::getChaoTexture() const
 {
     return chaoTexture;
 }
 
-sf::Texture GerenciadorGrafico::getFireballTexture() const
+const sf::Texture GerenciadorGrafico::getFireballTexture() const
 {
     return fireballTexture;
 }
 
-sf::Texture GerenciadorGrafico::getFase1Texture() const
+const sf::Texture GerenciadorGrafico::getFase1Texture() const
 {
     return fase1Texture;
 }
 
-sf::Texture GerenciadorGrafico::getFase2Texture() const
+const sf::Texture GerenciadorGrafico::getFase2Texture() const
 {
     return fase2Texture;
 }
 
-sf::Texture GerenciadorGrafico::getFase3Texture() const
+const sf::Texture GerenciadorGrafico::getFase3Texture() const
 {
     return fase3Texture;
 }
 
-sf::Font GerenciadorGrafico::getFontBlackCastle() const
+const sf::Font GerenciadorGrafico::getFontBlackCastle() const
 {
     return fontBlackCastle;
 }
 
-sf::Font GerenciadorGrafico::getFontAudiowide() const
+const sf::Font GerenciadorGrafico::getFontAudiowide() const
 {
     return fontAudiowide;
 }
 
-sf::Font GerenciadorGrafico::getFontGameOver() const
+const sf::Font GerenciadorGrafico::getFontGameOver() const
 {
     return fontGameOver;
 }
 
-sf::Texture GerenciadorGrafico::getMenuPauseTexture() const
+const sf::Texture GerenciadorGrafico::getMenuPauseTexture() const
 {
     return menuPauseTexture;
 }
 
-sf::Texture GerenciadorGrafico::getMenuMorteTexture() const
+const sf::Texture GerenciadorGrafico::getMenuMorteTexture() const
 {
     return menuMorteTexture;
 }
 
-sf::Texture GerenciadorGrafico::getMenuPrincipalTexture() const
+const sf::Texture GerenciadorGrafico::getMenuPrincipalTexture() const
 {
     return menuPrincipalTexture;
 }
 
-sf::Texture GerenciadorGrafico::getLogoTexture() const
+const sf::Texture GerenciadorGrafico::getLogoTexture() const
 {
     return logoTexture;
 }
 
-sf::Texture GerenciadorGrafico::getLogTexture() const
+const sf::Texture GerenciadorGrafico::getLogTexture() const
 {
     return logTexture;
 }

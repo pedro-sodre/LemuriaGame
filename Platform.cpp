@@ -40,7 +40,7 @@ void Platform::executar()
 {
 }
 
-Platform* Platform::clone(float x, float y) const
+Platform* Platform::clone(const float x, const float y) const
 {
     return new Platform(*this, x, y);
 }

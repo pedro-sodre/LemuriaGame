@@ -7,14 +7,14 @@ private:
 	sf::View view;
 	float spawnInimigo;
 public:
-    FaseAquatica1(sf::Vector2f tam, Lemurya* jogo, bool newGame = true, bool player2 = false);
+    FaseAquatica1(const sf::Vector2f tam, Lemurya* jogo, const bool newGame = true, const bool player2 = false);
     ~FaseAquatica1();
 
 	void draw();
 	void input();
 	void update();
-	void inicializar(bool player2 = false);
-	void carregar(bool player2 = false);
+	void inicializar(const bool player2 = false);
+	void carregar(const bool player2 = false);
 
     void Draw(sf::RenderWindow& window);
     void executar();
@@ -30,8 +30,8 @@ public:
 	void gerarInimigos();
 	void gerarObstaculos();
 
-    void recuperarJogo(bool player2 = false);
-    void novoJogo(bool player2 = false);
+    void recuperarJogo(const bool player2 = false);
+    void novoJogo(const bool player2 = false);
     void gravarJogo();
 
 };

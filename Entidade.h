@@ -15,9 +15,9 @@ public:
     void setX(const int X);
     void setY(const int Y);
     void setID(const int ID);
-    int getX() const;
-    int getY() const;
-    int getID() const;
+    const int getX() const;
+    const int getY() const;
+    const int getID() const;
 
     virtual int getVida() const;
     virtual void destruir() = 0;

@@ -17,7 +17,7 @@ public:
     Mago(const Mago& other, float x, float y);
     ~Mago();
 
-    Mago* clone(float x, float y) const;
+    Mago* clone(const float x, const float y) const;
 
     void inicializa(const vector<sf::Texture> textureMago, const vector<sf::Vector2u> vecMago, const sf::Vector2f posicao, Fase* pFase, const int ID = 7);
 

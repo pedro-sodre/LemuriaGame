@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <time.h>
 
-FaseAquatica1::FaseAquatica1(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2):
+FaseAquatica1::FaseAquatica1(const sf::Vector2f tam, Lemurya* jogo, const bool newGame, const bool player2):
 Fase(tam, jogo)
 {
 	texture = jogo->getGerenciadorGrafico().getFase1Texture();
@@ -82,7 +82,7 @@ void FaseAquatica1::update()
     checkFimDaFase();
 }
 
-void FaseAquatica1::inicializar(bool player2)
+void FaseAquatica1::inicializar(const bool player2)
 {
 	novoJogo(player2);
 	gerarObstaculos();
@@ -93,7 +93,7 @@ void FaseAquatica1::inicializar(bool player2)
 	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 }
 
-void FaseAquatica1::carregar(bool player2)
+void FaseAquatica1::carregar(const bool player2)
 {
 	recuperarJogo(player2);
     gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
@@ -253,7 +253,7 @@ void FaseAquatica1::gravarJogo()
     Gravador.close();
 }
 
-void FaseAquatica1::recuperarJogo(bool player2)
+void FaseAquatica1::recuperarJogo(const bool player2)
 {
 
     ifstream Recuperador("data/saves/Fase1Gravando.txt", ios::in);
@@ -337,7 +337,7 @@ void FaseAquatica1::recuperarJogo(bool player2)
     Recuperador.close();
 }
 
-void FaseAquatica1::novoJogo(bool player2)
+void FaseAquatica1::novoJogo(const bool player2)
 {
 
     ifstream Recuperador("data/saves/Fase1Base.txt", ios::in);

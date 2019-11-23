@@ -17,23 +17,22 @@ public:
     void inicializa(const float speed, const float jumpHeight, vector<sf::Texture> playerTexture, vector<sf::Vector2u> playerVector, float switchTime, const bool p2 = false);
     void reiniciar();
 
-    void onCollision(sf::Vector2f direction);       //REDEFINI플O DA FUN플O VOID, POIS O JOGADOR PRECISA TER O CANJUMP RESETADO
+    void onCollision(const sf::Vector2f direction);       //REDEFINI플O DA FUN플O VOID, POIS O JOGADOR PRECISA TER O CANJUMP RESETADO
 
     void Update(float deltaTime);
 
-    void knockback(sf::Vector2f direction);
+    void knockback(const sf::Vector2f direction);
 
     void executar(float deltaTime);
 
-    bool estaVivo() const;
-    void morreu(float deltaTime);
+    const bool estaVivo() const;
 
     Collider getCollider() const;
     void Draw(sf::RenderWindow& window);
 
-    bool isAtacking() const;
+    const bool isAtacking() const;
 
-    int getRanking() const;
+    const int getRanking() const;
     void setRanking(const int r);
 
     sf::RectangleShape* getDamage() const;

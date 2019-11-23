@@ -53,7 +53,7 @@ void Menu::MoveDown()
 
 }
 
-int Menu::getPressedItem()
+const int Menu::getPressedItem() const
 {
 	return selectedItem;
 }

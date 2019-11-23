@@ -78,7 +78,7 @@ void Esqueleto::executar(float deltaTime)
 
 }
 
-Esqueleto* Esqueleto::clone(float x, float y) const
+Esqueleto* Esqueleto::clone(const float x, const float y) const
 {
     return new Esqueleto(*this, x, y);
 }

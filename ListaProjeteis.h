@@ -16,6 +16,6 @@ public:
 
     void limpaLista();
     void incluir(BolaDeFogo* pp);
-    void retirar(int i);
+    void retirar(const int i);
 };
 

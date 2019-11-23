@@ -48,36 +48,36 @@ public:
     ~GerenciadorGrafico();
     void inicializar();
 
-    vector<sf::Texture> getTexturePlayer1() const;
-    vector<sf::Vector2u> getVecPlayer1() const;
+    const vector<sf::Texture> getTexturePlayer1() const;
+    const vector<sf::Vector2u> getVecPlayer1() const;
 
-    vector<sf::Texture> getTextureEsqueleto() const;
-    vector<sf::Vector2u> getVecEsqueleto() const;
+    const vector<sf::Texture> getTextureEsqueleto() const;
+    const vector<sf::Vector2u> getVecEsqueleto() const;
 
-    vector<sf::Texture> getTextureTritao() const;
-    vector<sf::Vector2u> getVecTritao() const;
+    const vector<sf::Texture> getTextureTritao() const;
+    const vector<sf::Vector2u> getVecTritao() const;
 
-    vector<sf::Texture> getTextureMago() const;
-    vector<sf::Vector2u> getVecMago() const;
+    const vector<sf::Texture> getTextureMago() const;
+    const vector<sf::Vector2u> getVecMago() const;
 
-    sf::Texture getBoxTexture() const;
-    sf::Texture getStoneTexture1() const;
-    sf::Texture getStoneTexture2() const;
-    sf::Texture getPlatTexture() const;
-    sf::Texture getChaoTexture() const;
-    sf::Texture getFireballTexture() const;
-    sf::Texture getLogTexture() const;
+    const sf::Texture getBoxTexture() const;
+    const sf::Texture getStoneTexture1() const;
+    const sf::Texture getStoneTexture2() const;
+    const sf::Texture getPlatTexture() const;
+    const sf::Texture getChaoTexture() const;
+    const sf::Texture getFireballTexture() const;
+    const sf::Texture getLogTexture() const;
 
-    sf::Texture getFase1Texture() const;
-    sf::Texture getFase2Texture() const;
-    sf::Texture getFase3Texture() const;
+    const sf::Texture getFase1Texture() const;
+    const sf::Texture getFase2Texture() const;
+    const sf::Texture getFase3Texture() const;
 
-    sf::Texture getMenuPrincipalTexture() const;
-    sf::Texture getMenuPauseTexture() const;
-    sf::Texture getMenuMorteTexture() const;
-    sf::Texture getLogoTexture() const;
+    const sf::Texture getMenuPrincipalTexture() const;
+    const sf::Texture getMenuPauseTexture() const;
+    const sf::Texture getMenuMorteTexture() const;
+    const sf::Texture getLogoTexture() const;
 
-    sf::Font getFontBlackCastle() const;
-    sf::Font getFontAudiowide() const;
-    sf::Font getFontGameOver() const;
+    const sf::Font getFontBlackCastle() const;
+    const sf::Font getFontAudiowide() const;
+    const sf::Font getFontGameOver() const;
 };

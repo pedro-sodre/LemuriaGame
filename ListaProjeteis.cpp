@@ -25,7 +25,7 @@ vector<BolaDeFogo*> ListaProjeteis::getLTProjeteis()
     return LTProjeteis;
 }
 
-void ListaProjeteis::retirar(int i)
+void ListaProjeteis::retirar(const int i)
 {
     LTProjeteis.erase(LTProjeteis.begin() + i);
 }

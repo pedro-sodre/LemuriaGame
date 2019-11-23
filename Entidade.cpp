@@ -25,17 +25,17 @@ void Entidade::setID(const int ID)
     id = ID;
 }
 
-int Entidade::getX() const
+const int Entidade::getX() const
 {
     return x;
 }
 
-int Entidade::getY() const
+const int Entidade::getY() const
 {
     return y;
 }
 
-int Entidade::getID() const
+const int Entidade::getID() const
 {
     return id;
 }

@@ -1,6 +1,6 @@
 #include "BolaDeFogo.h"
 
-BolaDeFogo::BolaDeFogo(sf::Texture t, sf::Vector2f posicao, sf::RectangleShape* p1, sf::RectangleShape* p2, int ID)
+BolaDeFogo::BolaDeFogo(const sf::Texture t, const sf::Vector2f posicao, sf::RectangleShape* p1, sf::RectangleShape* p2, const int ID)
 {
     inicializa(t, posicao, p1, p2, ID);
 }
@@ -9,7 +9,7 @@ BolaDeFogo::~BolaDeFogo()
 {
 }
 
-void BolaDeFogo::inicializa(sf::Texture t, sf::Vector2f posicao, sf::RectangleShape* p1, sf::RectangleShape* p2, int ID)
+void BolaDeFogo::inicializa(const sf::Texture t, const sf::Vector2f posicao, sf::RectangleShape* p1, sf::RectangleShape* p2, const int ID)
 {
     player1 = p1;
     player2 = p2;
@@ -41,7 +41,7 @@ BolaDeFogo::BolaDeFogo(const BolaDeFogo& other, float x, float y)
     inicializa(other.texture, sf::Vector2f(x,y), other.player1, other.player2, other.id);
 }
 
-BolaDeFogo* BolaDeFogo::clone(float x, float y) const
+BolaDeFogo* BolaDeFogo::clone(const float x, const float y) const
 {
     return new BolaDeFogo(*this, x, y);
 }

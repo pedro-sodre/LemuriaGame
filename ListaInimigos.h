@@ -12,9 +12,9 @@ public:
 
     vector<Inimigo*> getLTInimigos();
 
-    int getTamanho();
+    const int getTamanho() const;
 
-    void retirar(int i);
+    void retirar(const int i);
     void limpaLista();
     void incluir(Inimigo* pi);
 };

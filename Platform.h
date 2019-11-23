@@ -12,7 +12,7 @@ public:
     Platform(const Platform& other, float x, float y);
     ~Platform();
 
-    Platform* clone(float x, float y) const;
+    Platform* clone(const float x, const float y) const;
 
     virtual void executar();
 };

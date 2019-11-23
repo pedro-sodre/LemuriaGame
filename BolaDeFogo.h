@@ -8,13 +8,13 @@ private:
     sf::RectangleShape* player2;
     sf::Vector2f direcao;
 public:
-    BolaDeFogo(sf::Texture t, sf::Vector2f posicao, sf::RectangleShape* p1=NULL, sf::RectangleShape* p2=NULL, int ID = 10);
+    BolaDeFogo(const sf::Texture t, const sf::Vector2f posicao, sf::RectangleShape* p1=NULL, sf::RectangleShape* p2=NULL, const int ID = 10);
     BolaDeFogo(const BolaDeFogo& other, float x, float y);
     ~BolaDeFogo();
 
-    BolaDeFogo* clone(float x, float y) const;
+    BolaDeFogo* clone(const float x, const float y) const;
 
-    void inicializa(sf::Texture t, sf::Vector2f posicao, sf::RectangleShape* p1=NULL, sf::RectangleShape* p2=NULL, int ID = 10);
+    void inicializa(const sf::Texture t, const sf::Vector2f posicao, sf::RectangleShape* p1=NULL, sf::RectangleShape* p2=NULL, const int ID = 10);
 
     void executar(float deltaTime);
 

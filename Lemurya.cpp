@@ -27,8 +27,7 @@ void Lemurya::pushState(State* state)
 void Lemurya::popState()
 {
 	this->states.top();
-	//delete this->states.top();
-	this->states.pop();
+    this->states.pop();
 }
 
 State* Lemurya::stateAtual()
@@ -50,7 +49,6 @@ void Lemurya::inicializar()
 
     player1.inicializa(200.0f, 200.0f, gerenciadorGrafico.getTexturePlayer1(), gerenciadorGrafico.getVecPlayer1(), 0.2f);
     player2.inicializa(200.0f, 200.0f, gerenciadorGrafico.getTexturePlayer1(), gerenciadorGrafico.getVecPlayer1(), 0.2f, true);///PLAYER2
-   // gerenciadorDePontuacao.inicializa(this);         ESTÁ SENDO FEITO NA FASE
 }
 
 void Lemurya::inicializarStates()
@@ -91,7 +89,7 @@ void Lemurya::encerrar()
 	//cout para encerrar
 }
 
-GerenciadorGrafico Lemurya::getGerenciadorGrafico() const
+const GerenciadorGrafico Lemurya::getGerenciadorGrafico() const
 {
     return gerenciadorGrafico;
 }
@@ -110,7 +108,7 @@ GerenciadorDePontuacao* Lemurya::getGerenciadorDePontuacao()
 {
     return gerenciadorDePontuacao;
 }*/
-bool Lemurya::getP2() const
+const bool Lemurya::getP2() const
 {
     return p2;
 }
@@ -120,17 +118,17 @@ void Lemurya::setP2(const bool bp)
     p2 = bp;
 }
 
-bool Lemurya::getSalvarFase1() const
+const bool Lemurya::getSalvarFase1() const
 {
     return salvarFase1;
 }
 
-bool Lemurya::getSalvarFase2() const
+const bool Lemurya::getSalvarFase2() const
 {
     return salvarFase2;
 }
 
-bool Lemurya::getSalvarFase3() const
+const bool Lemurya::getSalvarFase3() const
 {
     return salvarFase3;
 }
@@ -155,7 +153,7 @@ void Lemurya::setGanharJogo(const bool b)
     ganharJogo = b;
 }
 
-bool Lemurya::getGanharJogo() const
+const bool Lemurya::getGanharJogo() const
 {
     return ganharJogo;
 }

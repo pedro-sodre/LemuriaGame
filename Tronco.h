@@ -11,7 +11,7 @@ public:
     ~Tronco();
 
     void inicializa(const sf::Vector2f tam, const sf::Vector2f position, const sf::Texture text, const float peso = 0.99f, const int ID = 9);
-    Tronco* clone(float x, float y) const;
+    Tronco* clone(const float x, const float y) const;
 
     void executar(float deltaTime);
 };

@@ -101,7 +101,7 @@ Player::~Player()
         delete animacao[i];
 }
 
-void Player::onCollision(sf::Vector2f direction)
+void Player::onCollision(const sf::Vector2f direction)
 {
     if(direction.x < 0.0f)
         velocity.x = 0.0f;
@@ -321,7 +321,7 @@ void Player::executar(float deltaTime)
 }
 
 ///CÓDIGOS ESTÃO RUINS
-void Player::knockback(sf::Vector2f direction)
+void Player::knockback(const sf::Vector2f direction)
 {
     if(direction.x < 0.0f)              //PERSONAGEM ESTÁ NA ESQUERDA
     {
@@ -346,17 +346,9 @@ void Player::knockback(sf::Vector2f direction)
 
 }
 
-bool Player::estaVivo() const
+const bool Player::estaVivo() const
 {
     return ((vida>0) && (body->getPosition().y < 810));
-}
-
-void Player::morreu(float deltaTime)
-{
-    row = 4;
-    body->setTexture(&vecTexture[row]);
-    animacao[row]->Update(deltaTime, faceRight);
-    body->setTextureRect(animacao[row]->uvRect);
 }
 
 void Player::Draw(sf::RenderWindow& window)
@@ -377,12 +369,12 @@ Collider Player::getCollider() const
         return Collider(*body);
 }
 
-bool Player::isAtacking() const
+const bool Player::isAtacking() const
 {
     return atacking;
 }
 
-int Player::getRanking() const
+const int Player::getRanking() const
 {
     return ranking;
 }

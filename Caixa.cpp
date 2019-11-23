@@ -45,7 +45,7 @@ void Caixa::executar(float deltaTime)
     y = this->getPosition().y;
 }
 
-Caixa* Caixa::clone(float x, float y) const
+Caixa* Caixa::clone(const float x, const float y) const
 {
     return new Caixa(*this, x, y);
 }

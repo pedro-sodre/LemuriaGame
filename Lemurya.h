@@ -43,22 +43,21 @@ public:
 
     void encerrar();
 
-    bool getSalvarFase1() const;
-    bool getSalvarFase2() const;
-    bool getSalvarFase3() const;
+    const bool getSalvarFase1() const;
+    const bool getSalvarFase2() const;
+    const bool getSalvarFase3() const;
     void setSalvarFase1(const bool b);
     void setSalvarFase2(const bool b);
     void setSalvarFase3(const bool b);
 
-    bool getGanharJogo() const;
+    const bool getGanharJogo() const;
     void setGanharJogo(const bool b);
 
-    bool getP2() const;
+    const bool getP2() const;
     void setP2(const bool bp);
     Player* getPlayer1();
     Player* getPlayer2();       ///PLAYER2
-    GerenciadorGrafico getGerenciadorGrafico() const;
-    //GerenciadorDePontuacao getGerenciadorDePontuacao();
+    const GerenciadorGrafico getGerenciadorGrafico() const;
 };
 
 const float VIEW_HEIGHT = 1080.0f;

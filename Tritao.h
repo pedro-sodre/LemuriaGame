@@ -10,7 +10,7 @@ public:
     Tritao(const Tritao& other, float x, float y);
     ~Tritao();
 
-    Tritao* clone(float x, float y) const;
+    Tritao* clone(const float x, const float y) const;
 
     void inicializa(const vector<sf::Texture> textureTritao, const vector<sf::Vector2u> vecTritao, const sf::Vector2f posicao, Fase* pFase, const int ID = 8);
 

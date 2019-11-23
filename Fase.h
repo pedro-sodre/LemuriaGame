@@ -17,7 +17,7 @@ using std::vector;
 #include <map>
 #include <string>
 
-#include "LemuryaPrototypeFactory.h"
+#include "LemuryaPrototype.h"
 
 #include "Lista.h"
 #include "ListaPlataformas.h"
@@ -47,7 +47,7 @@ protected:
     sf::RectangleShape* body;
     GerenciadorDeColisoes gerenciadorDeColisoes;
     GerenciadorDePontuacao gerenciadorDePontuacao;
-    LemuryaPrototypeFactory prototype;
+    LemuryaPrototype prototype;
 
     ///CRIA LISTAS
     ListaInimigos Linimigos;
@@ -56,19 +56,19 @@ protected:
     ListaEntidades Lentidades;
     ListaProjeteis Lprojeteis;
 public:
-    Fase(sf::Vector2f tam, Lemurya* jogo);
+    Fase(const sf::Vector2f tam, Lemurya* jogo);
     virtual ~Fase();
     void destruir();
 
-    sf::RectangleShape* getBody();
-    sf::RectangleShape* getPlayer1();
-    sf::RectangleShape* getPlayer2();
+    sf::RectangleShape* getBody() const ;
+    sf::RectangleShape* getPlayer1() const;
+    sf::RectangleShape* getPlayer2() const;
 
     void lancarBolaDeFogo(int x, int y);
     void spawnarEsqueleto(int x, int y);
-    int getNInimigos();
+    const int getNInimigos();
 
-    ListaEntidades* getLentidades();
+    const ListaEntidades* getLentidades();
 
     virtual void executar(float deltaTime);
     virtual void executar();

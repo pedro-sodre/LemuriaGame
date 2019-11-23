@@ -128,7 +128,7 @@ void Mago::executar(float deltaTime)
         y = this->getPosition().y;
 }
 
-Mago* Mago::clone(float x, float y) const
+Mago* Mago::clone(const float x, const float y) const
 {
     return new Mago(*this, x, y);
 }

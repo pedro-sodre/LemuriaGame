@@ -43,7 +43,7 @@ void Tronco::executar(float deltaTime)
     y = this->getPosition().y;
 }
 
-Tronco* Tronco::clone(float x, float y) const
+Tronco* Tronco::clone(const float x, const float y) const
 {
     return new Tronco(*this, x, y);
 }

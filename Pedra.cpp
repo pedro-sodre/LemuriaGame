@@ -43,7 +43,7 @@ void Pedra::executar(float deltaTime)
     y = this->getPosition().y;
 }
 
-Pedra* Pedra::clone(float x, float y) const
+Pedra* Pedra::clone(const float x, const float y) const
 {
     return new Pedra(*this, x, y);
 }

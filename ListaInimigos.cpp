@@ -25,13 +25,13 @@ vector<Inimigo*> ListaInimigos::getLTInimigos()
     return LTInimigos;
 }
 
-void ListaInimigos::retirar(int i)
+void ListaInimigos::retirar(const int i)
 {
     //delete LTInimigos[i];                     DESSA FORMA DÁ CERTO
     LTInimigos.erase(LTInimigos.begin() + i);
 }
 
-int ListaInimigos::getTamanho()
+const int ListaInimigos::getTamanho() const
 {
     return LTInimigos.size();
 }

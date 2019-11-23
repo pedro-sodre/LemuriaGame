@@ -1,7 +1,7 @@
 #include "Fase.h"
 #include "Lemurya.h"
 
-Fase::Fase(sf::Vector2f tam, Lemurya* jogo):
+Fase::Fase(const sf::Vector2f tam, Lemurya* jogo):
 Entidade(),
 State()
 {
@@ -45,7 +45,7 @@ void Fase::carregarPause()
 
 }
 
-sf::RectangleShape* Fase::getBody()
+sf::RectangleShape* Fase::getBody() const
 {
     return body;
 }
@@ -63,11 +63,11 @@ void Fase::executar()
 {
 }
 
-sf::RectangleShape* Fase::getPlayer1()
+sf::RectangleShape* Fase::getPlayer1() const
 {
     return jogo->getPlayer1()->getBody();
 }
-sf::RectangleShape* Fase::getPlayer2()
+sf::RectangleShape* Fase::getPlayer2() const
 {
     return jogo->getPlayer2()->getBody();///PLAYER2
 }
@@ -90,12 +90,12 @@ void Fase::spawnarEsqueleto(int x, int y)
     Lentidades.incluir(static_cast<Entidade*>(inimigo2));
 }
 
-int Fase::getNInimigos()
+const int Fase::getNInimigos()
 {
     return Linimigos.getTamanho();
 }
 
-ListaEntidades* Fase::getLentidades()
+const ListaEntidades* Fase::getLentidades()
 {
     return &(Lentidades);
 }

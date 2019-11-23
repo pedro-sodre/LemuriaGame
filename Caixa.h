@@ -11,7 +11,7 @@ public:
     ~Caixa();
 
     void inicializa(const sf::Vector2f tam, const sf::Vector2f position, const sf::Texture text, const float peso = 0.5f, const int ID = 3);
-    Caixa* clone(float x, float y) const;
+    Caixa* clone(const float x, const float y) const;
 
     void executar(float deltaTime);
 };

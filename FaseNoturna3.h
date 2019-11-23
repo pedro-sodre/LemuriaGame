@@ -8,14 +8,14 @@ private:
 	float spawnInimigo;
 	Mago* boss;
 public:
-	FaseNoturna3(sf::Vector2f tam, Lemurya* jogo, bool newGame = true, bool player2 = false, int pont = 0);
+	FaseNoturna3(const sf::Vector2f tam, Lemurya* jogo, const bool newGame = true, const bool player2 = false, const int pont = 0);
 	~FaseNoturna3();
 
 	void draw();
 	void input();
 	void update();
-	void inicializar(bool player2 = false);
-	void carregar(bool player2 = false);
+	void inicializar(const bool player2 = false);
+	void carregar(const bool player2 = false);
 
     void Draw(sf::RenderWindow& window);
     void executar();
@@ -31,8 +31,8 @@ public:
 	void checkSalvarJogo();
     void checkPlayerVivo();
 
-    void recuperarJogo(bool player2 = false);
-    void novoJogo(bool player2 = false);
+    void recuperarJogo(const bool player2 = false);
+    void novoJogo(const bool player2 = false);
     void gravarJogo();
 };
 

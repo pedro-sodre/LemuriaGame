@@ -3,7 +3,7 @@
 #include "MenuMorte.h"
 #include "MenuPause.h"
 
-FaseNoturna3::FaseNoturna3(sf::Vector2f tam, Lemurya* jogo, bool newGame, bool player2, int pont):
+FaseNoturna3::FaseNoturna3(const sf::Vector2f tam, Lemurya* jogo, const bool newGame, const bool player2, const int pont):
 Fase(tam, jogo)
 {
 	texture = jogo->getGerenciadorGrafico().getFase3Texture();
@@ -82,7 +82,7 @@ void FaseNoturna3::update()
     checkFimDeJogo();
 }
 
-void FaseNoturna3::inicializar(bool player2)
+void FaseNoturna3::inicializar(const bool player2)
 {
 	novoJogo(player2);
 	jogo->getPlayer1()->reiniciar();
@@ -94,7 +94,7 @@ void FaseNoturna3::inicializar(bool player2)
 	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 }
 
-void FaseNoturna3::carregar(bool player2)
+void FaseNoturna3::carregar(const bool player2)
 {
 	recuperarJogo(player2);
     gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
@@ -219,7 +219,7 @@ void FaseNoturna3::gravarJogo()
     Gravador.close();
 }
 
-void FaseNoturna3::recuperarJogo(bool player2)
+void FaseNoturna3::recuperarJogo(const bool player2)
 {
 
     ifstream Recuperador("data/saves/Fase3Gravando.txt", ios::in);
@@ -297,7 +297,7 @@ void FaseNoturna3::recuperarJogo(bool player2)
     Recuperador.close();
 }
 
-void FaseNoturna3::novoJogo(bool player2)
+void FaseNoturna3::novoJogo(const bool player2)
 {
 
     ifstream Recuperador("data/saves/Fase3Base.txt", ios::in);
