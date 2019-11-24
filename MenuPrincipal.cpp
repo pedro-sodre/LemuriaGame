@@ -186,7 +186,6 @@ void MenuPrincipal::inicializar()
 	tituloDoJogo.setFont(font2);
 	tituloDoJogo.setString("LEMURYA");
 	tituloDoJogo.setFillColor(cor2);
-	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
 	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 200, 250.0));
 
 	tituloDoJogo.setCharacterSize(80);
@@ -351,7 +350,6 @@ void MenuPrincipal::setRanking()
 	tituloDoJogo.setFont(font2);
 	tituloDoJogo.setString("RANKING");
 	tituloDoJogo.setFillColor(cor2);
-	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
 	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 170, 250.0));
 
 	tituloDoJogo.setCharacterSize(80);

@@ -95,14 +95,12 @@ void Mago::executar(float deltaTime)
                 row = 0;
                 body->setTexture(&vecTexture[row]);
                 faceRight = true;
-               // velocity.x += speed;
             }
-            else // ELSE IF, PQ PODE SER Q VELOCITY = 0
+            else
             {
                 row = 0;
                 body->setTexture(&vecTexture[row]);
                 faceRight = false;
-                //velocity.x -= speed;
             }
 
             atack = true;

@@ -64,9 +64,6 @@ void MenuPause::input()
 					break;
 				case 2:
 					voltarAoMenu();
-					//jogo->popState();
-
-					//jogo->popState();
 					break;
 				case 3:
 					jogo->window.close();
@@ -132,7 +129,6 @@ void MenuPause::inicializar()
 	tituloDoJogo.setFont(font2);
 	tituloDoJogo.setString("PAUSE");
 	tituloDoJogo.setFillColor(cor2);
-	//tituloDoJogo.setStyle(sf::Text::Style::Bold);
 	tituloDoJogo.setPosition(sf::Vector2f(jogo->window.getSize().x / 2 - 125, 250.0));
 
 	tituloDoJogo.setCharacterSize(80);

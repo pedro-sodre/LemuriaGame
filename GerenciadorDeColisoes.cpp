@@ -50,17 +50,12 @@ void GerenciadorDeColisoes::executar()
 {
     int i, j;
 
-
-///PLAYER2
- //   if(player2->getCollider().CheckCollision(player1->getCollider(), direction, 0.5f))
-   //     player1->onCollision(direction);
-
     ///COLISÕES COM AS PLATAFORMAS
-    //PLAYER
+    //PLAYER1
     for(aux = Lplataformas->reiniciar(); aux != NULL; aux = Lplataformas->percorrer())
         if(aux->getCollider().CheckCollision(player1->getCollider(), direction, 1.0f))
             player1->onCollision(direction);
-///PLAYER2
+    //PLAYER2
     for(aux = Lplataformas->reiniciar(); aux != NULL; aux = Lplataformas->percorrer())
         if(aux->getCollider().CheckCollision(player2->getCollider(), direction, 1.0f))
             player2->onCollision(direction);
@@ -78,11 +73,11 @@ void GerenciadorDeColisoes::executar()
 
 
     ///COLISÕES COM OBSTÁCULOS
+    //PLAYER1
     for(i=0; i < Lobstaculos->getLTObstaculos().size(); i++)
         if(Lobstaculos->getLTObstaculos()[i]->getCollider().CheckCollision(player1->getCollider(), direction, 0.5f))      ///PESO??
             player1->onCollision(direction);
-///PLAYER2
-                ///COLISÕES COM OBSTÁCULOS
+    //PLAYER2
     for(i=0; i < Lobstaculos->getLTObstaculos().size(); i++)
         if(Lobstaculos->getLTObstaculos()[i]->getCollider().CheckCollision(player2->getCollider(), direction, 0.5f))      ///PESO??
             player2->onCollision(direction);
@@ -98,13 +93,13 @@ void GerenciadorDeColisoes::executar()
 
 
     ///COLISÕES COM INIMIGOS
+    //PLAYER1
     for(i=0; i < Linimigos->getLTInimigos().size(); i++)
         if(Linimigos->getLTInimigos()[i]->getCollider().CheckCollision(player1->getCollider(), direction, 0.97f))
         {
             if(player1->isAtacking())
             {
                 Linimigos->getLTInimigos()[i]->setVida(0);
-               // Lentidades->retirar();
                 Linimigos->retirar(i);
                 player1->setRanking(player1->getRanking() + 10);
             }
@@ -116,8 +111,7 @@ void GerenciadorDeColisoes::executar()
 
             }
         }
-///PLAYER2
-    ///COLISÕES COM INIMIGOS
+    //PLAYER2
     for(i=0; i < Linimigos->getLTInimigos().size(); i++)
         if(Linimigos->getLTInimigos()[i]->getCollider().CheckCollision(player2->getCollider(), direction, 0.97f))
         {
@@ -125,7 +119,6 @@ void GerenciadorDeColisoes::executar()
             {
                 Linimigos->getLTInimigos()[i]->setVida(0);
                 Linimigos->retirar(i);
-                //Lentidades->retirar();
                 player2->setRanking(player2->getRanking() + 10);
             }
             else
@@ -137,6 +130,7 @@ void GerenciadorDeColisoes::executar()
         }
 
     ///COLISÕES COM PROJETEIS
+    //PLAYER1
     for(i=0; i < Lprojeteis->getLTProjeteis().size(); i++)
         if(Lprojeteis->getLTProjeteis()[i]->getCollider().CheckCollision(player1->getCollider(), direction, 0.97f))
         {
@@ -145,8 +139,7 @@ void GerenciadorDeColisoes::executar()
             player1->getDamage()->setSize(sf::Vector2f(200 - std::max(0, (player1->getVida()*20)), 50));
             Lprojeteis->retirar(i);
         }
-///PLAYER2
-    ///COLISÕES COM PROJETEIS
+    //PLAYER2
     for(i=0; i < Lprojeteis->getLTProjeteis().size(); i++)
         if(Lprojeteis->getLTProjeteis()[i]->getCollider().CheckCollision(player2->getCollider(), direction, 0.97f))
         {

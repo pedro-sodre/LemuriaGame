@@ -40,11 +40,6 @@ void Fase::gerenciarColisoes()
     gerenciadorDeColisoes.executar();
 }
 
-void Fase::carregarPause()
-{
-
-}
-
 sf::RectangleShape* Fase::getBody() const
 {
     return body;
@@ -56,10 +51,6 @@ void Fase::Draw(sf::RenderWindow& window)
 }
 
 void Fase::executar(float deltaTime)
-{
-}
-
-void Fase::executar()
 {
 }
 

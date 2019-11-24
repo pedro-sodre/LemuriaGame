@@ -13,11 +13,10 @@ public:
 	void draw();
 	void input();
 	void update();
-	void inicializar(const bool player2 = false);
-	void carregar(const bool player2 = false);
-
-    void Draw(sf::RenderWindow& window);
-    void executar();
+	void inicializar(const bool player2);
+	void carregar(const bool player2);
+	void inicializar();
+	void carregar();
 
 	void carregarPause();
 	void carregarMorte();
@@ -32,7 +31,6 @@ public:
 
     void recuperarJogo(const bool player2 = false);
     void novoJogo(const bool player2 = false);
-    void gravarJogo();
 
 };
 

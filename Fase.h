@@ -70,9 +70,8 @@ public:
 
     const ListaEntidades* getLentidades();
 
-    virtual void executar(float deltaTime);
-    virtual void executar();
-    virtual void Draw(sf::RenderWindow& window);
+    void executar(float deltaTime);
+    void Draw(sf::RenderWindow& window);
 
     void gerenciarColisoes();
     void gerenciarBarraDeVida();
@@ -81,11 +80,12 @@ public:
 
     void updateViewEBackground(sf::View& view);
 
-	virtual void carregarPause();
-    ///FUNÇÃO VIRTUAL, CADA FASE VAI GRAVAR EM UM ARQUIVO
+    virtual void gerarInimigos() = 0;
+	virtual void gerarObstaculos() = 0;
+
+	virtual void carregarPause() = 0;
     virtual void recuperarJogo(bool player2) = 0;
     virtual void novoJogo(bool player2) = 0;
-    virtual void gravarJogo() = 0;
 
     virtual void draw() = 0;
 	virtual void input() = 0;

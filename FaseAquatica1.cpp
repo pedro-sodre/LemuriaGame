@@ -16,9 +16,15 @@ Fase(tam, jogo)
     jogo->setSalvarFase1(false);
 
     if(newGame)
-        inicializar(player2);
+        if(player2)
+            inicializar(player2);
+        else
+            inicializar();
     else
-        carregar(player2);
+        if(player2)
+            carregar(player2);
+        else
+            carregar();
 
 }
 
@@ -103,21 +109,32 @@ void FaseAquatica1::carregar(const bool player2)
 	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 }
 
-void FaseAquatica1::Draw(sf::RenderWindow& window)
+void FaseAquatica1::inicializar()
 {
-    window.draw(*body);
+	novoJogo(false);
+	gerarObstaculos();
+    gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+    gerenciadorDePontuacao.inicializa(jogo);
+
+	view.setCenter(sf::Vector2f(0, 0));
+	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 }
 
-void FaseAquatica1::executar()
+void FaseAquatica1::carregar()
 {
+	recuperarJogo(false);
+    gerenciadorDeColisoes.inicializa((jogo->getPlayer1()), jogo->getPlayer2(), &Lplataformas, &Lobstaculos, &Linimigos, &Lentidades, &Lprojeteis);
+    gerenciadorDePontuacao.inicializa(jogo);
 
+	view.setCenter(sf::Vector2f(0, 0));
+	view.setSize(sf::Vector2f(VIEW_HEIGHT, VIEW_HEIGHT));
 }
 
 void FaseAquatica1::gerarInimigos()
 {
     spawnInimigo = 1.5;
     srand(time(NULL));
-    int nada = rand(); ///PARA O RAND DAR CERTO (?????)
+    int nada = rand();
     int coord = (rand()%300)+100;
     int chance = (rand()%100)+1;
 
@@ -189,7 +206,6 @@ void FaseAquatica1::gerarObstaculos()
     }
 }
 
-
 void FaseAquatica1::carregarPause()
 {
 	jogo->pushState(new MenuPause(jogo));
@@ -229,28 +245,6 @@ void FaseAquatica1::checkPlayerVivo()
     if(jogo->getP2())
         if(!jogo->getPlayer2()->estaVivo())
             carregarMorte();
-}
-
-void FaseAquatica1::gravarJogo()
-{
-    ofstream Gravador("data/saves/Fase1Gravando.txt", ios::out);
-
-    if ( !Gravador )
-    {
-        cerr << "Arquivo não pode ser aberto" << endl;
-        fflush ( stdin );
-        getchar ( );
-        return;
-    }
-
-    for(Entidade* aux = Lentidades.reiniciar(); aux != NULL; aux = Lentidades.percorrer())
-    {
-        Gravador    << aux->getID() << " "
-                    << aux->getX() << " "
-                    << aux->getY() << endl;
-    }
-
-    Gravador.close();
 }
 
 void FaseAquatica1::recuperarJogo(const bool player2)

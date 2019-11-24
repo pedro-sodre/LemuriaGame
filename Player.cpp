@@ -75,7 +75,7 @@ void Player::inicializa(const float speed, const float jumpHeight, vector<sf::Te
     lifeIcon->setSize(sf::Vector2f(75.0, 110.0));
     lifeIcon->setFillColor(sf::Color::White);
     lifeIcon->setPosition(30, -300);
-    lifeIcon->setTexture(&vecTexture[5]);           ///SE FOR PLAYER2 BOTAR A TEXTURA NO GERENCIADOR DE TEXTURAS E USAR vecTexture[6]
+    lifeIcon->setTexture(&vecTexture[5]);
 
     setTexture(vecTexture[0]);
 
@@ -198,7 +198,6 @@ void Player::Update(float deltaTime)
 
         }
 
-            //printf("%d\n", nImagem);
             body->move(velocity * deltaTime);
             canJump = false;
 
@@ -291,7 +290,6 @@ void Player::Update(float deltaTime)
 
         }
 
-            //printf("%d\n", nImagem);
             body->move(velocity * deltaTime);
             canJump = false;
 
@@ -310,8 +308,6 @@ void Player::Update(float deltaTime)
                 animationBody->setPosition(x-80,y);
             }
     }
- //   life->setPosition(sf::Vector2f(x - 500.0f, -300.0f));
- //  damage->setPosition(sf::Vector2f(x + 20*vida - 500.0f, -300.0f));
 
 }
 
@@ -320,19 +316,16 @@ void Player::executar(float deltaTime)
     this->Update(deltaTime);
 }
 
-///CÓDIGOS ESTÃO RUINS
 void Player::knockback(const sf::Vector2f direction)
 {
     if(direction.x < 0.0f)              //PERSONAGEM ESTÁ NA ESQUERDA
     {
         body->move(-30.0f,0);
-        //velocity.x -= 100000.0f;
-    }    //body->move(-30.0f,0);
+    }
 
     else if(direction.x > 0.0f)         //PERSONAGEM ESTÁ NA DIREITA
     {
         body->move(30.0f,0);
-        //velocity.x += 100000.0f;
     }
 
     if(direction.y < 0.0f)

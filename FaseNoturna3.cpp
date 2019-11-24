@@ -108,7 +108,7 @@ void FaseNoturna3::gerarInimigos()
 {
     spawnInimigo = 1.5;
     srand(time(NULL));
-    int nada = rand(); ///PARA O RAND DAR CERTO (?????)
+    int nada = rand();
     int coord = (rand()%300)+100;
     int chance = (rand()%100)+1;
 
@@ -160,15 +160,6 @@ void FaseNoturna3::carregarProxFase()
     carregarMorte();
 }
 
-void FaseNoturna3::Draw(sf::RenderWindow& window)
-{
-	window.draw(*body);
-}
-
-void FaseNoturna3::executar()
-{
-}
-
 void FaseNoturna3::checkFimDeJogo()
 {
     if(!boss->getVida())
@@ -196,27 +187,6 @@ void FaseNoturna3::checkPlayerVivo()
     if(jogo->getP2())
         if(!jogo->getPlayer2()->estaVivo())
             carregarMorte();
-}
-void FaseNoturna3::gravarJogo()
-{
-    ofstream Gravador("data/saves/Fase3Gravando.txt", ios::out);
-
-    if ( !Gravador )
-    {
-        cerr << "Arquivo não pode ser aberto" << endl;
-        fflush ( stdin );
-        getchar ( );
-        return;
-    }
-
-    for(Entidade* aux = Lentidades.reiniciar(); aux != NULL; aux = Lentidades.percorrer())
-    {
-        Gravador    << aux->getID() << " "
-                    << aux->getX() << " "
-                    << aux->getY() << endl;
-    }
-
-    Gravador.close();
 }
 
 void FaseNoturna3::recuperarJogo(const bool player2)

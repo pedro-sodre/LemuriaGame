@@ -13,10 +13,8 @@ Lemurya::Lemurya()
 }
 Lemurya::~Lemurya()
 {
-	//Remove o estado e o ponteiro dele
-	while (!states.empty()) {
+	while (!states.empty())
 		popState();
-	}
 }
 
 void Lemurya::pushState(State* state)
@@ -86,7 +84,6 @@ void Lemurya::rodar()
 
 void Lemurya::encerrar()
 {
-	//cout para encerrar
 }
 
 const GerenciadorGrafico Lemurya::getGerenciadorGrafico() const
@@ -103,11 +100,7 @@ Player* Lemurya::getPlayer2()///PLAYER2
 {
     return &(player2);
 }
-/*
-GerenciadorDePontuacao* Lemurya::getGerenciadorDePontuacao()
-{
-    return gerenciadorDePontuacao;
-}*/
+
 const bool Lemurya::getP2() const
 {
     return p2;

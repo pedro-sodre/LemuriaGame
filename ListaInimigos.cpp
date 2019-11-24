@@ -27,7 +27,6 @@ vector<Inimigo*> ListaInimigos::getLTInimigos()
 
 void ListaInimigos::retirar(const int i)
 {
-    //delete LTInimigos[i];                     DESSA FORMA DÁ CERTO
     LTInimigos.erase(LTInimigos.begin() + i);
 }
 

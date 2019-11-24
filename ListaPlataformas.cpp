@@ -19,7 +19,6 @@ void ListaPlataformas::incluir(Platform* pp)
     if(pp!=NULL)
         LTPlataformas.incluaInfo(pp);
 }
-///TALVEZ ESSES MÉTODOS PODEM SER BOTADOS DENTRO DE LISTA.H
 
 Platform* ListaPlataformas::percorrer()
 {

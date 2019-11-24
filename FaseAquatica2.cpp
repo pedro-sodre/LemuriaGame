@@ -105,7 +105,7 @@ void FaseAquatica2::gerarInimigos()
 {
     spawnInimigo = 1.5;
     srand(time(NULL));
-    int nada = rand(); ///PARA O RAND DAR CERTO (?????)
+    int nada = rand();
     int coord = (rand()%300)+100;
     int chance = (rand()%100)+1;
 
@@ -191,16 +191,6 @@ void FaseAquatica2::gerarObstaculos()
     }
 }
 
-void FaseAquatica2::Draw(sf::RenderWindow& window)
-{
-    window.draw(*body);
-}
-
-void FaseAquatica2::executar()
-{
-
-}
-
 void FaseAquatica2::carregarPause()
 {
 	jogo->pushState(new MenuPause(jogo));
@@ -240,29 +230,6 @@ void FaseAquatica2::checkPlayerVivo()
     if(jogo->getP2())
         if(!jogo->getPlayer2()->estaVivo())
             carregarMorte();
-}
-
-
-void FaseAquatica2::gravarJogo()
-{
-    ofstream Gravador("data/saves/Fase2Gravando.txt", ios::out);
-
-    if ( !Gravador )
-    {
-        cerr << "Arquivo não pode ser aberto" << endl;
-        fflush ( stdin );
-        getchar ( );
-        return;
-    }
-
-    for(Entidade* aux = Lentidades.reiniciar(); aux != NULL; aux = Lentidades.percorrer())
-    {
-        Gravador    << aux->getID() << " "
-                    << aux->getX() << " "
-                    << aux->getY() << endl;
-    }
-
-    Gravador.close();
 }
 
 void FaseAquatica2::recuperarJogo(const bool player2)

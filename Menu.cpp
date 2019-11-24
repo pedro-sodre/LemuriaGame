@@ -6,7 +6,6 @@
 Menu::Menu(Lemurya* jogo)
 {
 	this->jogo = jogo;
-	///this->inicializar();
 }
 
 Menu::~Menu()

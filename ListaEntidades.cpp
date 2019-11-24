@@ -49,13 +49,9 @@ void ListaEntidades::retirar()
         if(!pEntAux->getVida())
         {
             pElAnt = pElAux->getAnterior();
-            printf("1\n");
             pElPost = pElAux->getProximo();
-            printf("2\n");
             pElAnt->setProximo(pElPost);
-            printf("3 %p\n", pElAnt);
             pElPost->setAnterior(pElAnt);
-            printf("4\n");
             break;
         }
 
@@ -77,8 +73,6 @@ void ListaEntidades::executar(float deltaTime)
         pElAux = pElAux->getProximo();
     }
 }
-
-///TALVEZ ESSES MÉTODOS PODEM SER BOTADOS DENTRO DE LISTA.H
 
 Entidade* ListaEntidades::percorrer()
 {

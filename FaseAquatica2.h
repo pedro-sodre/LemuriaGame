@@ -16,9 +16,6 @@ public:
 	void inicializar(const bool player2 = false);
 	void carregar(const bool player2 = false);
 
-    void Draw(sf::RenderWindow& window);
-    void executar();
-
 	void carregarPause();
 	void carregarMorte();
 	void carregarProxFase();
@@ -32,6 +29,5 @@ public:
 
     void recuperarJogo(const bool player2 = false);
     void novoJogo(const bool player2 = false);
-    void gravarJogo();
 };
 

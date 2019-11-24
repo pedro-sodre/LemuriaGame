@@ -52,7 +52,7 @@ void BolaDeFogo::executar(float deltaTime)
     velocity.x = 0.0f;
     velocity.y = 0.0f;
     velocity.x += speed * direcao.x;
-    velocity.y += speed * direcao.y;// * direcao.y;
+    velocity.y += speed * direcao.y;
 
     body->move(velocity * deltaTime);
 

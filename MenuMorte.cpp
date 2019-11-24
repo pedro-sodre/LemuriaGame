@@ -51,29 +51,8 @@ void MenuMorte::input()
 				this->MoveDown();
 			}
 			else if (event.key.code == sf::Keyboard::Enter) {
-				/*switch (getPressedItem())
-				{
-				case 0:
-					/*State * ultimoState;
-					while (!jogo->stateAtual()) {
-						ultimoState = jogo->stateAtual();
-						jogo->popState();
-					}
-					jogo->pushState(ultimoState); //
-					jogo->popState();
-					jogo->popState();
-					break;
-				case 1:
-					jogo->window.close();
-					break;
-				}*/
+
 				if (getPressedItem()==0 && menuAtivado){
-                    /*State * ultimoState;
-					while (!jogo->stateAtual()) {
-						ultimoState = jogo->stateAtual();
-						jogo->popState();
-					}
-					jogo->pushState(ultimoState); */
 					jogo->popState();
 					jogo->popState();
 					break;
@@ -89,10 +68,6 @@ void MenuMorte::input()
 				}
 
 			}
-			/*else if(event.key.code == sf::Keyboard::BackSpace && nome.getSize() != 0)
-            {
-                nome -= event.text.unicode;
-            }*/
 			break;
         case sf::Event::TextEntered:
             if(!menuAtivado){
